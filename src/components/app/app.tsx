@@ -4,6 +4,7 @@ import Layout from '../layout/layout';
 import React from 'react';
 import Item from '../item/item';
 import Basket from '../basket/basket';
+import * as S from './app.styled';
 
 function App(): JSX.Element {
   const router = createBrowserRouter([
@@ -32,9 +33,12 @@ function App(): JSX.Element {
   ]);
 
   return (
-    <RouterProvider
-      router={router}
-    />
+    <>
+      <S.GlobalStyle />
+      <RouterProvider
+        router={router}
+      />
+    </>
   );
 }
 
