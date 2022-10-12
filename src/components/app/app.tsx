@@ -1,5 +1,5 @@
 import Catalog from '../catalog/catalog';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import {createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom';
 import Layout from '../layout/layout';
 import React from 'react';
 import Item from '../item/item';
@@ -13,7 +13,7 @@ function App(): JSX.Element {
       children: [
         {
           index: true,
-          element: <Catalog/>
+          element: <Navigate to={'catalog'} replace/>
         },
         {
           path: 'catalog',
