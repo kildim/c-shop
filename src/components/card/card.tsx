@@ -1,7 +1,10 @@
 import {CardProps} from './card-props';
+import {MAX_RATING} from '../../constants/max-rating';
+import genId from '../../helpers/gen-id';
 
 function Card(props: CardProps): JSX.Element {
   const {camera} = props;
+  const uniqueKey = genId();
 
   return (
     <div className="product-card">
@@ -15,23 +18,18 @@ function Card(props: CardProps): JSX.Element {
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width="17" height="16" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <p className="visually-hidden">Рейтинг: 5</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>849</p>
+          {Array(camera.rating).fill(null).map(() => (
+            <svg width="17" height="16" aria-hidden="true" key={uniqueKey()}>
+              <use xlinkHref="#icon-full-star"></use>
+            </svg>
+          ))}
+          {Array(MAX_RATING - camera.rating).fill(null).map(() => (
+            <svg width="17" height="16" aria-hidden="true" key={uniqueKey()}>
+              <use xlinkHref="#icon-star"></use>
+            </svg>
+          ))}
+          <p className="visually-hidden">Рейтинг: {camera.rating}</p>
+          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
         </div>
         <p className="product-card__title">{camera.description}</p>
         <p className="product-card__price">
