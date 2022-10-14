@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 function Footer(): JSX.Element {
   return (
     <footer className="footer">
@@ -38,20 +40,20 @@ function Footer(): JSX.Element {
             <p className="footer__title">Навигация</p>
             <ul className="footer__list">
               <li className="footer__item">
-                <a className="link" href="#">Каталог
-                </a>
+                <Link className="link" to="/catalog">Каталог
+                </Link>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">Гарантии
-                </a>
+                <Link className="link" to="/guarantees">Гарантии
+                </Link>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">Доставка
-                </a>
+                <Link className="link" to="/delivery">Доставка
+                </Link>
               </li>
               <li className="footer__item">
-                <a className="link" href="#">О компании
-                </a>
+                <Link className="link" to="/about">О компании
+                </Link>
               </li>
             </ul>
           </li>
