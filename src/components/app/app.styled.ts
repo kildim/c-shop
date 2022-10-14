@@ -576,6 +576,10 @@ const GlobalStyle = createGlobalStyle`
     clip-path: inset(100%);
   }
 
+  .hidden {
+    visibility: hidden;
+  }
+
   .scroll-lock-ios {
     position: fixed;
     overflow: hidden;

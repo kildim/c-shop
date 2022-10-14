@@ -22,11 +22,11 @@ function Pagination(): JSX.Element {
     <div className="pagination">
       <ul className="pagination__list">
         <li className="pagination__item">
-          <a className={`pagination__link ${activePage === 1 ? 'visually-hidden' : ''}`} href="" onClick={handleBackwardClick}>Назад</a>
+          <a className={`pagination__link ${activePage === 1 ? 'hidden' : ''}`} href="" onClick={handleBackwardClick}>Назад</a>
         </li>
         {counter.map((item) => (<PaginationMarker pageNumber={item} key={item}/>))}
         <li className="pagination__item">
-          <a className={`pagination__link ${activePage === pagesCount ? 'visually-hidden' : ''}`} href="" onClick={handleForwardClick}>Далее</a>
+          <a className={`pagination__link ${activePage === pagesCount ? 'hidden' : ''}`} href="" onClick={handleForwardClick}>Далее</a>
         </li>
       </ul>
     </div>
