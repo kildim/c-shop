@@ -1,11 +1,15 @@
-function Card(): JSX.Element {
+import {CardProps} from './card-props';
+
+function Card(props: CardProps): JSX.Element {
+  const {camera} = props;
+
   return (
     <div className="product-card">
       <div className="product-card__img">
         <picture>
-          <source type="image/webp" srcSet="img/content/img5.webp, img/content/img5@2x.webp 2x"/>
-          <img src="img/content/img5.jpg" srcSet="img/content/img5@2x.jpg 2x" width="280" height="240"
-            alt="Фотоаппарат Instaprinter P2"
+          <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x}`}/>
+          <img src={camera.previewImg} srcSet={`${camera.previewImg2x} 2x`} width="280" height="240"
+            alt={camera.description}
           />
         </picture>
       </div>
@@ -29,14 +33,17 @@ function Card(): JSX.Element {
           <p className="visually-hidden">Рейтинг: 5</p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>849</p>
         </div>
-        <p className="product-card__title">Фотоаппарат Instaprinter P2</p>
-        <p className="product-card__price"><span className="visually-hidden">Цена:</span>8 430 ₽
+        <p className="product-card__title">{camera.description}</p>
+        <p className="product-card__price">
+          <span className="visually-hidden">Цена:</span>{`${camera.price} ₽`}
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
+        <button className="btn btn--purple product-card__btn" type="button">
+          Купить
         </button>
-        <a className="btn btn--transparent" href="#">Подробнее
+        <a className="btn btn--transparent" href="#">
+          Подробнее
         </a>
       </div>
     </div>

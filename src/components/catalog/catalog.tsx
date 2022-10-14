@@ -1,33 +1,10 @@
-import {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {getCameras} from '../../store/reducers/cameras/selectors';
-import {PAGE_SIZE} from '../../constants/page-size';
-import Card from '../card/card';
-import {CardsRange} from '../../types/cards-range';
+import {useEffect} from 'react';
+import CatalogCards from '../catalog-cards/catalog-cards';
 
 function Catalog(): JSX.Element {
   useEffect(() => {
     document.title = 'Каталог - Фотошоп';
   });
-  const cameras = useSelector(getCameras);
-
-  const calculateShownCardsRange = (page: number): CardsRange => {
-    const lastIndex = PAGE_SIZE * page - 1;
-    const firstIndex = (lastIndex - PAGE_SIZE + 1) < 0 ? 0 : (lastIndex - PAGE_SIZE + 1);
-
-    if (cameras.length === 0) {
-      return {start: 0, end: 0};
-    }
-
-    if (cameras.length < (lastIndex + 1)) {
-      return {start: firstIndex, end: cameras.length - 1};
-    }
-
-    return {start: firstIndex, end: lastIndex};
-  };
-
-  const [catalogShownPage, setCatalogShownPage] = useState(1);
-  const range = calculateShownCardsRange(catalogShownPage);
 
   return (
     <main>
@@ -198,9 +175,7 @@ function Catalog(): JSX.Element {
                     </div>
                   </form>
                 </div>
-                <div className="cards catalog__cards">
-                  <Card/>
-                </div>
+                <CatalogCards/>
                 <div className="pagination">
                   <ul className="pagination__list">
                     <li className="pagination__item">
