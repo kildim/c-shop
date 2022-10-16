@@ -1,17 +1,21 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {getActivePage} from '../../store/reducers/cameras/selectors';
 import {PaginationMarkerProps} from './pagination-marker-props';
-import {setActivePage} from '../../store/reducers/cameras/cameras-actions';
 import {MouseEventHandler} from 'react';
+import usePage from '../../hooks/use-page';
+import {useNavigate} from 'react-router-dom';
 
-function PaginationMarker(props: PaginationMarkerProps): JSX.Element {
+function PaginationMarker(props: PaginationMarkerProps): JSX.Element | null {
   const {pageNumber} = props;
-  const activePage = useSelector(getActivePage);
-  const dispatch = useDispatch();
+
+  const activePage = usePage();
+  const navigate = useNavigate();
+
+  if (activePage === null) {
+    return null;
+  }
 
   const handleRefClick: MouseEventHandler = (event) => {
     event.preventDefault();
-    dispatch(setActivePage(pageNumber));
+    navigate(`page_${pageNumber}`);
   };
 
   return (

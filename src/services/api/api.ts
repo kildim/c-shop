@@ -30,7 +30,7 @@ export const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReduc
     })
     .catch((error) => {
       dispatch(setIsCamerasLoading(false));
-      redirect('/api-error', error as ResponseInit);
+      return redirect('/api-error', error as ResponseInit);
     });
 
 };

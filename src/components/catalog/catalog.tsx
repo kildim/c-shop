@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
-import CatalogCards from '../catalog-cards/catalog-cards';
 import Banner from '../banner/banner';
 import Pagination from '../pagination/pagination';
+import {Outlet} from 'react-router-dom';
 
 function Catalog(): JSX.Element {
   useEffect(() => {
@@ -165,7 +165,7 @@ function Catalog(): JSX.Element {
                     </div>
                   </form>
                 </div>
-                <CatalogCards/>
+                <Outlet/>
                 <Pagination/>
               </div>
             </div>

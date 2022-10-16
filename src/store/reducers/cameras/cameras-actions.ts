@@ -26,15 +26,8 @@ export const setPagesCount = createAction(
   })
 );
 
-export const setActivePage = createAction(
-  'cameras/setActivePage', (page: number) => ({
-    payload: page
-  })
-);
-
 export type CamerasActions =
   ReturnType<typeof loadCameras>
   | ReturnType<typeof setIsCamerasLoading>
   | ReturnType<typeof setPagesCount>
-  | ReturnType<typeof setActivePage>
   | ReturnType<typeof loadPromo>

@@ -1,12 +1,11 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadCameras, loadPromo, setActivePage, setIsCamerasLoading, setPagesCount} from './cameras-actions';
+import {loadCameras, loadPromo, setIsCamerasLoading, setPagesCount} from './cameras-actions';
 import {CamerasReducer} from '../../../types/cameras-reducer';
 
 const initialState = {
   isCameraLoading: false,
   cameras: [],
   pagesCount: 0,
-  activePage: 0,
   promo: null,
 };
 
@@ -20,9 +19,6 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
     })
     .addCase(setPagesCount, (state, action) => {
       state.pagesCount = action.payload;
-    })
-    .addCase(setActivePage, (state, action) => {
-      state.activePage = action.payload;
     })
     .addCase(loadPromo, (state, action) => {
       state.promo = action.payload;

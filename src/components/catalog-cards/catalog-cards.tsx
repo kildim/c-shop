@@ -1,14 +1,19 @@
 import Card from '../card/card';
 import {useSelector} from 'react-redux';
-import {getActivePage, getCameras} from '../../store/reducers/cameras/selectors';
+import {getCameras} from '../../store/reducers/cameras/selectors';
 import {CardsRange} from '../../types/cards-range';
 import {PAGE_SIZE} from '../../constants/page-size';
+import usePage from '../../hooks/use-page';
 
-function CatalogCards(): JSX.Element {
+function CatalogCards(): JSX.Element | null {
   const cameras = useSelector(getCameras);
-  const activePage = useSelector(getActivePage);
+  const page = usePage();
 
-  const calculateShownCardsRange = (page: number): CardsRange => {
+  if (page === null) {
+    return null;
+  }
+
+  const calculateShownCardsRange = (): CardsRange => {
     const lastIndex = PAGE_SIZE * page;
     const firstIndex = (lastIndex - PAGE_SIZE) < 0 ? 0 : (lastIndex - PAGE_SIZE);
 
@@ -23,7 +28,11 @@ function CatalogCards(): JSX.Element {
     return {start: firstIndex, end: lastIndex};
   };
 
-  const range = calculateShownCardsRange(activePage);
+  const range = calculateShownCardsRange();
+  if (range === null) {
+    return null;
+  }
+
   return (
     <div className="cards catalog__cards">
       {cameras.slice(range.start, range.end).map((camera) => <Card camera={camera} key={camera.id}/>)}

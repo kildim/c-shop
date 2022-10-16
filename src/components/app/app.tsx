@@ -9,6 +9,7 @@ import {fetchInitData} from '../../services/api/api';
 import {useDispatch} from 'react-redux';
 import {ThunkAppDispatch} from '../../types/thunk-app-dispatch';
 import ApiError from '../Api-Error/api-error';
+import CatalogCards from '../catalog-cards/catalog-cards';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -26,7 +27,17 @@ function App(): JSX.Element {
         },
         {
           path: 'catalog',
-          element: <Catalog/>
+          element: <Catalog/>,
+          children: [
+            // {
+            //   index: true,
+            //   element: <Navigate to={'page_1'}/>
+            // },
+            {
+              path: ':id',
+              element: <CatalogCards/>
+            }
+          ]
         },
         {
           path: 'item',
