@@ -29,10 +29,10 @@ function App(): JSX.Element {
           path: 'catalog',
           element: <Catalog/>,
           children: [
-            // {
-            //   index: true,
-            //   element: <Navigate to={'page_1'}/>
-            // },
+            {
+              index: true,
+              element: <Navigate to={'page_1'}/>
+            },
             {
               path: ':id',
               element: <CatalogCards/>

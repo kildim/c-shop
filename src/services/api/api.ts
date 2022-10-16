@@ -4,7 +4,6 @@ import {checkResponse} from '../../helpers/check-response';
 import {RootReducerActions} from '../../store/reducers/root-reducer';
 import {
   loadCameras, loadPromo,
-  setActivePage,
   setIsCamerasLoading,
   setPagesCount
 } from '../../store/reducers/cameras/cameras-actions';
@@ -24,7 +23,6 @@ export const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReduc
       const promo = parsedResponses[1] as Promo;
       dispatch(loadCameras(cameras));
       dispatch(setPagesCount(calculatePages(cameras.length)));
-      dispatch(setActivePage(cameras.length > 0 ? 1 : 0));
       dispatch(loadPromo(promo));
       dispatch(setIsCamerasLoading(false));
     })
