@@ -2,6 +2,8 @@ import {useEffect} from 'react';
 import Banner from '../banner/banner';
 import Pagination from '../pagination/pagination';
 import {Outlet} from 'react-router-dom';
+import ModalOverlay from '../../hocs/modal-overlay';
+import BasketAdd from '../basket-add/basket-add';
 
 function Catalog(): JSX.Element {
   useEffect(() => {
@@ -171,9 +173,11 @@ function Catalog(): JSX.Element {
             </div>
           </div>
         </section>
-
       </div>
-
+      {true &&
+      <ModalOverlay>
+        <BasketAdd price={10}/>
+      </ModalOverlay>}
     </main>
   );
 }

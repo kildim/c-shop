@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import PaginationMarker from '../pagination-marker/pagination-marker';
 import {MouseEventHandler} from 'react';
 import usePage from '../../hooks/use-page';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 function Pagination(): JSX.Element | null {
   const activePage = usePage();
@@ -29,11 +29,11 @@ function Pagination(): JSX.Element | null {
     <div className="pagination">
       <ul className="pagination__list">
         <li className="pagination__item">
-          <a className={`pagination__link ${activePage === 1 ? 'hidden' : ''}`} href="" onClick={handleBackwardClick}>Назад</a>
+          <Link className={`pagination__link ${activePage === 1 ? 'hidden' : ''}`} to='' onClick={handleBackwardClick}>Назад</Link>
         </li>
         {counter.map((item) => (<PaginationMarker pageNumber={item} key={item}/>))}
         <li className="pagination__item">
-          <a className={`pagination__link ${activePage === pagesCount ? 'hidden' : ''}`} href="" onClick={handleForwardClick}>Далее</a>
+          <Link className={`pagination__link ${activePage === pagesCount ? 'hidden' : ''}`} to='' onClick={handleForwardClick}>Далее</Link>
         </li>
       </ul>
     </div>

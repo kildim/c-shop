@@ -7,6 +7,7 @@ const initialState = {
   cameras: [],
   pagesCount: 0,
   promo: null,
+  detailedShown: null
 };
 
 export const camerasReducer = createReducer<CamerasReducer>(initialState, (builder) => {
