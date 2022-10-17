@@ -27,8 +27,8 @@ const setPagesCount = createAction(
 );
 
 const setDetailedShown = createAction(
-  'cameras/setDetailedShown', (count: number | null) => ({
-    payload: count
+  'cameras/setDetailedShown', (id: number | null) => ({
+    payload: id
   })
 );
 
@@ -37,5 +37,6 @@ export type CamerasActions =
   | ReturnType<typeof setIsCamerasLoading>
   | ReturnType<typeof setPagesCount>
   | ReturnType<typeof loadPromo>
+  | ReturnType<typeof setDetailedShown>
 
-export {setDetailedShown, setPagesCount, setIsCamerasLoading, loadPromo, loadCameras}
+export {setDetailedShown, setPagesCount, setIsCamerasLoading, loadPromo, loadCameras};

@@ -4,11 +4,14 @@ import Pagination from '../pagination/pagination';
 import {Outlet} from 'react-router-dom';
 import ModalOverlay from '../../hocs/modal-overlay';
 import BasketAdd from '../basket-add/basket-add';
+import {useSelector} from 'react-redux';
+import {getDetailedShown} from '../../store/reducers/cameras/selectors';
 
 function Catalog(): JSX.Element {
   useEffect(() => {
     document.title = 'Каталог - Фотошоп';
   });
+  const detailedShown = useSelector(getDetailedShown);
 
   return (
     <main>
@@ -174,9 +177,9 @@ function Catalog(): JSX.Element {
           </div>
         </section>
       </div>
-      {true &&
+      {detailedShown !== null &&
       <ModalOverlay>
-        <BasketAdd price={10}/>
+        <BasketAdd card={detailedShown}/>
       </ModalOverlay>}
     </main>
   );

@@ -1,10 +1,16 @@
 import {CardProps} from './card-props';
 import {MAX_RATING} from '../../constants/max-rating';
 import genId from '../../helpers/gen-id';
+import {useDispatch} from 'react-redux';
+import {setDetailedShown} from '../../store/reducers/cameras/cameras-actions';
 
 function Card(props: CardProps): JSX.Element {
   const {camera} = props;
+  const dispatch = useDispatch();
+
   const uniqueKey = genId();
+
+  const handleShowDetailClick = () => dispatch(setDetailedShown(camera.id));
 
   return (
     <div className="product-card">
@@ -40,9 +46,9 @@ function Card(props: CardProps): JSX.Element {
         <button className="btn btn--purple product-card__btn" type="button">
           Купить
         </button>
-        <a className="btn btn--transparent" href="#">
+        <button className="btn btn--transparent" onClick={handleShowDetailClick}>
           Подробнее
-        </a>
+        </button>
       </div>
     </div>
   );
