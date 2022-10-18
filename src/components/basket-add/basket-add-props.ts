@@ -1,5 +1,6 @@
 import {Camera} from '../../types/camera';
 
 export type BasketAddProps = {
-  card: Camera
+  card: Camera,
+  onClosePopup?: () => void | null,
 };

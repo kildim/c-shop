@@ -1,7 +1,18 @@
 import {BasketAddProps} from './basket-add-props';
+import React, {SyntheticEvent} from 'react';
 
 function BasketAdd(props: BasketAddProps): JSX.Element {
-  const {card} = props;
+  const {card, onClosePopup = null} = props;
+
+  const handleModalOnClick = (event: SyntheticEvent): void => {
+    event.stopPropagation();
+    if (onClosePopup !== null) {
+      onClosePopup();
+    }
+  };
+
+  // const handleBlur = (event: SyntheticEvent) => {event.preventDefault(); event.stopPropagation();};
+
   return (
     <div className="modal__content">
       <p className="title title--h4">Добавить товар в корзину</p>
@@ -35,7 +46,7 @@ function BasketAdd(props: BasketAddProps): JSX.Element {
           Добавить в корзину
         </button>
       </div>
-      <button className="cross-btn" type="button" aria-label="Закрыть попап">
+      <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleModalOnClick}>
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>

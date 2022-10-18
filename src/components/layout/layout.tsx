@@ -2,6 +2,8 @@ import {Outlet} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import * as S from './layout.syled';
+import {ToastContainer} from 'react-toastify';
+import React from 'react';
 
 function Layout(): JSX.Element {
   return (
