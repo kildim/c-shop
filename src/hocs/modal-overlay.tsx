@@ -17,7 +17,7 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
 
       document.body.style.overflow = '';
     };
-  }, [onClosePopup]);
+  });
   const handleModalOnClick = (event: SyntheticEvent): void => {
     event.stopPropagation();
     if (onClosePopup !== null) {

@@ -26,7 +26,7 @@ const setPagesCount = createAction(
   })
 );
 
-const setDetailedShown = createAction(
+const setBuyPopupShown = createAction(
   'cameras/setDetailedShown', (id: number | null) => ({
     payload: id
   })
@@ -37,6 +37,6 @@ export type CamerasActions =
   | ReturnType<typeof setIsCamerasLoading>
   | ReturnType<typeof setPagesCount>
   | ReturnType<typeof loadPromo>
-  | ReturnType<typeof setDetailedShown>
+  | ReturnType<typeof setBuyPopupShown>
 
-export {setDetailedShown, setPagesCount, setIsCamerasLoading, loadPromo, loadCameras};
+export {setBuyPopupShown, setPagesCount, setIsCamerasLoading, loadPromo, loadCameras};

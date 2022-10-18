@@ -2,7 +2,7 @@ import {createBrowserRouter, Navigate} from 'react-router-dom';
 import Layout from '../components/layout/layout';
 import Catalog from '../components/catalog/catalog';
 import CatalogCards from '../components/catalog-cards/catalog-cards';
-import Item from '../components/item/item';
+import Product from '../components/product/product';
 import Basket from '../components/basket/basket';
 import ApiError from '../components/Api-Error/api-error';
 
@@ -30,8 +30,8 @@ const rootRouter = createBrowserRouter([
         ]
       },
       {
-        path: 'item',
-        element: <Item/>
+        path: 'product',
+        element: <Product/>
       },
       {
         path: 'basket',

@@ -5,17 +5,17 @@ import {Outlet} from 'react-router-dom';
 import ModalOverlay from '../../hocs/modal-overlay';
 import BasketAdd from '../basket-add/basket-add';
 import {useDispatch, useSelector} from 'react-redux';
-import {getDetailedShown} from '../../store/reducers/cameras/selectors';
-import {setDetailedShown} from '../../store/reducers/cameras/cameras-actions';
+import {getBuyPopupShown} from '../../store/reducers/cameras/selectors';
+import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
 
 function Catalog(): JSX.Element {
   useEffect(() => {
     document.title = 'Каталог - Фотошоп';
   });
-  const detailedShown = useSelector(getDetailedShown);
+  const detailedShown = useSelector(getBuyPopupShown);
   const dispatch = useDispatch();
   const handleCloseBasketAddModal = () => {
-    dispatch(setDetailedShown(null));
+    dispatch(setBuyPopupShown(null));
   };
 
   return (

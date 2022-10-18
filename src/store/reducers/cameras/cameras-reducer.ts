@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadCameras, loadPromo, setDetailedShown, setIsCamerasLoading, setPagesCount} from './cameras-actions';
+import {loadCameras, loadPromo, setBuyPopupShown, setIsCamerasLoading, setPagesCount} from './cameras-actions';
 import {CamerasReducer} from '../../../types/cameras-reducer';
 
 const initialState = {
@@ -7,7 +7,7 @@ const initialState = {
   cameras: [],
   pagesCount: 0,
   promo: null,
-  detailedShown: null
+  buyPopupShown: null
 };
 
 export const camerasReducer = createReducer<CamerasReducer>(initialState, (builder) => {
@@ -24,7 +24,7 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
     .addCase(loadPromo, (state, action) => {
       state.promo = action.payload;
     })
-    .addCase(setDetailedShown, (state, action) => {
-      state.detailedShown = action.payload;
+    .addCase(setBuyPopupShown, (state, action) => {
+      state.buyPopupShown = action.payload;
     });
 });
