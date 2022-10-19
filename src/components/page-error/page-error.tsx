@@ -1,4 +1,4 @@
-import {isRouteErrorResponse, useNavigate, useRouteError} from 'react-router-dom';
+import {useNavigate, useRouteError} from 'react-router-dom';
 import ModalOverlay from '../../hocs/modal-overlay';
 import React from 'react';
 
@@ -21,7 +21,7 @@ function PageError(): JSX.Element {
             </symbol>
           </svg>
         </div>
-        <p className="title title--h4">{isRouteErrorResponse(error) ? error.statusText || error.message : 'Неопознанная ошибка'}</p>
+        <p className="title title--h4">{error.statusText || error.message}</p>
         <svg className="modal__icon" width="86" height="80" aria-hidden="true">
           <use xlinkHref="#icon-fail"></use>
         </svg>

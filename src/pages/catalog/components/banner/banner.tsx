@@ -1,6 +1,6 @@
 import {useSelector} from 'react-redux';
-import {getPromo} from '../../store/reducers/cameras/selectors';
-import {Promo} from '../../types/promo';
+import {getPromo} from '../../../../store/reducers/cameras/selectors';
+import {Promo} from '../../../../types/promo';
 
 function Banner(): JSX.Element | null {
   const promo: Promo = useSelector(getPromo);
@@ -19,7 +19,7 @@ function Banner(): JSX.Element | null {
       <p className="banner__info"><span className="banner__message">Новинка!</span>
         <span className="title title--h1">{promo.name}</span>
         <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
-        <a className="btn" href="#">Подробнее</a>
+        <a className="btn" href="src/pages/catalog/components/banner/banner#">Подробнее</a>
       </p>
     </div>
   );

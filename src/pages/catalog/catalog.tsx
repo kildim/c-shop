@@ -1,9 +1,9 @@
 import {useEffect} from 'react';
-import Banner from '../banner/banner';
-import Pagination from '../pagination/pagination';
+import Banner from './components/banner/banner';
+import Pagination from './components/pagination/pagination';
 import {Outlet} from 'react-router-dom';
 import ModalOverlay from '../../hocs/modal-overlay';
-import BasketAdd from '../basket-add/basket-add';
+import BasketAdd from './components/basket-add/basket-add';
 import {useDispatch, useSelector} from 'react-redux';
 import {getBuyPopupShown} from '../../store/reducers/cameras/selectors';
 import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
@@ -27,7 +27,7 @@ function Catalog(): JSX.Element {
             <div className="container">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link" href="#">Главная
+                  <a className="breadcrumbs__link" href="src/pages/catalog/catalog#">Главная
                     <svg width="5" height="8" aria-hidden="true">
                       <use xlinkHref="#icon-arrow-mini"></use>
                     </svg>
@@ -45,7 +45,7 @@ function Catalog(): JSX.Element {
               <div className="page-content__columns">
                 <div className="catalog__aside">
                   <div className="catalog-filter">
-                    <form action="#">
+                    <form action="src/pages/catalog/catalog#">
                       <h2 className="visually-hidden">Фильтр</h2>
                       <fieldset className="catalog-filter__block">
                         <legend className="title title--h5">Цена, ₽</legend>
@@ -142,7 +142,7 @@ function Catalog(): JSX.Element {
                 </div>
                 <div className="catalog__content">
                   <div className="catalog-sort">
-                    <form action="#">
+                    <form action="src/pages/catalog/catalog#">
                       <div className="catalog-sort__inner">
                         <p className="title title--h5">Сортировать:</p>
                         <div className="catalog-sort__type">

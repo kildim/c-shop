@@ -11,8 +11,6 @@ function BasketAdd(props: BasketAddProps): JSX.Element {
     }
   };
 
-  // const handleBlur = (event: SyntheticEvent) => {event.preventDefault(); event.stopPropagation();};
-
   return (
     <div className="modal__content">
       <p className="title title--h4">Добавить товар в корзину</p>

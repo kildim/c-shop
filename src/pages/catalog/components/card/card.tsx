@@ -1,8 +1,8 @@
 import {CardProps} from './card-props';
-import {MAX_RATING} from '../../constants/max-rating';
-import genId from '../../helpers/gen-id';
+import {MAX_RATING} from '../../../../constants/max-rating';
+import genId from '../../../../helpers/gen-id';
 import {useDispatch} from 'react-redux';
-import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
+import {setBuyPopupShown} from '../../../../store/reducers/cameras/cameras-actions';
 
 function Card(props: CardProps): JSX.Element {
   const {camera} = props;

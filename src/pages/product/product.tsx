@@ -1,37 +1,50 @@
-import {useEffect} from 'react';
+import {Suspense, useEffect} from 'react';
+import {Await, useLoaderData} from 'react-router-dom';
+import {Camera} from '../../types/camera';
+import Loader from '../../components/loader/loader';
 
 function Product(): JSX.Element {
   useEffect(() => {
     document.title = 'Продукт - Фотошоп';
   });
+  const {product} = useLoaderData() as { product: Camera };
 
   return (
     <>
       <main>
         <div className="page-content">
-          <div className="breadcrumbs">
-            <div className="container">
-              <ul className="breadcrumbs__list">
-                <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link" href="index.html">Главная
-                    <svg width="5" height="8" aria-hidden="true">
-                      <use xlinkHref="#icon-arrow-mini"></use>
-                    </svg>
-                  </a>
-                </li>
-                <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link" href="catalog.html">Каталог
-                    <svg width="5" height="8" aria-hidden="true">
-                      <use xlinkHref="#icon-arrow-mini"></use>
-                    </svg>
-                  </a>
-                </li>
-                <li className="breadcrumbs__item">
-                  <span className="breadcrumbs__link breadcrumbs__link--active">Ретрокамера «Das Auge IV»</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <Suspense fallback={<Loader/>}>
+            <Await resolve={product}>
+              {
+                (camera: Camera) => (
+                  <div className="breadcrumbs">
+                    <div className="container">
+                      <ul className="breadcrumbs__list">
+                        <li className="breadcrumbs__item">
+                          <a className="breadcrumbs__link" href="index.html">Главная
+                            <svg width="5" height="8" aria-hidden="true">
+                              <use xlinkHref="#icon-arrow-mini"></use>
+                            </svg>
+                          </a>
+                        </li>
+                        <li className="breadcrumbs__item">
+                          <a className="breadcrumbs__link" href="catalog.html">Каталог
+                            <svg width="5" height="8" aria-hidden="true">
+                              <use xlinkHref="#icon-arrow-mini"></use>
+                            </svg>
+                          </a>
+                        </li>
+                        <li className="breadcrumbs__item">
+                          <span className="breadcrumbs__link breadcrumbs__link--active">{camera.name}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                )
+              }
+            </Await>
+          </Suspense>
+
           <div className="page-content__section">
             <section className="product">
               <div className="container">
@@ -45,7 +58,7 @@ function Product(): JSX.Element {
                   </picture>
                 </div>
                 <div className="product__content">
-                  <h1 className="title title--h3">Ретрокамера «Das Auge IV»</h1>
+                  <h1 className="title title--h3">Ретрокамера Das Auge IV</h1>
                   <div className="rate product__rate">
                     <svg width="17" height="16" aria-hidden="true">
                       <use xlinkHref="#icon-full-star"></use>
@@ -157,7 +170,7 @@ function Product(): JSX.Element {
                       <div className="product-card__buttons">
                         <button className="btn btn--purple product-card__btn" type="button">Купить
                         </button>
-                        <a className="btn btn--transparent" href="#">Подробнее
+                        <a className="btn btn--transparent" href="src/pages/product/product#">Подробнее
                         </a>
                       </div>
                     </div>
@@ -201,7 +214,7 @@ function Product(): JSX.Element {
                       <div className="product-card__buttons">
                         <button className="btn btn--purple product-card__btn" type="button">Купить
                         </button>
-                        <a className="btn btn--transparent" href="#">Подробнее
+                        <a className="btn btn--transparent" href="src/pages/product/product#">Подробнее
                         </a>
                       </div>
                     </div>
@@ -242,7 +255,7 @@ function Product(): JSX.Element {
                       <div className="product-card__buttons">
                         <button className="btn btn--purple product-card__btn" type="button">Купить
                         </button>
-                        <a className="btn btn--transparent" href="#">Подробнее
+                        <a className="btn btn--transparent" href="src/pages/product/product#">Подробнее
                         </a>
                       </div>
                     </div>
@@ -283,7 +296,7 @@ function Product(): JSX.Element {
                       <div className="product-card__buttons">
                         <button className="btn btn--purple product-card__btn" type="button">Купить
                         </button>
-                        <a className="btn btn--transparent" href="#">Подробнее
+                        <a className="btn btn--transparent" href="src/pages/product/product#">Подробнее
                         </a>
                       </div>
                     </div>
@@ -324,7 +337,7 @@ function Product(): JSX.Element {
                       <div className="product-card__buttons">
                         <button className="btn btn--purple product-card__btn" type="button">Купить
                         </button>
-                        <a className="btn btn--transparent" href="#">Подробнее
+                        <a className="btn btn--transparent" href="src/pages/product/product#">Подробнее
                         </a>
                       </div>
                     </div>
@@ -365,7 +378,7 @@ function Product(): JSX.Element {
                       <div className="product-card__buttons">
                         <button className="btn btn--purple product-card__btn" type="button">Купить
                         </button>
-                        <a className="btn btn--transparent" href="#">Подробнее
+                        <a className="btn btn--transparent" href="src/pages/product/product#">Подробнее
                         </a>
                       </div>
                     </div>
@@ -521,7 +534,7 @@ function Product(): JSX.Element {
           </div>
         </div>
       </main>
-      <a className="up-btn" href="#header">
+      <a className="up-btn" href="src/pages/product/product#header">
         <svg width="12" height="18" aria-hidden="true">
           <use xlinkHref="#icon-arrow2"></use>
         </svg>

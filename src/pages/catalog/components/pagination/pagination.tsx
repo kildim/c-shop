@@ -1,8 +1,8 @@
-import {getPagesCount} from '../../store/reducers/cameras/selectors';
+import {getPagesCount} from '../../../../store/reducers/cameras/selectors';
 import {useSelector} from 'react-redux';
 import PaginationMarker from '../pagination-marker/pagination-marker';
 import {MouseEventHandler} from 'react';
-import usePage from '../../hooks/use-page';
+import usePage from '../../../../hooks/use-page';
 import {Link, useNavigate} from 'react-router-dom';
 
 function Pagination(): JSX.Element | null {

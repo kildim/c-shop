@@ -1,12 +1,16 @@
 import {Outlet} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import * as S from './layout.syled';
 import React from 'react';
+import {useSelector} from 'react-redux';
+import {getIsCamerasLoading} from '../../store/reducers/cameras/selectors';
+import Loader from '../loader/loader';
 
 function Layout(): JSX.Element {
+  const isCamerasLoading = useSelector(getIsCamerasLoading);
+
   return (
-    <S.Layout>
+    <>
       <div className="visually-hidden">
         <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
           <symbol id="icon-add-basket" viewBox="0 0 24 16">
@@ -188,10 +192,17 @@ function Layout(): JSX.Element {
           </symbol>
         </svg>
       </div>
-      <Header/>
-      <Outlet/>
-      <Footer/>
-    </S.Layout>
+      {
+        isCamerasLoading ?
+          <Loader/>
+          :
+          <>
+            <Header/>
+            <Outlet/>
+            <Footer/>
+          </>
+      }
+    </>
   );
 }
 

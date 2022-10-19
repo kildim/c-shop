@@ -1,16 +1,16 @@
 import Card from '../card/card';
 import {useSelector} from 'react-redux';
-import {getCameras} from '../../store/reducers/cameras/selectors';
-import {CardsRange} from '../../types/cards-range';
-import {PAGE_SIZE} from '../../constants/page-size';
-import usePage from '../../hooks/use-page';
+import {getCameras} from '../../../../store/reducers/cameras/selectors';
+import {CardsRange} from '../../../../types/cards-range';
+import {PAGE_SIZE} from '../../../../constants/page-size';
+import usePage from '../../../../hooks/use-page';
 
 function CatalogCards(): JSX.Element | null {
   const cameras = useSelector(getCameras);
   const page = usePage();
 
   if (page === null) {
-    return null;
+    throw new Response('', {statusText: 'Undefined PAGE!'});
   }
 
   const calculateShownCardsRange = (): CardsRange => {
@@ -30,7 +30,7 @@ function CatalogCards(): JSX.Element | null {
 
   const range = calculateShownCardsRange();
   if (range === null) {
-    return null;
+    throw new Response('', {statusText: 'Undefined RANGE!'});
   }
 
   return (

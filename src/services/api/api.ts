@@ -8,12 +8,12 @@ import {
   setPagesCount
 } from '../../store/reducers/cameras/cameras-actions';
 import {CAMERAS_URL, PROMO_URL} from '../../constants/url';
-import {redirect} from 'react-router-dom';
+
 import {calculatePages} from '../../helpers/calculate-pages';
 import {Promo} from '../../types/promo';
 import {Camera} from '../../types/camera';
 
-export const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActions> => (dispatch, _getState) => {
+const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActions> => (dispatch, _getState) => {
   dispatch(setIsCamerasLoading(true));
   Promise.all([CAMERAS_URL, PROMO_URL].map((url) => fetch(url)))
     .then((responses: Response[]) =>
@@ -28,7 +28,9 @@ export const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReduc
     })
     .catch((error) => {
       dispatch(setIsCamerasLoading(false));
-      return redirect('page-error', error as ResponseInit);
     });
-
 };
+
+const fetchProduct = (id: string) => fetch(`${CAMERAS_URL}/${id}`).then(checkResponse);
+
+export {fetchInitData, fetchProduct};

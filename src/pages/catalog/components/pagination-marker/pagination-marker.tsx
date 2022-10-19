@@ -1,6 +1,6 @@
 import {PaginationMarkerProps} from './pagination-marker-props';
 import {MouseEventHandler} from 'react';
-import usePage from '../../hooks/use-page';
+import usePage from '../../../../hooks/use-page';
 import {Link, useNavigate} from 'react-router-dom';
 
 function PaginationMarker(props: PaginationMarkerProps): JSX.Element | null {
