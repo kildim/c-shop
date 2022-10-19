@@ -4,12 +4,13 @@ import Catalog from '../components/catalog/catalog';
 import CatalogCards from '../components/catalog-cards/catalog-cards';
 import Product from '../components/product/product';
 import Basket from '../components/basket/basket';
-import ApiError from '../components/Api-Error/api-error';
+import PageError from '../components/page-error/page-error';
 
 const rootRouter = createBrowserRouter([
   {
     path: '/',
     element: <Layout/>,
+    errorElement: <PageError />,
     children: [
       {
         index: true,
@@ -38,8 +39,8 @@ const rootRouter = createBrowserRouter([
         element: <Basket/>
       },
       {
-        path: 'api-error',
-        element: <ApiError/>
+        path: 'page-error/:code',
+        element: <PageError/>
       },
     ]
   }
