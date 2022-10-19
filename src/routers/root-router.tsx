@@ -10,7 +10,7 @@ const rootRouter = createBrowserRouter([
   {
     path: '/',
     element: <Layout/>,
-    errorElement: <PageError />,
+    errorElement: <PageError/>,
     children: [
       {
         index: true,
@@ -37,10 +37,6 @@ const rootRouter = createBrowserRouter([
       {
         path: 'basket',
         element: <Basket/>
-      },
-      {
-        path: 'page-error/:code',
-        element: <PageError/>
       },
     ]
   }
