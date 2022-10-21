@@ -1,16 +1,17 @@
 import {CardProps} from './card-props';
-import {MAX_RATING} from '../../../../constants/max-rating';
-import genId from '../../../../helpers/gen-id';
 import {useDispatch} from 'react-redux';
 import {setBuyPopupShown} from '../../../../store/reducers/cameras/cameras-actions';
+import {useNavigate} from 'react-router-dom';
+import {RootRouterPath} from '../../../../routers/root-router';
+import Rating from '../../../../components/rating/rating';
 
 function Card(props: CardProps): JSX.Element {
   const {camera} = props;
   const dispatch = useDispatch();
-
-  const uniqueKey = genId();
+  const navigate = useNavigate();
 
   const handleBuyClick = () => dispatch(setBuyPopupShown(camera.id));
+  const handleComprehensiveClick = () => navigate(`${RootRouterPath.Root}${RootRouterPath.Product}/${camera.id}`);
 
   return (
     <div className="product-card">
@@ -18,26 +19,17 @@ function Card(props: CardProps): JSX.Element {
         <picture>
           <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x}`}/>
           <img src={camera.previewImg} srcSet={`${camera.previewImg2x} 2x`} width="280" height="240"
-            alt={camera.description}
+            alt={camera.name}
           />
         </picture>
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          {Array(camera.rating).fill(null).map(() => (
-            <svg width="17" height="16" aria-hidden="true" key={uniqueKey()}>
-              <use xlinkHref="#icon-full-star"></use>
-            </svg>
-          ))}
-          {Array(MAX_RATING - camera.rating).fill(null).map(() => (
-            <svg width="17" height="16" aria-hidden="true" key={uniqueKey()}>
-              <use xlinkHref="#icon-star"></use>
-            </svg>
-          ))}
+          <Rating rating={camera.rating}/>
           <p className="visually-hidden">Рейтинг: {camera.rating}</p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
         </div>
-        <p className="product-card__title">{camera.description}</p>
+        <p className="product-card__title">{camera.name}</p>
         <p className="product-card__price">
           <span className="visually-hidden">Цена:</span>{`${camera.price} ₽`}
         </p>
@@ -46,7 +38,7 @@ function Card(props: CardProps): JSX.Element {
         <button className="btn btn--purple product-card__btn" type="button" onClick={handleBuyClick}>
           Купить
         </button>
-        <button className="btn btn--transparent">
+        <button className="btn btn--transparent" onClick={handleComprehensiveClick}>
           Подробнее
         </button>
       </div>

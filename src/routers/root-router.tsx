@@ -6,16 +6,18 @@ import Product from '../pages/product/product';
 import Basket from '../pages/basket/basket';
 import PageError from '../components/page-error/page-error';
 import {productLoader} from '../pages/product/product-loader';
+import {RootRouterPath} from './root-route-path';
 
+const DEFAULT_CATALOG_PAGE = 'page_1';
 const rootRouter = createBrowserRouter([
   {
-    path: '/',
+    path: RootRouterPath.Root,
     element: <Layout/>,
     errorElement: <PageError/>,
     children: [
       {
         index: true,
-        element: <Navigate to={'catalog'} replace/>
+        element: <Navigate to={RootRouterPath.Catalog} replace/>
       },
       {
         path: 'catalog',
@@ -23,7 +25,7 @@ const rootRouter = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Navigate to={'page_1'}/>
+            element: <Navigate to={DEFAULT_CATALOG_PAGE}/>
           },
           {
             path: ':id',
@@ -32,16 +34,16 @@ const rootRouter = createBrowserRouter([
         ]
       },
       {
-        path: 'product/:id',
+        path: `${RootRouterPath.Product}/:id`,
         loader: productLoader as LoaderFunction,
         element: <Product/>
       },
       {
-        path: 'basket',
+        path: RootRouterPath.Basket,
         element: <Basket/>
       }
     ]
   }
 ]);
 
-export {rootRouter};
+export {rootRouter, RootRouterPath};
