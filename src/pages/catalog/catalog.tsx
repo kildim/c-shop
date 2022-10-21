@@ -1,12 +1,13 @@
 import {useEffect} from 'react';
 import Banner from './components/banner/banner';
 import Pagination from './components/pagination/pagination';
-import {Outlet} from 'react-router-dom';
+import {Link, Outlet} from 'react-router-dom';
 import ModalOverlay from '../../hocs/modal-overlay';
 import BasketAdd from './components/basket-add/basket-add';
 import {useDispatch, useSelector} from 'react-redux';
 import {getBuyPopupShown} from '../../store/reducers/cameras/selectors';
 import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
+import {RootRouterPath} from '../../routers/root-route-path';
 
 function Catalog(): JSX.Element {
   useEffect(() => {
@@ -27,11 +28,11 @@ function Catalog(): JSX.Element {
             <div className="container">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link" href="src/pages/catalog/catalog#">Главная
+                  <Link className="breadcrumbs__link" to={RootRouterPath.Root}>Главная
                     <svg width="5" height="8" aria-hidden="true">
                       <use xlinkHref="#icon-arrow-mini"></use>
                     </svg>
-                  </a>
+                  </Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>

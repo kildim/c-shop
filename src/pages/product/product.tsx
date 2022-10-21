@@ -12,7 +12,6 @@ function Product(): JSX.Element {
   });
 
   const {product} = useLoaderData() as { product: Camera };
-
   window.scrollTo(0, 0);
 
   return (
@@ -491,7 +490,7 @@ function Product(): JSX.Element {
               <div className="review-block__buttons">
                 <button className="btn btn--purple" type="button">Показать больше отзывов
                 </button>
-                <Link className="up-btn" to="#header">
+                <Link className="up-btn" to='#header'>
                   <svg width="12" height="18" aria-hidden="true">
                     <use xlinkHref="#icon-arrow2"></use>
                   </svg>

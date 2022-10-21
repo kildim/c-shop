@@ -2,8 +2,8 @@ import {CardProps} from './card-props';
 import {useDispatch} from 'react-redux';
 import {setBuyPopupShown} from '../../../../store/reducers/cameras/cameras-actions';
 import {useNavigate} from 'react-router-dom';
-import {RootRouterPath} from '../../../../routers/root-router';
 import Rating from '../../../../components/rating/rating';
+import {RootRouterPath} from '../../../../routers/root-route-path';
 
 function Card(props: CardProps): JSX.Element {
   const {camera} = props;
@@ -11,7 +11,9 @@ function Card(props: CardProps): JSX.Element {
   const navigate = useNavigate();
 
   const handleBuyClick = () => dispatch(setBuyPopupShown(camera.id));
-  const handleComprehensiveClick = () => navigate(`${RootRouterPath.Root}${RootRouterPath.Product}/${camera.id}`);
+  const handleComprehensiveClick = () => {
+    navigate(`${RootRouterPath.Root}${RootRouterPath.Product}/${camera.id}`);
+  };
 
   return (
     <div className="product-card">

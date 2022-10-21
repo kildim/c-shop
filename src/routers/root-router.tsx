@@ -46,4 +46,4 @@ const rootRouter = createBrowserRouter([
   }
 ]);
 
-export {rootRouter, RootRouterPath};
+export {rootRouter};
