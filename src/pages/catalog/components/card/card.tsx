@@ -6,7 +6,7 @@ import Rating from '../../../../components/rating/rating';
 import {RootRouterPath} from '../../../../routers/root-route-path';
 
 function Card(props: CardProps): JSX.Element {
-  const {camera} = props;
+  const {camera, isActive} = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ function Card(props: CardProps): JSX.Element {
   };
 
   return (
-    <div className="product-card">
+    <div className={`product-card ${isActive ? 'is-active' : ''}`}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x}`}/>

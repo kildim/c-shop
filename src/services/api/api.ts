@@ -32,5 +32,6 @@ const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActio
 };
 
 const fetchProduct = (id: string) => fetch(`${CAMERAS_URL}/${id}`).then(checkResponse);
+const fetchSimilar = (id: string) => fetch(`${CAMERAS_URL}/${id}/similar`).then(checkResponse);
 
-export {fetchInitData, fetchProduct};
+export {fetchInitData, fetchProduct, fetchSimilar};
