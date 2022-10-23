@@ -3557,6 +3557,10 @@ button,
     background-color: #e8e8fa;
   }
 
+  .btn[hidden] {
+    display: none;
+  }
+
   .btn:hover,
   .btn:focus {
     background-color: #e8e8fa;

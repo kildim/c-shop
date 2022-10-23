@@ -9,14 +9,8 @@ function Slider(props: SliderProps): JSX.Element {
   const {products} = props;
   const [startIndex, setStartIndex] = useState(0);
   const uniqueKey = genId();
-  const handleForwardClick: MouseEventHandler = (e) => {
-    e.preventDefault();
-    setStartIndex(startIndex + 1);
-  };
-  const handleBackwardClick: MouseEventHandler = (e) => {
-    e.preventDefault();
-    setStartIndex(startIndex - 1);
-  };
+  const handleForwardClick: MouseEventHandler = (e) => setStartIndex(startIndex + 1);
+  const handleBackwardClick: MouseEventHandler = (e) => setStartIndex(startIndex - 1);
 
   const renderCards = (cards: Camera[]) =>
     cards.slice(startIndex, tailIndex).map((card) => <Card camera={card} isActive key={uniqueKey()}/>);

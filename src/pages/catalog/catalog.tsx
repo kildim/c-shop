@@ -21,6 +21,8 @@ function Catalog(): JSX.Element {
 
   window.scrollTo(0, 0);
 
+  console.log('HI!')
+
   return (
     <>
       <main>

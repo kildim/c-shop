@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {ProductInfoTabsProps} from './ProductInfoTabsProps';
 
 function ProductInfoTabs(props: ProductInfoTabsProps): JSX.Element {
-  const {camera} = props;
+  const {product} = props;
 
   const enum ActiveTab {
     Characteristics = 'Characteristics',
@@ -22,23 +22,23 @@ function ProductInfoTabs(props: ProductInfoTabsProps): JSX.Element {
         <div className={`tabs__element ${activeTab === ActiveTab.Characteristics ? 'is-active' : ''}`}>
           <ul className="product__tabs-list">
             <li className="item-list"><span className="item-list__title">Артикул:</span>
-              <p className="item-list__text">{camera.vendorCode}</p>
+              <p className="item-list__text">{product.vendorCode}</p>
             </li>
             <li className="item-list"><span className="item-list__title">Категория:</span>
-              <p className="item-list__text">{camera.category}</p>
+              <p className="item-list__text">{product.category}</p>
             </li>
             <li className="item-list"><span className="item-list__title">Тип камеры:</span>
-              <p className="item-list__text">{camera.type}</p>
+              <p className="item-list__text">{product.type}</p>
             </li>
             <li className="item-list"><span className="item-list__title">Уровень:</span>
-              <p className="item-list__text">{camera.level}</p>
+              <p className="item-list__text">{product.level}</p>
             </li>
           </ul>
         </div>
         <div className={`tabs__element ${activeTab === ActiveTab.Description ? 'is-active' : ''}`}>
           <div className="product__tabs-text">
             <p>
-              {camera.description}
+              {product.description}
             </p>
           </div>
         </div>
