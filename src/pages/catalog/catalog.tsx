@@ -21,8 +21,6 @@ function Catalog(): JSX.Element {
 
   window.scrollTo(0, 0);
 
-  console.log('HI!')
-
   return (
     <>
       <main>
@@ -190,8 +188,8 @@ function Catalog(): JSX.Element {
         </div>
       </main>
       {detailedShown !== null &&
-        <ModalOverlay onClosePopup={handleCloseBasketAddModal}>
-          <BasketAdd card={detailedShown} onClosePopup={handleCloseBasketAddModal}/>
+        <ModalOverlay handleClosePopup={handleCloseBasketAddModal}>
+          <BasketAdd card={detailedShown} handleClosePopup={handleCloseBasketAddModal}/>
         </ModalOverlay>}
     </>
   );

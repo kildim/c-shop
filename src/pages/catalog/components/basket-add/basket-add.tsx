@@ -2,12 +2,12 @@ import {BasketAddProps} from './basket-add-props';
 import React, {SyntheticEvent} from 'react';
 
 function BasketAdd(props: BasketAddProps): JSX.Element {
-  const {card, onClosePopup = null} = props;
+  const {card, handleClosePopup = null} = props;
 
   const handleModalOnClick = (event: SyntheticEvent): void => {
     event.stopPropagation();
-    if (onClosePopup !== null) {
-      onClosePopup();
+    if (handleClosePopup !== null) {
+      handleClosePopup();
     }
   };
 

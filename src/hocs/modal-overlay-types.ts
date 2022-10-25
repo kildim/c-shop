@@ -1,7 +1,7 @@
 import {ReactNode} from 'react';
 
 type ModalOverlayProps = {
-  onClosePopup?: () => void | null,
+  handleClosePopup?: () => void | null,
   children: ReactNode,
 }
 

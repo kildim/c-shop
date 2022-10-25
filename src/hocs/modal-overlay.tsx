@@ -1,9 +1,9 @@
-import {createRef, SyntheticEvent, useEffect} from 'react';
+import {MouseEventHandler, useEffect, useRef} from 'react';
 import {ModalOverlayProps} from './modal-overlay-types';
 import ReactDOM from 'react-dom';
 
 function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
-  const {onClosePopup = null, children} = props;
+  const {handleClosePopup = null, children} = props;
   useEffect(() => {
     function keyListener(e: KeyboardEvent) {
       const listener = keyListenersMap.get(e.key);
@@ -18,17 +18,17 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
       document.body.style.overflow = '';
     };
   });
-  const handleModalOnClick = (event: SyntheticEvent): void => {
+  const handleModalOnClick: MouseEventHandler = (event): void => {
     event.stopPropagation();
-    if (onClosePopup !== null) {
-      onClosePopup();
+    if (handleClosePopup !== null) {
+      handleClosePopup();
     }
   };
-  const modalRef = createRef<HTMLDivElement>();
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleTabKey = (e: KeyboardEvent) => {
-    if (modalRef.current === null) {return null;}
-    const focusableModalElements = modalRef.current.querySelectorAll<HTMLElement>(
+    if (modalRef.current === null || modalRef.current === undefined) {throw 'Не могу найти элемент HTML!';}
+    const focusableModalElements = modalRef.current?.querySelectorAll<HTMLElement>(
       'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
     );
     const firstElement = focusableModalElements[0];
@@ -45,7 +45,7 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
       e.preventDefault();
     }
   };
-  const keyListenersMap = new Map([['Escape', onClosePopup], ['Tab', handleTabKey]]);
+  const keyListenersMap = new Map([['Escape', handleClosePopup], ['Tab', handleTabKey]]);
 
   const MODAL_PORTAL = document.getElementById('modals');
   if (MODAL_PORTAL === null) {

@@ -28,8 +28,13 @@ const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActio
     })
     .catch((error) => {
       dispatch(setIsCamerasLoading(false));
+      throw error.toString();
     });
 };
+// const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknown, RootReducerActions> => (dispatch, _getState) => {
+//   dispatch(setIsReviewPosting(true));
+//
+// }
 
 const fetchProduct = (id: string) => fetch(`${CAMERAS_URL}/${id}`).then(checkResponse);
 const fetchSimilar = (id: string) => fetch(`${CAMERAS_URL}/${id}/similar`).then(checkResponse);

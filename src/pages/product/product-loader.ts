@@ -7,7 +7,8 @@ const productLoader = (props: ProductLoaderProps) => {
   return defer({
     product: fetchProduct(params.id),
     similar: fetchSimilar(params.id),
-    reviews: fetchReviews(params.id)
+    reviews: fetchReviews(params.id),
+    id: params.id
   });
 };
 
