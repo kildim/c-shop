@@ -1,5 +1,5 @@
 type ReviewPostData = {
-  // cameraId: number,
+  cameraId: number,
   userName: string,
   advantage: string,
   disadvantage: string,

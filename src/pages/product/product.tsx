@@ -1,12 +1,15 @@
-import {Suspense, useEffect, useState} from 'react';
-import {Await, useLoaderData} from 'react-router-dom';
+import {Suspense, useEffect} from 'react';
+import {Await, redirect, useLoaderData, useNavigate} from 'react-router-dom';
 import Loader from '../../components/loader/loader';
 import SliderSection from './components/slider-section/slider-section';
 import {ProductLoaderData} from './product-loader-data';
 import ReviewsSection from './components/reviews-section/reviews-section';
 import CameraInfo from './components/camera-info/camera-info';
 import NewReview from './components/new-review/new-review';
-import ModalOverlay from '../../hocs/modal-overlay';
+import {getIsNewReviewShown, getIsNewReviewSuccessShown} from '../../store/reducers/cameras/selectors';
+import {useDispatch, useSelector} from 'react-redux';
+import NewReviewSuccess from './components/new-review-success/new-review-success';
+import {setIsNewReviewShown, setIsNewReviewSuccessShown} from '../../store/reducers/cameras/cameras-actions';
 
 function Product(): JSX.Element {
   useEffect(() => {
@@ -14,9 +17,16 @@ function Product(): JSX.Element {
   });
 
   const {product, similar, reviews, id} = useLoaderData() as ProductLoaderData;
-  const [showNewReview, setShowNewReview] = useState(false);
-  const handleCloseNewReviewClick = () => setShowNewReview(false);
-  const handleWriteNewReviewClick = () => setShowNewReview(true);
+  const isNewReviewSuccessShown = useSelector(getIsNewReviewSuccessShown);
+  const isNewReviewShown = useSelector(getIsNewReviewShown)
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const handleCloseNewReviewClick = () => {dispatch(setIsNewReviewShown(false))};
+  const handleWriteNewReviewClick = () => {dispatch(setIsNewReviewShown(true))};
+  const handleCloseNewReviewSuccess = () => {
+    dispatch(setIsNewReviewSuccessShown(false));
+    navigate( ``);
+  };
 
   window.scrollTo(0, 0);
 
@@ -51,10 +61,12 @@ function Product(): JSX.Element {
 
       </div>
       {
-        showNewReview &&
-        <ModalOverlay handleClosePopup={handleCloseNewReviewClick}>
-          <NewReview handleClosePopup={handleCloseNewReviewClick}/>
-        </ModalOverlay>
+        isNewReviewShown &&
+          <NewReview handleClosePopup={handleCloseNewReviewClick} id={id}/>
+      }
+      {
+        isNewReviewSuccessShown &&
+          <NewReviewSuccess handleClosePopup={handleCloseNewReviewSuccess}/>
       }
     </main>
   );

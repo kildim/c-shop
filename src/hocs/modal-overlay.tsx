@@ -6,6 +6,7 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
   const {handleClosePopup = null, children} = props;
   useEffect(() => {
     function keyListener(e: KeyboardEvent) {
+      e.stopPropagation();
       const listener = keyListenersMap.get(e.key);
       return listener && listener(e);
     }

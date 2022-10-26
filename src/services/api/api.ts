@@ -3,8 +3,13 @@ import {RootState} from '../../index';
 import {checkResponse} from '../../helpers/check-response';
 import {RootReducerActions} from '../../store/reducers/root-reducer';
 import {
-  loadCameras, loadPromo, setApiError,
-  setIsCamerasLoading, setIsReviewPosting,
+  loadCameras,
+  loadPromo,
+  setApiError,
+  setIsCamerasLoading,
+  setIsNewReviewShown,
+  setIsNewReviewSuccessShown,
+  setIsReviewPosting,
   setPagesCount
 } from '../../store/reducers/cameras/cameras-actions';
 import {CAMERAS_URL, POST_REVIEW_URL, PROMO_URL} from '../../constants/url';
@@ -46,9 +51,12 @@ const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknow
     .then(checkResponse)
     .then((res) => {
       dispatch(setIsReviewPosting(false));
+      dispatch(setIsNewReviewShown(false));
+      dispatch(setIsNewReviewSuccessShown(true));
     })
     .catch((error) => {
       dispatch(setIsReviewPosting(false));
+      dispatch(setIsNewReviewShown(false));
       dispatch(setApiError(error));
     });
 

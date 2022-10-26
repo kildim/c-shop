@@ -3,7 +3,7 @@ import {
   loadCameras,
   loadPromo, setApiError,
   setBuyPopupShown,
-  setIsCamerasLoading,
+  setIsCamerasLoading, setIsNewReviewShown, setIsNewReviewSuccessShown,
   setIsReviewPosting,
   setPagesCount
 } from './cameras-actions';
@@ -17,6 +17,8 @@ const initialState = {
   buyPopupShown: null,
   isReviewPosting: false,
   apiError: null,
+  isNewReviewSuccessShown: false,
+  isNewReviewShown: false,
 };
 
 export const camerasReducer = createReducer<CamerasReducer>(initialState, (builder) => {
@@ -41,5 +43,11 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
     })
     .addCase(setApiError, (state, action) => {
       state.apiError = action.payload;
+    })
+    .addCase(setIsNewReviewSuccessShown, (state, action) => {
+      state.isNewReviewSuccessShown = action.payload;
+    })
+    .addCase(setIsNewReviewShown, (state, action) => {
+        state.isNewReviewShown = action.payload;
     });
 });

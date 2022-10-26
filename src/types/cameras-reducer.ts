@@ -10,4 +10,6 @@ export type CamerasReducer = {
   buyPopupShown: number | null,
   isReviewPosting: boolean
   apiError: Response | null,
+  isNewReviewSuccessShown: boolean,
+  isNewReviewShown: boolean,
 };

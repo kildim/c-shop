@@ -44,6 +44,18 @@ const setApiError = createAction(
   })
 );
 
+const setIsNewReviewSuccessShown = createAction(
+  'cameras/setIsNewReviewSuccessShown', (isNewReviewSuccessShown: boolean) => ({
+    payload: isNewReviewSuccessShown
+  })
+);
+
+const setIsNewReviewShown = createAction(
+  'cameras/setIsNewReviewShown', (isNewReviewShown: boolean) => ({
+    payload: isNewReviewShown
+  })
+);
+
 export type CamerasActions =
   ReturnType<typeof loadCameras>
   | ReturnType<typeof setIsCamerasLoading>
@@ -52,5 +64,17 @@ export type CamerasActions =
   | ReturnType<typeof setBuyPopupShown>
   | ReturnType<typeof setIsReviewPosting>
   | ReturnType<typeof setApiError>
+  | ReturnType<typeof setIsNewReviewSuccessShown>
+  | ReturnType<typeof setIsNewReviewShown>
 
-export {setBuyPopupShown, setPagesCount, setIsCamerasLoading, loadPromo, loadCameras, setIsReviewPosting, setApiError};
+export {
+  setBuyPopupShown,
+  setPagesCount,
+  setIsCamerasLoading,
+  loadPromo,
+  loadCameras,
+  setIsReviewPosting,
+  setApiError,
+  setIsNewReviewSuccessShown,
+  setIsNewReviewShown,
+};

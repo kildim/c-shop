@@ -24,7 +24,7 @@ function ReviewsSection({id}: {id: number}): JSX.Element {
   return (
     <>
       <ul className="review-block__list">
-        {reviews.slice(0, tailIndex).map((review) => <ReviewCard review={review} key={uniqueKey()}/>)}
+        {reviews.sort((a, b) => Date.parse(b.createAt) - Date.parse(a.createAt)).slice(0, tailIndex).map((review) => <ReviewCard review={review} key={uniqueKey()}/>)}
       </ul>
       <div className="review-block__buttons">
         <button className="btn btn--purple" type="button"

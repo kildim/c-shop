@@ -11,5 +11,16 @@ const getBuyPopupShown = (state: RootReducerType) => {
 };
 const getIsCamerasLoading = (state: RootReducerType): boolean => state[NameSpace.Cameras].isCameraLoading;
 const getApiError = (state: RootReducerType) => state[NameSpace.Cameras].apiError;
+const getIsNewReviewSuccessShown = (state: RootReducerType) => state[NameSpace.Cameras].isNewReviewSuccessShown;
+const getIsNewReviewShown = (state: RootReducerType) => state[NameSpace.Cameras].isNewReviewShown;
 
-export {getCameras, getPromo, getPagesCount, getBuyPopupShown, getIsCamerasLoading, getApiError};
+export {
+  getCameras,
+  getPromo,
+  getPagesCount,
+  getBuyPopupShown,
+  getIsCamerasLoading,
+  getApiError,
+  getIsNewReviewSuccessShown,
+  getIsNewReviewShown,
+};
