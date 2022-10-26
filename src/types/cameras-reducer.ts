@@ -7,5 +7,7 @@ export type CamerasReducer = {
   cameras: Camera [],
   pagesCount: number,
   promo: Promo,
-  buyPopupShown: number | null
+  buyPopupShown: number | null,
+  isReviewPosting: boolean
+  apiError: Response | null,
 };

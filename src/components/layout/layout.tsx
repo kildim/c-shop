@@ -3,11 +3,13 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {getIsCamerasLoading} from '../../store/reducers/cameras/selectors';
+import {getApiError, getIsCamerasLoading} from '../../store/reducers/cameras/selectors';
 import Loader from '../loader/loader';
+import ApiError from '../api-error/api-error';
 
 function Layout(): JSX.Element {
   const isCamerasLoading = useSelector(getIsCamerasLoading);
+  const isApiError = useSelector(getApiError);
 
   return (
     <>
@@ -201,6 +203,9 @@ function Layout(): JSX.Element {
             <Outlet/>
             <Footer/>
           </>
+      }
+      {
+        (isApiError !== null) && <ApiError/>
       }
     </>
   );

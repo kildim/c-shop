@@ -1,10 +1,14 @@
 import {NewReviewProps} from './new-review-props';
 import {ChangeEvent, FormEventHandler, useRef, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {ThunkAppDispatch} from '../../../../types/thunk-app-dispatch';
+import {postReview} from '../../../../services/api/api';
 
 function NewReview(props: NewReviewProps): JSX.Element {
   const {handleClosePopup} = props;
   const formRef = useRef<HTMLFormElement>(null);
   const [rate, setRate] = useState('0');
+  const dispatch = useDispatch();
 
   const checkValidation = () => {
     let isValid = true;
@@ -56,15 +60,26 @@ function NewReview(props: NewReviewProps): JSX.Element {
       fieldSetEl.classList.remove('is-invalid');
     }
     return isValid;
-  }
+  };
+
   const handleStarRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRate(e.target.value);
   };
 
   const handleSubmitClick: FormEventHandler = (e) => {
+    e.preventDefault();
     if (checkValidation()) {
-
-    } else e.preventDefault()
+      (dispatch as ThunkAppDispatch)(postReview(
+        {
+          // cameraId: 1,
+          userName: 'Дима',
+          advantage: 'Легкая в плане веса, удобная в интерфейсе',
+          disadvantage: 'Быстро садиться зарядка',
+          review: 'Это моя первая камера. Я в восторге, нареканий нет',
+          rating: 4
+        }
+      ));
+    }
   };
 
   return (
@@ -148,7 +163,9 @@ function NewReview(props: NewReviewProps): JSX.Element {
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <textarea name="user-comment" minLength={5} required placeholder="Поделитесь своим опытом покупки"></textarea>
+                <textarea name="user-comment" minLength={5} required
+                  placeholder="Поделитесь своим опытом покупки"
+                />
               </label>
               <div className="custom-textarea__error">Нужно добавить комментарий</div>
             </div>
