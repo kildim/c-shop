@@ -26,25 +26,35 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
     }
   };
   const modalRef = useRef<HTMLDivElement>(null);
+  const currentElementIndex = useRef(0)
 
   const handleTabKey = (e: KeyboardEvent) => {
     if (modalRef.current === null || modalRef.current === undefined) {throw new Error('Не могу найти элемент HTML!');}
     const focusableModalElements = modalRef.current?.querySelectorAll<HTMLElement>(
-      'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+      'button, input[type="radio"], a[href], textarea, input[type="text"], input[type="checkbox"], select'
     );
     const firstElement = focusableModalElements[0];
     const lastElement =
       focusableModalElements[focusableModalElements.length - 1];
+    const lastIndex = focusableModalElements.length - 1;
+    console.log(currentElementIndex.current);
 
-    if (!e.shiftKey && document.activeElement !== firstElement) {
-      firstElement.focus();
-      return e.preventDefault();
+    if (e.shiftKey) {
+      currentElementIndex.current = currentElementIndex.current - 1;
+    } else {
+      currentElementIndex.current = currentElementIndex.current + 1;
     }
 
-    if (e.shiftKey && document.activeElement !== lastElement) {
-      lastElement.focus();
-      e.preventDefault();
+    if (e.shiftKey && document.activeElement === firstElement) {
+      currentElementIndex.current = lastIndex;
     }
+
+    if (!e.shiftKey && document.activeElement === lastElement) {
+      currentElementIndex.current = 0;
+    }
+
+    focusableModalElements[currentElementIndex.current].focus();
+    return e.preventDefault();
   };
   const keyListenersMap = new Map([['Escape', handleClosePopup], ['Tab', handleTabKey]]);
 

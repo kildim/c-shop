@@ -88,6 +88,11 @@ function NewReview(props: NewReviewProps): JSX.Element {
   return (
     <ModalOverlay handleClosePopup={handleClosePopup}>
       <div className="modal__content">
+        <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleClosePopup}>
+          <svg width="10" height="10" aria-hidden="true">
+            <use xlinkHref="#icon-close"></use>
+          </svg>
+        </button>
         <p className="title title--h4">Оставить отзыв</p>
         <div className="form-review">
           <form method="post" noValidate onSubmit={handleSubmitClick} ref={formRef}>
@@ -178,11 +183,6 @@ function NewReview(props: NewReviewProps): JSX.Element {
             <button className="btn btn--purple form-review__btn" type="submit">Отправить отзыв</button>
           </form>
         </div>
-        <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleClosePopup}>
-          <svg width="10" height="10" aria-hidden="true">
-            <use xlinkHref="#icon-close"></use>
-          </svg>
-        </button>
       </div>
     </ModalOverlay>
   );
