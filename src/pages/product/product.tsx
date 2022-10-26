@@ -1,5 +1,5 @@
 import {Suspense, useEffect} from 'react';
-import {Await, redirect, useLoaderData, useNavigate} from 'react-router-dom';
+import {Await, useLoaderData, useNavigate} from 'react-router-dom';
 import Loader from '../../components/loader/loader';
 import SliderSection from './components/slider-section/slider-section';
 import {ProductLoaderData} from './product-loader-data';
@@ -18,14 +18,14 @@ function Product(): JSX.Element {
 
   const {product, similar, reviews, id} = useLoaderData() as ProductLoaderData;
   const isNewReviewSuccessShown = useSelector(getIsNewReviewSuccessShown);
-  const isNewReviewShown = useSelector(getIsNewReviewShown)
+  const isNewReviewShown = useSelector(getIsNewReviewShown);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const handleCloseNewReviewClick = () => {dispatch(setIsNewReviewShown(false))};
-  const handleWriteNewReviewClick = () => {dispatch(setIsNewReviewShown(true))};
+  const navigate = useNavigate();
+  const handleCloseNewReviewClick = () => {dispatch(setIsNewReviewShown(false));};
+  const handleWriteNewReviewClick = () => {dispatch(setIsNewReviewShown(true));};
   const handleCloseNewReviewSuccess = () => {
     dispatch(setIsNewReviewSuccessShown(false));
-    navigate( ``);
+    navigate('');
   };
 
   window.scrollTo(0, 0);

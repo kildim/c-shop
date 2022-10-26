@@ -28,7 +28,7 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleTabKey = (e: KeyboardEvent) => {
-    if (modalRef.current === null || modalRef.current === undefined) {throw 'Не могу найти элемент HTML!';}
+    if (modalRef.current === null || modalRef.current === undefined) {throw new Error('Не могу найти элемент HTML!');}
     const focusableModalElements = modalRef.current?.querySelectorAll<HTMLElement>(
       'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
     );

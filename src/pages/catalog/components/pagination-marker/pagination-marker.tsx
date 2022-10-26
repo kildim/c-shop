@@ -2,7 +2,7 @@ import {PaginationMarkerProps} from './pagination-marker-props';
 import {MouseEventHandler} from 'react';
 import usePage from '../../../../hooks/use-page';
 import {Link, useNavigate} from 'react-router-dom';
-import {HEADER_HEIGHT} from '../../../../constants/header_height';
+import {animateScroll as scroll} from 'react-scroll';
 
 function PaginationMarker(props: PaginationMarkerProps): JSX.Element | null {
   const {pageNumber} = props;
@@ -17,7 +17,7 @@ function PaginationMarker(props: PaginationMarkerProps): JSX.Element | null {
   const handleRefClick: MouseEventHandler = (event) => {
     event.preventDefault();
     navigate(`page_${pageNumber}`);
-    window.scrollTo(0, HEADER_HEIGHT);
+    scroll.scrollToTop();
   };
 
   return (

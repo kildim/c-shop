@@ -34,7 +34,7 @@ const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActio
     })
     .catch((error) => {
       dispatch(setIsCamerasLoading(false));
-      dispatch(setApiError(error));
+      dispatch(setApiError(error as Response));
     });
 };
 const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknown, RootReducerActions> => (dispatch, _getState) => {
@@ -57,7 +57,7 @@ const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknow
     .catch((error) => {
       dispatch(setIsReviewPosting(false));
       dispatch(setIsNewReviewShown(false));
-      dispatch(setApiError(error));
+      dispatch(setApiError(error as Response));
     });
 
 };

@@ -1,4 +1,5 @@
-import {Link, useAsyncValue} from 'react-router-dom';
+import {useAsyncValue} from 'react-router-dom';
+import {Link as ScrollLink} from 'react-scroll';
 import {Review} from '../../../../types/review';
 import ReviewCard from './components/review-card/review-card';
 import genId from '../../../../helpers/gen-id';
@@ -12,11 +13,10 @@ function ReviewsSection({id}: {id: number}): JSX.Element {
 
   useEffect(() => {
     setTailIndex(Math.min(REVIEW_CHUNK, reviews.length));
-  }, [id]);
+  }, [id, reviews.length]);
 
   const handleShowMoreClick = () => {
-    let delta = tailIndex + REVIEW_CHUNK;
-    setTailIndex( (Math.min(delta, reviews.length)) );
+    setTailIndex( (Math.min(tailIndex + REVIEW_CHUNK, reviews.length)) );
   };
 
   const uniqueKey = genId();
@@ -33,11 +33,11 @@ function ReviewsSection({id}: {id: number}): JSX.Element {
         >
           Показать больше отзывов
         </button>
-        <Link className="up-btn" to="#header">
+        <ScrollLink className="up-btn" to='header' smooth duration={500}>
           <svg width="12" height="18" aria-hidden="true">
             <use xlinkHref="#icon-arrow2"></use>
           </svg>
-        </Link>
+        </ScrollLink>
       </div>
     </>
   );

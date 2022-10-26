@@ -2,7 +2,7 @@ import ModalOverlay from '../../../../hocs/modal-overlay';
 import {NewReviewSuccessProps} from './new-review-success-props';
 
 function NewReviewSuccess(props: NewReviewSuccessProps): JSX.Element {
-  const {handleClosePopup} = props
+  const {handleClosePopup} = props;
   return (
     <ModalOverlay handleClosePopup={handleClosePopup}>
       <div className="modal__content">

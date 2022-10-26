@@ -48,6 +48,6 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
       state.isNewReviewSuccessShown = action.payload;
     })
     .addCase(setIsNewReviewShown, (state, action) => {
-        state.isNewReviewShown = action.payload;
+      state.isNewReviewShown = action.payload;
     });
 });

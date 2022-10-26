@@ -7,7 +7,7 @@ import {Camera} from '../../../../types/camera';
 function CameraInfo(): JSX.Element {
   const product = useAsyncValue() as Camera;
 
-  return  (
+  return (
     <>
       <div className="breadcrumbs">
         <div className="container">

@@ -4,7 +4,6 @@ import {useDispatch} from 'react-redux';
 import {ThunkAppDispatch} from '../../../../types/thunk-app-dispatch';
 import {postReview} from '../../../../services/api/api';
 import ModalOverlay from '../../../../hocs/modal-overlay';
-import {Review} from '../../../../types/review';
 
 function NewReview(props: NewReviewProps): JSX.Element {
   const {handleClosePopup, id} = props;
@@ -19,11 +18,11 @@ function NewReview(props: NewReviewProps): JSX.Element {
     const textareaDivWrapper = formRef.current?.querySelector('.custom-textarea');
 
     if (textareaDivWrapper === null || textareaDivWrapper === undefined) {
-      throw 'Не могу найти элемент HTML!';
+      throw new Error('Не могу найти элемент HTML!');
     }
     const textAreaEl = textareaDivWrapper.querySelector('textarea');
     if (textAreaEl === null || textAreaEl === undefined) {
-      throw 'Не могу найти элемент HTML!';
+      throw new Error('Не могу найти элемент HTML!');
     }
 
     if (textAreaEl.validity.valid) {
@@ -34,13 +33,13 @@ function NewReview(props: NewReviewProps): JSX.Element {
     }
 
     if (inputDivWrappers === null || inputDivWrappers === undefined) {
-      throw 'Не могу найти элемент HTML!';
+      throw new Error('Не могу найти элемент HTML!');
     }
 
     inputDivWrappers.forEach((divEl) => {
       const inputEl = divEl.querySelector('input');
       if (inputEl === null || inputEl === undefined) {
-        throw 'Не могу найти элемент HTML!';
+        throw new Error('Не могу найти элемент HTML!');
       }
 
       if (inputEl.validity.valid) {
@@ -52,7 +51,7 @@ function NewReview(props: NewReviewProps): JSX.Element {
     });
 
     if (fieldSetEl === null || fieldSetEl === undefined) {
-      throw 'Не могу найти элемент HTML!';
+      throw new Error('Не могу найти элемент HTML!');
     }
 
     if (rate === '0') {
@@ -70,9 +69,8 @@ function NewReview(props: NewReviewProps): JSX.Element {
 
   const handleSubmitClick: FormEventHandler = (e) => {
     e.preventDefault();
-    const formDataObj = Object.fromEntries(new FormData(formRef.current as HTMLFormElement).entries()) ;
+    const formDataObj = Object.fromEntries(new FormData(formRef.current as HTMLFormElement).entries());
 
-    console.log(formDataObj);
     if (checkValidation()) {
       (dispatch as ThunkAppDispatch)(postReview(
         {
@@ -124,51 +122,52 @@ function NewReview(props: NewReviewProps): JSX.Element {
                     <label className="rate__label" htmlFor="star-1" title="Ужасно"/>
                   </div>
                   <div className="rate__progress">
-                    <span className="rate__stars">{rate}</span> <span>/</span> <span className="rate__all-stars">5</span>
+                    <span className="rate__stars">{rate}</span> <span>/</span>
+                    <span className="rate__all-stars">5</span>
                   </div>
                 </div>
                 <p className="rate__message">Нужно оценить товар</p>
               </fieldset>
               <div className="custom-input form-review__item">
                 <label>
-                <span className="custom-input__label">Ваше имя
-                  <svg width="9" height="9" aria-hidden="true">
-                    <use xlinkHref="#icon-snowflake"></use>
-                  </svg>
-                </span>
+                  <span className="custom-input__label">Ваше имя
+                    <svg width="9" height="9" aria-hidden="true">
+                      <use xlinkHref="#icon-snowflake"></use>
+                    </svg>
+                  </span>
                   <input type="text" name="user-name" placeholder="Введите ваше имя" required/>
                 </label>
                 <p className="custom-input__error">Нужно указать имя</p>
               </div>
               <div className="custom-input form-review__item">
                 <label>
-                <span className="custom-input__label">Достоинства
-                  <svg width="9" height="9" aria-hidden="true">
-                    <use xlinkHref="#icon-snowflake"></use>
-                  </svg>
-                </span>
+                  <span className="custom-input__label">Достоинства
+                    <svg width="9" height="9" aria-hidden="true">
+                      <use xlinkHref="#icon-snowflake"></use>
+                    </svg>
+                  </span>
                   <input type="text" name="user-plus" placeholder="Основные преимущества товара" required/>
                 </label>
                 <p className="custom-input__error">Нужно указать достоинства</p>
               </div>
               <div className="custom-input form-review__item">
                 <label>
-                <span className="custom-input__label">Недостатки
-                  <svg width="9" height="9" aria-hidden="true">
-                    <use xlinkHref="#icon-snowflake"></use>
-                  </svg>
-                </span>
+                  <span className="custom-input__label">Недостатки
+                    <svg width="9" height="9" aria-hidden="true">
+                      <use xlinkHref="#icon-snowflake"></use>
+                    </svg>
+                  </span>
                   <input type="text" name="user-minus" placeholder="Главные недостатки товара" required/>
                 </label>
                 <p className="custom-input__error">Нужно указать недостатки</p>
               </div>
               <div className="custom-textarea form-review__item">
                 <label>
-                <span className="custom-textarea__label">Комментарий
-                  <svg width="9" height="9" aria-hidden="true">
-                    <use xlinkHref="#icon-snowflake"></use>
-                  </svg>
-                </span>
+                  <span className="custom-textarea__label">Комментарий
+                    <svg width="9" height="9" aria-hidden="true">
+                      <use xlinkHref="#icon-snowflake"></use>
+                    </svg>
+                  </span>
                   <textarea name="user-comment" minLength={5} required
                     placeholder="Поделитесь своим опытом покупки"
                   />

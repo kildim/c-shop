@@ -4,7 +4,7 @@ import PaginationMarker from '../pagination-marker/pagination-marker';
 import {MouseEventHandler} from 'react';
 import usePage from '../../../../hooks/use-page';
 import {Link, useNavigate} from 'react-router-dom';
-import {HEADER_HEIGHT} from '../../../../constants/header_height';
+import {animateScroll as scroll} from 'react-scroll';
 
 function Pagination(): JSX.Element | null {
   const activePage = usePage();
@@ -20,12 +20,12 @@ function Pagination(): JSX.Element | null {
   const handleBackwardClick: MouseEventHandler = (event) => {
     event.preventDefault();
     navigate(`page_${activePage - 1}#header`);
-    window.scrollTo(0, HEADER_HEIGHT);
+    scroll.scrollToTop();
   };
   const handleForwardClick: MouseEventHandler = (event) => {
     event.preventDefault();
     navigate(`page_${activePage + 1}#header`);
-    window.scrollTo(0, HEADER_HEIGHT);
+    scroll.scrollToTop();
   };
 
   return (
