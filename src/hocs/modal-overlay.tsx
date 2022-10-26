@@ -26,7 +26,7 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
     }
   };
   const modalRef = useRef<HTMLDivElement>(null);
-  const currentElementIndex = useRef(0)
+  const currentElementIndex = useRef(0);
 
   const handleTabKey = (e: KeyboardEvent) => {
     if (modalRef.current === null || modalRef.current === undefined) {throw new Error('Не могу найти элемент HTML!');}
@@ -37,7 +37,8 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
     const lastElement =
       focusableModalElements[focusableModalElements.length - 1];
     const lastIndex = focusableModalElements.length - 1;
-    console.log(currentElementIndex.current);
+
+    currentElementIndex.current = Array.prototype.findIndex.call(focusableModalElements, (element) => element === document.activeElement);
 
     if (e.shiftKey) {
       currentElementIndex.current = currentElementIndex.current - 1;
