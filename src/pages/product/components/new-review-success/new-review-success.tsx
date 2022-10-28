@@ -1,4 +1,4 @@
-import ModalOverlay from '../../../../hocs/modal-overlay';
+import ModalOverlay from '../../../../components/modal-overlay/modal-overlay';
 import {NewReviewSuccessProps} from './new-review-success-props';
 
 function NewReviewSuccess(props: NewReviewSuccessProps): JSX.Element {

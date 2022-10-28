@@ -1,5 +1,5 @@
 import {useNavigate, useRouteError} from 'react-router-dom';
-import ModalOverlay from '../../hocs/modal-overlay';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 import React from 'react';
 
 function PageError(): JSX.Element {

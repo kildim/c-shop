@@ -3,7 +3,7 @@ import {ChangeEvent, FormEventHandler, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {ThunkAppDispatch} from '../../../../types/thunk-app-dispatch';
 import {postReview} from '../../../../services/api/api';
-import ModalOverlay from '../../../../hocs/modal-overlay';
+import ModalOverlay from '../../../../components/modal-overlay/modal-overlay';
 
 function NewReview(props: NewReviewProps): JSX.Element {
   const {handleClosePopup, id} = props;

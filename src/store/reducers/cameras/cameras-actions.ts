@@ -27,7 +27,7 @@ const setPagesCount = createAction(
 );
 
 const setBuyPopupShown = createAction(
-  'cameras/setDetailedShown', (id: number | null) => ({
+  'cameras/setIsBuyPopupShown', (id: number | null) => ({
     payload: id
   })
 );

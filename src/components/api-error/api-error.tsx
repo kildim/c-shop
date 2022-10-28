@@ -1,4 +1,4 @@
-import ModalOverlay from '../../hocs/modal-overlay';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getApiError} from '../../store/reducers/cameras/selectors';
