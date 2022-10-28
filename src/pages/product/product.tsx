@@ -28,8 +28,6 @@ function Product(): JSX.Element {
     navigate('');
   };
 
-  window.scrollTo(0, 0);
-
   return (
     <main>
       <div className="page-content">
