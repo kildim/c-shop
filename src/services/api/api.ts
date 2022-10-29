@@ -59,7 +59,6 @@ const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknow
       dispatch(setIsNewReviewShown(false));
       dispatch(setApiError(error as Response));
     });
-
 };
 
 const fetchProduct = (id: string) => fetch(`${CAMERAS_URL}/${id}`).then(checkResponse);
