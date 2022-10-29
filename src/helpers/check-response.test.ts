@@ -14,6 +14,6 @@ describe('CheckResponse:', () => {
       ok: false,
       statusText: 'ERROR 13'
     };
-    await expect(checkResponse(res as Response)).rejects.toMatch('ERROR 13');
+    await expect(checkResponse(res as Response)).rejects.toMatchObject(res);
   })
 })

@@ -22,11 +22,12 @@ describe('API async functions tests: ', () => {
 
     it('should', async () => {
       const id = '13';
-      const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+      const mockRes = {
         ok: false,
         statusText: 'ERROR 13'
-      } as unknown as Response)) as jest.Mock;
-      await expect(fetchProduct(id)).rejects.toMatch('ERROR 13');
+      }
+      const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve(mockRes as unknown as Response)) as jest.Mock;
+      await expect(fetchProduct(id)).rejects.toMatchObject(mockRes);
       expect(fetchMock).toHaveBeenCalledWith(`${CAMERAS_URL}/${id}`);
     })
   });
@@ -50,11 +51,12 @@ describe('API async functions tests: ', () => {
 
     it('should', async () => {
       const id = '13';
-      const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+      const mockRes = {
         ok: false,
         statusText: 'ERROR 13'
-      } as unknown as Response)) as jest.Mock;
-      await expect(fetchSimilar(id)).rejects.toMatch('ERROR 13');
+      }
+      const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve(mockRes as unknown as Response)) as jest.Mock;
+      await expect(fetchSimilar(id)).rejects.toMatchObject(mockRes);
       expect(fetchMock).toHaveBeenCalledWith(`${CAMERAS_URL}/${id}/similar`);
     })
   });
@@ -78,11 +80,12 @@ describe('API async functions tests: ', () => {
 
     it('should', async () => {
       const id = '13';
-      const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
+      const mockRes = {
         ok: false,
         statusText: 'ERROR 13'
-      } as unknown as Response)) as jest.Mock;
-      await expect(fetchReviews(id)).rejects.toMatch('ERROR 13');
+      }
+      const fetchMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve(mockRes as unknown as Response)) as jest.Mock;
+      await expect(fetchReviews(id)).rejects.toMatchObject(mockRes);
       expect(fetchMock).toHaveBeenCalledWith(`${CAMERAS_URL}/${id}/reviews`);
     })
   });
