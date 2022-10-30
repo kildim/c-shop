@@ -18,15 +18,14 @@ import {calculatePages} from '../../helpers/calculate-pages';
 import {Promo} from '../../types/promo';
 import {Camera} from '../../types/camera';
 import {ReviewPostData} from '../../types/review-post-data';
+import axios from 'axios';
 
 const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActions> => (dispatch, _getState) => {
   dispatch(setIsCamerasLoading(true));
-  Promise.all([CAMERAS_URL, PROMO_URL].map((url) => fetch(url)))
-    .then((responses: Response[]) =>
-      Promise.all<Camera[] | Promo>(responses.map((response: Response) => checkResponse(response))))
+  axios.all([CAMERAS_URL, PROMO_URL].map((url) => axios.get(url, {validateStatus: (status) => status < 300})))
     .then((parsedResponses) => {
-      const cameras = parsedResponses[0] as Camera [];
-      const promo = parsedResponses[1] as Promo;
+      const cameras = parsedResponses[0].data as Camera [];
+      const promo = parsedResponses[1].data as Promo;
       dispatch(loadCameras(cameras));
       dispatch(setPagesCount(calculatePages(cameras.length)));
       dispatch(loadPromo(promo));
@@ -39,17 +38,9 @@ const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActio
 };
 const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknown, RootReducerActions> => (dispatch, _getState) => {
   dispatch(setIsReviewPosting(true));
-  const options = {
-    method: 'POST',
-    body: JSON.stringify(review),
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-    }
-  };
 
-  fetch(POST_REVIEW_URL, options)
-    .then(checkResponse)
-    .then((res) => {
+  axios.post(POST_REVIEW_URL, review)
+    .then(() => {
       dispatch(setIsReviewPosting(false));
       dispatch(setIsNewReviewShown(false));
       dispatch(setIsNewReviewSuccessShown(true));
