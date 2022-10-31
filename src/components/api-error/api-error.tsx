@@ -30,8 +30,7 @@ function ApiError(): JSX.Element | null {
           </svg>
         </div>
         <p className="title title--h4">API ERROR</p>
-        <p className="title title--h4">{error.status}</p>
-        <p className="title title--h4">{error.statusText}</p>
+        <p className="title title--h4">{error}</p>
         <svg className="modal__icon" width="86" height="80" aria-hidden="true">
           <use xlinkHref="#icon-fail"></use>
         </svg>

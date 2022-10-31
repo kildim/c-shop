@@ -39,7 +39,7 @@ const setIsReviewPosting = createAction(
 );
 
 const setApiError = createAction(
-  'cameras/setApiError', (apiError: Response | null) => ({
+  'cameras/setApiError', (apiError: string | null ) => ({
     payload: apiError
   })
 );

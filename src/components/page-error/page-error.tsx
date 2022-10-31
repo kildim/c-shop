@@ -3,13 +3,15 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import React from 'react';
 
 function PageError(): JSX.Element {
-  const error = useRouteError() as { statusText: string; message: string };
+  // const error = useRouteError() as { statusText: string; message: string };
+  const error = useRouteError() as string;
+
   const navigate = useNavigate();
 
   const handleBackwardClick = () => navigate(-1);
 
   return (
-    <ModalOverlay>
+    <ModalOverlay handleClosePopup={handleBackwardClick}>
       <div className="modal__content">
         <div className="visually-hidden">
           <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -19,15 +21,26 @@ function PageError(): JSX.Element {
                 fill="#ED6041"
               />
             </symbol>
+            <symbol id="icon-close" viewBox="0 0 10 10">
+              <path fillRule="evenodd" clipRule="evenodd"
+                d="M1.70711 0.292893C1.31658 -0.0976311 0.683418 -0.0976311 0.292893 0.292893C-0.0976311 0.683418 -0.0976311 1.31658 0.292893 1.70711L3.58579 5L0.292893 8.29289C-0.0976311 8.68342 -0.0976311 9.31658 0.292893 9.70711C0.683418 10.0976 1.31658 10.0976 1.70711 9.70711L5 6.41421L8.29289 9.70711C8.68342 10.0976 9.31658 10.0976 9.70711 9.70711C10.0976 9.31658 10.0976 8.68342 9.70711 8.29289L6.41421 5L9.70711 1.70711C10.0976 1.31658 10.0976 0.683418 9.70711 0.292893C9.31658 -0.0976311 8.68342 -0.0976311 8.29289 0.292893L5 3.58579L1.70711 0.292893Z"
+                fill="currentColor"
+              />
+            </symbol>
           </svg>
         </div>
-        <p className="title title--h4">{error.statusText || error.message}</p>
+        <p className="title title--h4">{error}</p>
         <svg className="modal__icon" width="86" height="80" aria-hidden="true">
           <use xlinkHref="#icon-fail"></use>
         </svg>
         <div className="modal__buttons">
           <button className="btn btn--purple modal__btn modal__btn--fit-width" onClick={handleBackwardClick}>Вернуться обратно</button>
         </div>
+        <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleBackwardClick}>
+          <svg width="10" height="10" aria-hidden="true">
+            <use xlinkHref="#icon-close"></use>
+          </svg>
+        </button>
       </div>
     </ModalOverlay>
   );

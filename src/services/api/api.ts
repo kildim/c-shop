@@ -1,6 +1,5 @@
 import {ThunkAction} from '@reduxjs/toolkit';
 import {RootState} from '../../index';
-import {checkResponse} from '../../helpers/check-response';
 import {RootReducerActions} from '../../store/reducers/root-reducer';
 import {
   loadCameras,
@@ -18,7 +17,8 @@ import {calculatePages} from '../../helpers/calculate-pages';
 import {Promo} from '../../types/promo';
 import {Camera} from '../../types/camera';
 import {ReviewPostData} from '../../types/review-post-data';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
+import {Review} from '../../types/review';
 
 const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActions> => (dispatch, _getState) => {
   dispatch(setIsCamerasLoading(true));
@@ -32,28 +32,47 @@ const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActio
       dispatch(setIsCamerasLoading(false));
     })
     .catch((error) => {
+      const {message} = error as AxiosError;
       dispatch(setIsCamerasLoading(false));
-      dispatch(setApiError(error as Response));
+      dispatch(setApiError(message));
     });
 };
-const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknown, RootReducerActions> => (dispatch, _getState) => {
+// const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknown, RootReducerActions> => (dispatch, _getState) => {
+//   dispatch(setIsReviewPosting(true));
+
+//   axios.post(POST_REVIEW_URL, review)
+//     .then(() => {
+//       dispatch(setIsReviewPosting(false));
+//       dispatch(setIsNewReviewShown(false));
+//       dispatch(setIsNewReviewSuccessShown(true));
+//     })
+//     .catch((error) => {
+//       const {message} = error as AxiosError
+//       dispatch(setIsReviewPosting(false));
+//       dispatch(setIsNewReviewShown(false));
+//       dispatch(setApiError(message));
+//     });
+// };
+
+const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
   dispatch(setIsReviewPosting(true));
 
-  axios.post(POST_REVIEW_URL, review)
-    .then(() => {
-      dispatch(setIsReviewPosting(false));
-      dispatch(setIsNewReviewShown(false));
-      dispatch(setIsNewReviewSuccessShown(true));
-    })
-    .catch((error) => {
-      dispatch(setIsReviewPosting(false));
-      dispatch(setIsNewReviewShown(false));
-      dispatch(setApiError(error as Response));
-    });
+  try {
+    await axios.post(POST_REVIEW_URL, review);
+
+    dispatch(setIsReviewPosting(false));
+    dispatch(setIsNewReviewShown(false));
+    dispatch(setIsNewReviewSuccessShown(true));
+  } catch (error) {
+    const {message} = error as AxiosError;
+    dispatch(setIsReviewPosting(false));
+    dispatch(setIsNewReviewShown(false));
+    dispatch(setApiError(message));
+  }
 };
 
-const fetchProduct = (id: string) => fetch(`${CAMERAS_URL}/${id}`).then(checkResponse);
-const fetchSimilar = (id: string) => fetch(`${CAMERAS_URL}/${id}/similar`).then(checkResponse);
-const fetchReviews = (id: string) => fetch(`${CAMERAS_URL}/${id}/reviews`).then(checkResponse);
+const fetchProduct = (id: string) => axios(`${CAMERAS_URL}/${id}`).then((response) => response.data as Camera).catch((error: AxiosError) => error.message);
+const fetchSimilar = (id: string) => axios(`${CAMERAS_URL}/${id}/similar`).then((response) => response.data as Camera[]).catch((error: AxiosError) => error.message);
+const fetchReviews = (id: string) => axios(`${CAMERAS_URL}/${id}/reviews`).then((response) => response.data as Review[]).catch((error: AxiosError) => error.message);
 
 export {fetchInitData, fetchProduct, fetchSimilar, fetchReviews, postReview};

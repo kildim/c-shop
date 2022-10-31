@@ -87,7 +87,7 @@ describe('CamerasReducer: ', () => {
   describe('setApiError case: ', () => {
     it('Should set buyPopupShown true if setApiError receive Number', () => {
       const state = {apiError: null} as CamerasReducer;
-      const fakeError = {message: 'It is a Fake Error'} as unknown as Response;
+      const fakeError = 'It is a Fake Error';
       expect(camerasReducer(state, setApiError(fakeError))).toEqual({apiError: fakeError});
     });
   });

@@ -1,6 +1,5 @@
 import {MouseEventHandler, useEffect, useRef} from 'react';
 import {ModalOverlayProps} from './modal-overlay-types';
-import ReactDOM from 'react-dom';
 
 function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
   const {handleClosePopup = null, children} = props;
@@ -59,18 +58,13 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
   };
   const keyListenersMap = new Map([['Escape', handleClosePopup], ['Tab', handleTabKey]]);
 
-  const MODAL_PORTAL = document.getElementById('modals');
-  if (MODAL_PORTAL === null) {
-    return null;
-  }
-
-  return ReactDOM.createPortal(
+  return (
     <div className="modal is-active" ref={modalRef}>
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={handleModalOnClick}></div>
         {children}
       </div>
-    </div>, MODAL_PORTAL
+    </div>
   );
 }
 
