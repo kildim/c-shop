@@ -1,160 +1,241 @@
-import {CAMERAS_URL, POST_REVIEW_URL} from '../../constants/url';
-import {fetchProduct, fetchReviews, fetchSimilar, postReview} from './api';
+import {CAMERAS_URL, POST_REVIEW_URL, PROMO_URL} from '../../constants/url';
+import {fetchInitData, fetchProduct, fetchReviews, fetchSimilar, postReview} from './api';
 import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {ReviewPostData} from '../../types/review-post-data';
 import mockStore from '../../helpers/mock-store';
+import {setIsCamerasLoading, setPagesCount} from '../../store/reducers/cameras/cameras-actions';
+import * as faker from 'faker';
+import {calculatePages} from '../../helpers/calculate-pages';
 
 describe('API async functions tests: ', () => {
+  const mockAPI = new MockAdapter(axios);
+
+  beforeEach(() => mockAPI.reset());
+
   describe('fetchProduct: ', () => {
 
-    // it('should fetch product using proper url', async () => {
-    //   const mockData = {
-    //     name: 'MOCK NAME',
-    //   };
-    //   const id = '13';
-    //   const responseMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
-    //     ok: true,
-    //     json: () => mockData
-    //   } as unknown as Response)) as jest.Mock
-    //
-    //   const response = await fetchProduct(id);
-    //
-    //   expect(response).toEqual(mockData);
-    //   expect(responseMock).toHaveBeenCalledWith(`${CAMERAS_URL}/${id}`);
-    // });
-
-    it('should', async () => {
+    it('should fetch product using proper url', async () => {
+      const mockData = {
+        name: 'MOCK NAME',
+      };
       const id = '13';
-      const mockRes = {
-        ok: false,
-        statusText: 'ERROR 13'
-      }
-      // const responseMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.reject(mockRes as unknown as Response)) as jest.Mock;
-      // const res = await fetchProduct(id);
-      // console.log(res);
-      await expect(fetchProduct(id)).rejects.toMatchObject(mockRes.statusText);
-      // expect(responseMock).toHaveBeenCalledWith(`${CAMERAS_URL}/${id}`);
+      mockAPI.onGet(`${CAMERAS_URL}/${id}`).reply(200, mockData)
+
+      const response = await fetchProduct(id);
+
+      expect(response).toEqual(mockData);
+      expect(mockAPI.history.get[0].url).toBe(`${CAMERAS_URL}/${id}`);
+    });
+
+    it('should catch errors', async () => {
+      const id = '13';
+      mockAPI.onGet(`${CAMERAS_URL}/${id}`).reply(400)
+      await expect(fetchProduct(id)).rejects.toBe('Request failed with status code 400');
     })
   });
-  // describe('fetchSimilar: ', () => {
-  //
-  //   it('should fetch product using proper url', async () => {
-  //     const mockData = {
-  //       name: 'MOCK NAME',
-  //     };
-  //     const id = '13';
-  //     const responseMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
-  //       ok: true,
-  //       json: () => mockData
-  //     } as unknown as Response)) as jest.Mock
-  //
-  //     const response = await fetchSimilar(id);
-  //
-  //     expect(response).toEqual(mockData);
-  //     expect(responseMock).toHaveBeenCalledWith(`${CAMERAS_URL}/${id}/similar`);
-  //   });
-  //
-  //   it('should', async () => {
-  //     const id = '13';
-  //     const mockRes = {
-  //       ok: false,
-  //       statusText: 'ERROR 13'
-  //     }
-  //     const responseMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve(mockRes as unknown as Response)) as jest.Mock;
-  //     await expect(fetchSimilar(id)).rejects.toMatchObject(mockRes);
-  //     expect(responseMock).toHaveBeenCalledWith(`${CAMERAS_URL}/${id}/similar`);
-  //   })
-  // });
-  // describe('fetchReviews: ', () => {
-  //
-  //   it('should fetch product using proper url', async () => {
-  //     const mockData = {
-  //       name: 'MOCK NAME',
-  //     };
-  //     const id = '13';
-  //     const responseMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve({
-  //       ok: true,
-  //       json: () => mockData
-  //     } as unknown as Response)) as jest.Mock
-  //
-  //     const response = await fetchReviews(id);
-  //
-  //     expect(response).toEqual(mockData);
-  //     expect(responseMock).toHaveBeenCalledWith(`${CAMERAS_URL}/${id}/reviews`);
-  //   });
-  //
-  //   it('should return rejected promise if response status is not OK ', async () => {
-  //     const id = '13';
-  //     const mockRes = {
-  //       ok: false,
-  //       statusText: 'ERROR 13'
-  //     }
-  //     const responseMock = jest.spyOn(global, 'fetch').mockImplementation(() => Promise.resolve(mockRes as unknown as Response)) as jest.Mock;
-  //     await expect(fetchReviews(id)).rejects.toMatchObject(mockRes);
-  //     expect(responseMock).toHaveBeenCalledWith(`${CAMERAS_URL}/${id}/reviews`);
-  //   })
-  // });
 
-  // describe('postReview: ', () => {
-  //   const mockAPI = new MockAdapter(axios);
-  //
-  //   const mockReview = {
-  //     id: 1,
-  //   };
-  //
-  //   it('should store error if fail', async () => {
-  //     const store = mockStore({
-  //       CAMERAS: {
-  //         isReviewPosting: false,
-  //         isNewReviewShown: false,
-  //         isNewReviewSuccessShown: false,
-  //         apiError: null
-  //       }
-  //     });
-  //
-  //     mockAPI.reset();
-  //     mockAPI.onPost(POST_REVIEW_URL, mockReview).reply(() => {
-  //       return [400, 'ERROR']
-  //     });
-  //
-  //     await store.dispatch(async dispatch => {
-  //       await dispatch(postReview(mockReview as unknown as ReviewPostData))
-  //     });
-  //
-  //     expect(store.getActions()).toEqual([
-  //         {type: 'cameras/setIsReviewPosting', payload: true},
-  //         {type: 'cameras/setIsReviewPosting', payload: false},
-  //         {type: 'cameras/setIsNewReviewShown', payload: false},
-  //         {type: 'cameras/setApiError', payload: 'Request failed with status code 400'}
-  //       ]
-  //     );
-  //   })
-  //
-  //
-  //   it('should post Review', async () => {
-  //     const store = mockStore({
-  //       CAMERAS: {
-  //         isReviewPosting: false,
-  //         isNewReviewShown: false,
-  //         isNewReviewSuccessShown: false,
-  //       }
-  //     });
-  //
-  //     mockAPI.reset();
-  //     mockAPI.onPost(POST_REVIEW_URL).reply(200, [mockReview]);
-  //
-  //     await store.dispatch(async dispatch => {
-  //       await dispatch(postReview(mockReview as unknown as ReviewPostData))
-  //     });
-  //
-  //     expect(store.getActions()).toEqual([
-  //         {type: 'cameras/setIsReviewPosting', payload: true},
-  //         {type: 'cameras/setIsReviewPosting', payload: false},
-  //         {type: 'cameras/setIsNewReviewShown', payload: false},
-  //         {type: 'cameras/setIsNewReviewSuccessShown', payload: true}
-  //       ]
-  //     );
-  //   });
-  // })
+  describe('fetchSimilar: ', () => {
+
+    it('should fetch product similar using proper url', async () => {
+      const mockData = {
+        name: 'MOCK NAME',
+      };
+      const id = '13';
+      mockAPI.onGet(`${CAMERAS_URL}/${id}/similar`).reply(200, mockData)
+
+      const response = await fetchSimilar(id);
+
+      expect(response).toEqual(mockData);
+      expect(mockAPI.history.get[0].url).toBe(`${CAMERAS_URL}/${id}/similar`);
+    });
+
+    it('should catch errors', async () => {
+      const id = '13';
+      mockAPI.onGet(`${CAMERAS_URL}/${id}/similar`).reply(400)
+      await expect(fetchSimilar(id)).rejects.toBe('Request failed with status code 400');
+    })
+  });
+  describe('fetchReviews: ', () => {
+
+    it('should fetch product reviews using proper url', async () => {
+      const mockData = {
+        name: 'MOCK NAME',
+      };
+      const id = '13';
+      mockAPI.onGet(`${CAMERAS_URL}/${id}/reviews`).reply(200, mockData)
+
+      const response = await fetchReviews(id);
+
+      expect(response).toEqual(mockData);
+      expect(mockAPI.history.get[0].url).toBe(`${CAMERAS_URL}/${id}/reviews`);
+    });
+
+    it('should catch errors', async () => {
+      const id = '13';
+      mockAPI.onGet(`${CAMERAS_URL}/${id}/reviews`).reply(400)
+      await expect(fetchReviews(id)).rejects.toBe('Request failed with status code 400');
+    })
+  });
+
+  describe('postReview: ', () => {
+    const mockReview = {
+      id: 1,
+    };
+
+    it('should store error if fail', async () => {
+      const store = mockStore({
+        CAMERAS: {
+          isReviewPosting: false,
+          isNewReviewShown: false,
+          isNewReviewSuccessShown: false,
+          apiError: null
+        }
+      });
+
+      mockAPI.onPost(POST_REVIEW_URL, mockReview).reply(() => {
+        return [400, 'ERROR']
+      });
+
+      await store.dispatch(async dispatch => {
+        await dispatch(postReview(mockReview as unknown as ReviewPostData))
+      });
+
+      expect(store.getActions()).toEqual([
+          {type: 'cameras/setIsReviewPosting', payload: true},
+          {type: 'cameras/setIsReviewPosting', payload: false},
+          {type: 'cameras/setIsNewReviewShown', payload: false},
+          {type: 'cameras/setApiError', payload: 'Request failed with status code 400'}
+        ]
+      );
+    })
+
+
+    it('should post Review', async () => {
+      const store = mockStore({
+        CAMERAS: {
+          isReviewPosting: false,
+          isNewReviewShown: false,
+          isNewReviewSuccessShown: false,
+        }
+      });
+
+      mockAPI.onPost(POST_REVIEW_URL).reply(200, [mockReview]);
+
+      await store.dispatch(async dispatch => {
+        await dispatch(postReview(mockReview as unknown as ReviewPostData))
+      });
+
+      expect(store.getActions()).toEqual([
+          {type: 'cameras/setIsReviewPosting', payload: true},
+          {type: 'cameras/setIsReviewPosting', payload: false},
+          {type: 'cameras/setIsNewReviewShown', payload: false},
+          {type: 'cameras/setIsNewReviewSuccessShown', payload: true}
+        ]
+      );
+    });
+  });
+
+  describe('fetchInitData: ', () => {
+    it('should fetch Cameras and Promo.', async () => {
+      const store = mockStore({
+        CAMERAS: {
+          isReviewPosting: false,
+          isNewReviewShown: false,
+          isNewReviewSuccessShown: false,
+          isCameraLoading: false,
+          cameras: [],
+          promo: null,
+          pagesCount: 0,
+          apiError: null
+        }
+      });
+
+      const mockCameras = Array(10).fill(null).map((_el, index) => ({id: index}));
+      const mockPromo = {id: 13};
+      const mockPagesCount = calculatePages(mockCameras.length);
+
+      mockAPI.onGet(`${CAMERAS_URL}`).reply(200, mockCameras).onGet(`${PROMO_URL}`).reply(200, mockPromo);
+      await store.dispatch (async dispatch => {
+        await dispatch(fetchInitData())}
+      )
+      expect(store.getActions()).toEqual(
+        [
+          { type: 'cameras/setIsCamerasLoading', payload: true },
+          {
+            type: 'cameras/loadCameras',
+            payload: mockCameras
+          },
+          { type: 'cameras/setPagesCount', payload: mockPagesCount},
+          { type: 'cameras/loadPromo', payload: mockPromo },
+          { type: 'cameras/setIsCamerasLoading', payload: false }
+        ]
+      );
+    });
+    it('should store error if fail promo request', async () => {
+      const store = mockStore({
+        CAMERAS: {
+          isReviewPosting: false,
+          isNewReviewShown: false,
+          isNewReviewSuccessShown: false,
+          isCameraLoading: false,
+          cameras: [],
+          promo: null,
+          pagesCount: 0,
+          apiError: null
+        }
+      });
+      const mockCameras = Array(10).fill(null).map((_el, index) => ({id: index}));
+      const mockPromo = {id: 13};
+
+      mockAPI.onGet(`${CAMERAS_URL}`).reply(200, mockCameras).onGet(`${PROMO_URL}`).reply(400, mockPromo);
+      await store.dispatch (async dispatch => {
+        await dispatch(fetchInitData())}
+      )
+
+      expect(store.getActions()).toEqual(
+        [
+          { type: 'cameras/setIsCamerasLoading', payload: true },
+          { type: 'cameras/setIsCamerasLoading', payload: false },
+          {
+            type: 'cameras/setApiError',
+            payload: 'Request failed with status code 400'
+          }
+        ]
+      )
+    });
+    it('should store error if fail cameras request', async () => {
+      const store = mockStore({
+        CAMERAS: {
+          isReviewPosting: false,
+          isNewReviewShown: false,
+          isNewReviewSuccessShown: false,
+          isCameraLoading: false,
+          cameras: [],
+          promo: null,
+          pagesCount: 0,
+          apiError: null
+        }
+      });
+      const mockCameras = Array(10).fill(null).map((_el, index) => ({id: index}));
+      const mockPromo = {id: 13};
+
+      mockAPI.onGet(`${CAMERAS_URL}`).reply(400, mockCameras).onGet(`${PROMO_URL}`).reply(200, mockPromo);
+      await store.dispatch (async dispatch => {
+        await dispatch(fetchInitData())}
+      )
+
+      expect(store.getActions()).toEqual(
+        [
+          { type: 'cameras/setIsCamerasLoading', payload: true },
+          { type: 'cameras/setIsCamerasLoading', payload: false },
+          {
+            type: 'cameras/setApiError',
+            payload: 'Request failed with status code 400'
+          }
+        ]
+      )
+    })
+
+  })
 });
