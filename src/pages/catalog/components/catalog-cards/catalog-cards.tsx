@@ -10,7 +10,7 @@ function CatalogCards(): JSX.Element | null {
   const page = usePage();
 
   if (page === null) {
-    throw new Response('', {statusText: 'Undefined PAGE!'});
+    throw  new Response('', {statusText: 'Undefined PAGE!'});
   }
 
   const calculateShownCardsRange = (): CardsRange => {

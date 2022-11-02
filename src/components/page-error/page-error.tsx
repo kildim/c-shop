@@ -3,7 +3,6 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import React from 'react';
 
 function PageError(): JSX.Element {
-  // const error = useRouteError() as { statusText: string; message: string };
   const error = useRouteError() as string;
 
   const navigate = useNavigate();

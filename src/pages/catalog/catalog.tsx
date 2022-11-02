@@ -19,8 +19,6 @@ function Catalog(): JSX.Element {
     dispatch(setBuyPopupShown(null));
   };
 
-  window.scrollTo(0, 0);
-
   return (
     <>
       <main>
