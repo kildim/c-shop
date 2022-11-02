@@ -6,10 +6,20 @@ import {ProductLoaderData} from './product-loader-data';
 import ReviewsSection from './components/reviews-section/reviews-section';
 import CameraInfo from './components/camera-info/camera-info';
 import NewReview from './components/new-review/new-review';
-import {getIsNewReviewShown, getIsNewReviewSuccessShown} from '../../store/reducers/cameras/selectors';
+import {
+  getBuyPopupShown,
+  getIsNewReviewShown,
+  getIsNewReviewSuccessShown
+} from '../../store/reducers/cameras/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import NewReviewSuccess from './components/new-review-success/new-review-success';
-import {setIsNewReviewShown, setIsNewReviewSuccessShown} from '../../store/reducers/cameras/cameras-actions';
+import {
+  setBuyPopupShown,
+  setIsNewReviewShown,
+  setIsNewReviewSuccessShown
+} from '../../store/reducers/cameras/cameras-actions';
+import ModalOverlay from '../../components/modal-overlay/modal-overlay';
+import BasketAdd from '../catalog/components/basket-add/basket-add';
 
 function Product(): JSX.Element {
   useEffect(() => {
@@ -19,6 +29,7 @@ function Product(): JSX.Element {
   const {product, similar, reviews, id} = useLoaderData() as ProductLoaderData;
   const isNewReviewSuccessShown = useSelector(getIsNewReviewSuccessShown);
   const isNewReviewShown = useSelector(getIsNewReviewShown);
+  const detailedShown = useSelector(getBuyPopupShown);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleCloseNewReviewClick = () => {
@@ -30,6 +41,9 @@ function Product(): JSX.Element {
   const handleCloseNewReviewSuccess = () => {
     dispatch(setIsNewReviewSuccessShown(false));
     navigate('');
+  };
+  const handleCloseBasketAddModal = () => {
+    dispatch(setBuyPopupShown(null));
   };
 
   return (
@@ -70,6 +84,10 @@ function Product(): JSX.Element {
         isNewReviewSuccessShown &&
         <NewReviewSuccess handleClosePopup={handleCloseNewReviewSuccess}/>
       }
+      {detailedShown !== null &&
+        <ModalOverlay handleClosePopup={handleCloseBasketAddModal}>
+          <BasketAdd card={detailedShown} handleClosePopup={handleCloseBasketAddModal}/>
+        </ModalOverlay>}
     </main>
   );
 }
