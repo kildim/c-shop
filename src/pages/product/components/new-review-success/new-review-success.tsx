@@ -11,7 +11,9 @@ function NewReviewSuccess(props: NewReviewSuccessProps): JSX.Element {
           <use xlinkHref="#icon-review-success"></use>
         </svg>
         <div className="modal__buttons">
-          <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button" onClick={handleClosePopup}>Вернуться к покупкам
+          <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button"
+            onClick={handleClosePopup}
+          >Вернуться к покупкам
           </button>
         </div>
         <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleClosePopup}>

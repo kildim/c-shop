@@ -5,7 +5,6 @@ import ReviewsSection from './reviews-section';
 import {mockReview} from '../../../../helpers/mock-review';
 import mockStore from '../../../../helpers/mock-store';
 import {mockCamera} from '../../../../helpers/mock-camera';
-import {CamerasReducer} from '../../../../types/cameras-reducer';
 import {RootReducerType} from '../../../../store/reducers/root-reducer';
 
 jest.mock('react-router-dom', () => ({
@@ -25,7 +24,7 @@ describe('Component: ReviewsSection', () => {
     render(
       <Provider store={store}>
         <HashRouter>
-          <ReviewsSection  id={(store.getState() as RootReducerType).CAMERAS.cameras[0].id as number}/>
+          <ReviewsSection id={(store.getState() as RootReducerType).CAMERAS.cameras[0].id as number}/>
         </HashRouter>
       </Provider>,
     );

@@ -8,6 +8,7 @@ function ProductInfoTabs(props: ProductInfoTabsProps): JSX.Element {
     Characteristics = 'Characteristics',
     Description = 'Description'
   }
+
   const [activeTab, setActiveTab] = useState(ActiveTab.Description);
   const handleSwitchDescriptionTabClick = () => setActiveTab(ActiveTab.Description);
   const handleSwitchCharacteristicsTabClick = () => setActiveTab(ActiveTab.Characteristics);
@@ -15,10 +16,18 @@ function ProductInfoTabs(props: ProductInfoTabsProps): JSX.Element {
   return (
     <div className="tabs product__tabs">
       <div className="tabs__controls product__tabs-controls">
-        <button className={`tabs__control ${activeTab === ActiveTab.Characteristics ? 'is-active' : ''}`} type="button" onClick={handleSwitchCharacteristicsTabClick}>Характеристики</button>
-        <button className={`tabs__control ${activeTab === ActiveTab.Description ? 'is-active' : ''}`} type="button" onClick={handleSwitchDescriptionTabClick}>Описание</button>
+        <button className={`tabs__control ${activeTab === ActiveTab.Characteristics ? 'is-active' : ''}`}
+          type="button"
+          onClick={handleSwitchCharacteristicsTabClick}
+        >Характеристики
+        </button>
+        <button className={`tabs__control ${activeTab === ActiveTab.Description ? 'is-active' : ''}`}
+          type="button"
+          onClick={handleSwitchDescriptionTabClick}
+        >Описание
+        </button>
       </div>
-      <div className='tabs__content'>
+      <div className="tabs__content">
         <div className={`tabs__element ${activeTab === ActiveTab.Characteristics ? 'is-active' : ''}`}>
           <ul className="product__tabs-list">
             <li className="item-list"><span className="item-list__title">Артикул:</span>

@@ -1,11 +1,9 @@
 import {CAMERAS_URL, POST_REVIEW_URL, PROMO_URL} from '../../constants/url';
 import {fetchInitData, fetchProduct, fetchReviews, fetchSimilar, postReview} from './api';
 import MockAdapter from 'axios-mock-adapter';
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 import {ReviewPostData} from '../../types/review-post-data';
 import mockStore from '../../helpers/mock-store';
-import {setIsCamerasLoading, setPagesCount} from '../../store/reducers/cameras/cameras-actions';
-import * as faker from 'faker';
 import {calculatePages} from '../../helpers/calculate-pages';
 
 describe('API async functions tests: ', () => {

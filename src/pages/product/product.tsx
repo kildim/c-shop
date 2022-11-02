@@ -21,8 +21,12 @@ function Product(): JSX.Element {
   const isNewReviewShown = useSelector(getIsNewReviewShown);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleCloseNewReviewClick = () => {dispatch(setIsNewReviewShown(false));};
-  const handleWriteNewReviewClick = () => {dispatch(setIsNewReviewShown(true));};
+  const handleCloseNewReviewClick = () => {
+    dispatch(setIsNewReviewShown(false));
+  };
+  const handleWriteNewReviewClick = () => {
+    dispatch(setIsNewReviewShown(true));
+  };
   const handleCloseNewReviewSuccess = () => {
     dispatch(setIsNewReviewSuccessShown(false));
     navigate('');
@@ -60,11 +64,11 @@ function Product(): JSX.Element {
       </div>
       {
         isNewReviewShown &&
-          <NewReview handleClosePopup={handleCloseNewReviewClick} id={id}/>
+        <NewReview handleClosePopup={handleCloseNewReviewClick} id={id}/>
       }
       {
         isNewReviewSuccessShown &&
-          <NewReviewSuccess handleClosePopup={handleCloseNewReviewSuccess}/>
+        <NewReviewSuccess handleClosePopup={handleCloseNewReviewSuccess}/>
       }
     </main>
   );

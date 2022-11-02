@@ -3,7 +3,10 @@ import Rating from '../../../../../../components/rating/rating';
 
 function ReviewCard(props: ReviewCardProps): JSX.Element {
   const {review} = props;
-  const formatCreationDate = (date: string) => Intl.DateTimeFormat('ru', {day: '2-digit', month: 'long'}).format(Date.parse(date));
+  const formatCreationDate = (date: string) => Intl.DateTimeFormat('ru', {
+    day: '2-digit',
+    month: 'long'
+  }).format(Date.parse(date));
 
   return (
     <li className="review-card">
