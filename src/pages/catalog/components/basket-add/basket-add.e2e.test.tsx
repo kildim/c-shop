@@ -4,22 +4,27 @@ import mockStore from '../../../../test-helpers/mock-store';
 import {HashRouter} from 'react-router-dom';
 import BasketAdd from './basket-add';
 import {mockCamera} from '../../../../test-helpers/mock-camera';
+import userEvent from '@testing-library/user-event';
 
 describe('Component: BasketAdd', () => {
 
-  it('should render correctly', () => {
+  it('should call onClosePopupClick', async () => {
     const store = mockStore({
       CAMERAS: {}
     });
+    const user = userEvent.setup();
+
+    const handleClosePopupClick = jest.fn();
 
     render(
       <Provider store={store}>
         <HashRouter>
-          <BasketAdd card={mockCamera} onClosePopupClick={() => {}}/>
+          <BasketAdd card={mockCamera} onClosePopupClick={handleClosePopupClick}/>
         </HashRouter>
       </Provider>
     );
-
-    expect(screen.getByText(/Добавить товар в корзину/i)).toBeInTheDocument();
+    const buttonClose = await screen.findByLabelText('Закрыть попап');
+    await user.click(buttonClose);
+    expect(handleClosePopupClick).toHaveBeenCalled();
   });
 });

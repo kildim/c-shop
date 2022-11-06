@@ -1,9 +1,9 @@
 import {render, screen} from '@testing-library/react';
 import {createMemoryRouter, RouterProvider} from 'react-router-dom';
-import Header from './header';
 import userEvent from '@testing-library/user-event';
+import Footer from './footer';
 
-describe('Component: Header', () => {
+describe('Component: Footer', () => {
 
   it('should go to the catalog page after <a> tag click ', async () => {
     const user = userEvent.setup();
@@ -11,7 +11,7 @@ describe('Component: Header', () => {
     const testRouter = createMemoryRouter([
         {
           path: '/',
-          element: <Header/>,
+          element: <Footer/>,
         },
         {
           path: '/catalog',
