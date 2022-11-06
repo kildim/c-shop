@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import Banner from './banner';
 import {Provider} from 'react-redux';
-import mockStore from '../../../../helpers/mock-store';
+import mockStore from '../../../../test-helpers/mock-store';
 import {Promo} from '../../../../types/promo';
 import {HashRouter} from 'react-router-dom';
 

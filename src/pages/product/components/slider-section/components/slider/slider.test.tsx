@@ -1,9 +1,9 @@
 import {render, screen} from '@testing-library/react';
 import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import mockStore from '../../../../../../helpers/mock-store';
+import mockStore from '../../../../../../test-helpers/mock-store';
 import Slider from './slider';
-import {mockCamera} from '../../../../../../helpers/mock-camera';
+import {mockCamera} from '../../../../../../test-helpers/mock-camera';
 
 const store = mockStore({
   CAMERAS: {}

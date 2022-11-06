@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {HashRouter} from 'react-router-dom';
 import Layout from './layout';
-import mockStore from '../../helpers/mock-store';
+import mockStore from '../../test-helpers/mock-store';
 import {Provider} from 'react-redux';
 
 describe('Component: Layout', () => {

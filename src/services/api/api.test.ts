@@ -3,7 +3,7 @@ import {fetchInitData, fetchProduct, fetchReviews, fetchSimilar, postReview} fro
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import {ReviewPostData} from '../../types/review-post-data';
-import mockStore from '../../helpers/mock-store';
+import mockStore from '../../test-helpers/mock-store';
 import {calculatePages} from '../../helpers/calculate-pages';
 
 describe('API async functions tests: ', () => {

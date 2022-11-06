@@ -2,8 +2,8 @@ import {render, screen} from '@testing-library/react';
 import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import ReviewCard from './review-card';
-import mockStore from '../../../../../../helpers/mock-store';
-import {mockReview} from '../../../../../../helpers/mock-review';
+import mockStore from '../../../../../../test-helpers/mock-store';
+import {mockReview} from '../../../../../../test-helpers/mock-review';
 
 
 const store = mockStore({

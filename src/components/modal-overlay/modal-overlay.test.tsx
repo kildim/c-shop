@@ -1,4 +1,4 @@
-import mockStore from '../../helpers/mock-store';
+import mockStore from '../../test-helpers/mock-store';
 import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {HashRouter} from 'react-router-dom';

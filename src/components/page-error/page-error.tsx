@@ -4,10 +4,10 @@ import React from 'react';
 
 function PageError(): JSX.Element {
   const error = useRouteError();
-  let errorMessage = 'Unknown Route Error'
+  let errorMessage = 'Unknown Route Error';
 
   if (isRouteErrorResponse(error)) {
-    errorMessage  = error.data;
+    errorMessage = error.statusText;
   }
 
   const navigate = useNavigate();
