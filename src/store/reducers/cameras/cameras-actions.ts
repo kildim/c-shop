@@ -1,57 +1,58 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Camera} from '../../../types/camera';
 import {Promo} from '../../../types/promo';
+import {ActionType} from '../../../types/action-type';
 
 const loadCameras = createAction(
-  'cameras/loadCameras', (cameras: Camera []) => ({
+  ActionType.LoadCameras, (cameras: Camera []) => ({
     payload: cameras,
   }),
 );
 
 const loadPromo = createAction(
-  'cameras/loadPromo', (promo: Promo) => ({
+  ActionType.LoadPromo, (promo: Promo) => ({
     payload: promo,
   }),
 );
 
 const setIsCamerasLoading = createAction(
-  'cameras/setIsCamerasLoading', (isLoading: boolean) => ({
+  ActionType.SetIsCamerasLoading, (isLoading: boolean) => ({
     payload: isLoading,
   })
 );
 
 const setPagesCount = createAction(
-  'cameras/setPagesCount', (count: number) => ({
+  ActionType.SetPagesCount, (count: number) => ({
     payload: count
   })
 );
 
 const setBuyPopupShown = createAction(
-  'cameras/setIsBuyPopupShown', (id: number | null) => ({
+  ActionType.SetIsBuyPopupShown, (id: number | null) => ({
     payload: id
   })
 );
 
 const setIsReviewPosting = createAction(
-  'cameras/setIsReviewPosting', (isReviewPosting: boolean) => ({
+  ActionType.SetIsReviewPosting, (isReviewPosting: boolean) => ({
     payload: isReviewPosting
   })
 );
 
 const setApiError = createAction(
-  'cameras/setApiError', (apiError: string | null ) => ({
+  ActionType.SetApiError, (apiError: string | null ) => ({
     payload: apiError
   })
 );
 
 const setIsNewReviewSuccessShown = createAction(
-  'cameras/setIsNewReviewSuccessShown', (isNewReviewSuccessShown: boolean) => ({
+  ActionType.SetIsNewReviewSuccessShown, (isNewReviewSuccessShown: boolean) => ({
     payload: isNewReviewSuccessShown
   })
 );
 
 const setIsNewReviewShown = createAction(
-  'cameras/setIsNewReviewShown', (isNewReviewShown: boolean) => ({
+  ActionType.SetIsNewReviewShown, (isNewReviewShown: boolean) => ({
     payload: isNewReviewShown
   })
 );

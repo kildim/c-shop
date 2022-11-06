@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {ProductInfoTabsProps} from './ProductInfoTabsProps';
+import {ProductInfoTabsProps} from './product-info-tabs-props';
 
 function ProductInfoTabs(props: ProductInfoTabsProps): JSX.Element {
   const {product} = props;

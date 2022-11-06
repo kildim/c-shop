@@ -17,7 +17,7 @@ function ApiError(): JSX.Element | null {
   }
 
   return (
-    <ModalOverlay handleClosePopup={handleBackwardClick}>
+    <ModalOverlay onClosePopup={handleBackwardClick}>
       <div className="modal__content">
         <div className="visually-hidden">
           <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">

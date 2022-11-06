@@ -1,4 +1,4 @@
-import {CAMERAS_URL, POST_REVIEW_URL, PROMO_URL} from '../../constants/url';
+import {Url} from '../../constants/url';
 import {fetchInitData, fetchProduct, fetchReviews, fetchSimilar, postReview} from './api';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
@@ -18,17 +18,17 @@ describe('API async functions tests: ', () => {
         name: 'MOCK NAME',
       };
       const id = '13';
-      mockAPI.onGet(`${CAMERAS_URL}/${id}`).reply(200, mockData)
+      mockAPI.onGet(`${Url.Cameras}/${id}`).reply(200, mockData)
 
       const response = await fetchProduct(id);
 
       expect(response).toEqual(mockData);
-      expect(mockAPI.history.get[0].url).toBe(`${CAMERAS_URL}/${id}`);
+      expect(mockAPI.history.get[0].url).toBe(`${Url.Cameras}/${id}`);
     });
 
     it('should catch errors', async () => {
       const id = '13';
-      mockAPI.onGet(`${CAMERAS_URL}/${id}`).reply(400)
+      mockAPI.onGet(`${Url.Cameras}/${id}`).reply(400)
       await expect(fetchProduct(id)).rejects.toBe('Request failed with status code 400');
     })
   });
@@ -40,17 +40,17 @@ describe('API async functions tests: ', () => {
         name: 'MOCK NAME',
       };
       const id = '13';
-      mockAPI.onGet(`${CAMERAS_URL}/${id}/similar`).reply(200, mockData)
+      mockAPI.onGet(`${Url.Cameras}/${id}/similar`).reply(200, mockData)
 
       const response = await fetchSimilar(id);
 
       expect(response).toEqual(mockData);
-      expect(mockAPI.history.get[0].url).toBe(`${CAMERAS_URL}/${id}/similar`);
+      expect(mockAPI.history.get[0].url).toBe(`${Url.Cameras}/${id}/similar`);
     });
 
     it('should catch errors', async () => {
       const id = '13';
-      mockAPI.onGet(`${CAMERAS_URL}/${id}/similar`).reply(400)
+      mockAPI.onGet(`${Url.Cameras}/${id}/similar`).reply(400)
       await expect(fetchSimilar(id)).rejects.toBe('Request failed with status code 400');
     })
   });
@@ -61,17 +61,17 @@ describe('API async functions tests: ', () => {
         name: 'MOCK NAME',
       };
       const id = '13';
-      mockAPI.onGet(`${CAMERAS_URL}/${id}/reviews`).reply(200, mockData)
+      mockAPI.onGet(`${Url.Cameras}/${id}/reviews`).reply(200, mockData)
 
       const response = await fetchReviews(id);
 
       expect(response).toEqual(mockData);
-      expect(mockAPI.history.get[0].url).toBe(`${CAMERAS_URL}/${id}/reviews`);
+      expect(mockAPI.history.get[0].url).toBe(`${Url.Cameras}/${id}/reviews`);
     });
 
     it('should catch errors', async () => {
       const id = '13';
-      mockAPI.onGet(`${CAMERAS_URL}/${id}/reviews`).reply(400)
+      mockAPI.onGet(`${Url.Cameras}/${id}/reviews`).reply(400)
       await expect(fetchReviews(id)).rejects.toBe('Request failed with status code 400');
     })
   });
@@ -91,7 +91,7 @@ describe('API async functions tests: ', () => {
         }
       });
 
-      mockAPI.onPost(POST_REVIEW_URL, mockReview).reply(() => {
+      mockAPI.onPost(Url.PostReview, mockReview).reply(() => {
         return [400, 'ERROR']
       });
 
@@ -118,7 +118,7 @@ describe('API async functions tests: ', () => {
         }
       });
 
-      mockAPI.onPost(POST_REVIEW_URL).reply(200, [mockReview]);
+      mockAPI.onPost(Url.PostReview).reply(200, [mockReview]);
 
       await store.dispatch(async dispatch => {
         await dispatch(postReview(mockReview as unknown as ReviewPostData))
@@ -153,7 +153,7 @@ describe('API async functions tests: ', () => {
       const mockPromo = {id: 13};
       const mockPagesCount = calculatePages(mockCameras.length);
 
-      mockAPI.onGet(`${CAMERAS_URL}`).reply(200, mockCameras).onGet(`${PROMO_URL}`).reply(200, mockPromo);
+      mockAPI.onGet(`${Url.Cameras}`).reply(200, mockCameras).onGet(`${Url.Promo}`).reply(200, mockPromo);
       await store.dispatch (async dispatch => {
         await dispatch(fetchInitData())}
       )
@@ -186,7 +186,7 @@ describe('API async functions tests: ', () => {
       const mockCameras = Array(10).fill(null).map((_el, index) => ({id: index}));
       const mockPromo = {id: 13};
 
-      mockAPI.onGet(`${CAMERAS_URL}`).reply(200, mockCameras).onGet(`${PROMO_URL}`).reply(400, mockPromo);
+      mockAPI.onGet(`${Url.Cameras}`).reply(200, mockCameras).onGet(`${Url.Promo}`).reply(400, mockPromo);
       await store.dispatch (async dispatch => {
         await dispatch(fetchInitData())}
       )
@@ -218,7 +218,7 @@ describe('API async functions tests: ', () => {
       const mockCameras = Array(10).fill(null).map((_el, index) => ({id: index}));
       const mockPromo = {id: 13};
 
-      mockAPI.onGet(`${CAMERAS_URL}`).reply(400, mockCameras).onGet(`${PROMO_URL}`).reply(200, mockPromo);
+      mockAPI.onGet(`${Url.Cameras}`).reply(400, mockCameras).onGet(`${Url.Promo}`).reply(200, mockPromo);
       await store.dispatch (async dispatch => {
         await dispatch(fetchInitData())}
       )

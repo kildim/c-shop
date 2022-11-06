@@ -3,12 +3,12 @@ import {SliderProps} from './slider-props';
 import {MouseEventHandler, useState} from 'react';
 import {SLIDER_FRAME_CAPACITY} from '../../../../../../constants/slider-frame-capacity';
 import {Camera} from '../../../../../../types/camera';
-import genId from '../../../../../../helpers/gen-id';
+import generateId from '../../../../../../helpers/generate-id';
 
 function Slider(props: SliderProps): JSX.Element {
   const {products} = props;
   const [startIndex, setStartIndex] = useState(0);
-  const uniqueKey = genId();
+  const uniqueKey = generateId();
   const handleForwardClick: MouseEventHandler = (e) => setStartIndex(startIndex + 1);
   const handleBackwardClick: MouseEventHandler = (e) => setStartIndex(startIndex - 1);
 

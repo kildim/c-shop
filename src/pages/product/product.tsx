@@ -38,11 +38,11 @@ function Product(): JSX.Element {
   const handleWriteNewReviewClick = () => {
     dispatch(setIsNewReviewShown(true));
   };
-  const handleCloseNewReviewSuccess = () => {
+  const handleCloseNewReviewSuccessClick = () => {
     dispatch(setIsNewReviewSuccessShown(false));
     navigate('');
   };
-  const handleCloseBasketAddModal = () => {
+  const handleCloseBasketAddModalClick = () => {
     dispatch(setBuyPopupShown(null));
   };
 
@@ -82,11 +82,11 @@ function Product(): JSX.Element {
       }
       {
         isNewReviewSuccessShown &&
-        <NewReviewSuccess handleClosePopup={handleCloseNewReviewSuccess}/>
+        <NewReviewSuccess onClosePopupClick={handleCloseNewReviewSuccessClick}/>
       }
       {detailedShown !== null &&
-        <ModalOverlay handleClosePopup={handleCloseBasketAddModal}>
-          <BasketAdd card={detailedShown} handleClosePopup={handleCloseBasketAddModal}/>
+        <ModalOverlay onClosePopup={handleCloseBasketAddModalClick}>
+          <BasketAdd card={detailedShown} onClosePopupClick={handleCloseBasketAddModalClick}/>
         </ModalOverlay>}
     </main>
   );

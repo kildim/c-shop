@@ -1,16 +1,21 @@
-import {useNavigate, useRouteError} from 'react-router-dom';
+import {isRouteErrorResponse, useNavigate, useRouteError} from 'react-router-dom';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import React from 'react';
 
 function PageError(): JSX.Element {
-  const error = useRouteError() as string;
+  const error = useRouteError();
+  let errorMessage = 'Unknown Route Error'
+
+  if (isRouteErrorResponse(error)) {
+    errorMessage  = error.data;
+  }
 
   const navigate = useNavigate();
 
   const handleBackwardClick = () => navigate(-1);
 
   return (
-    <ModalOverlay handleClosePopup={handleBackwardClick}>
+    <ModalOverlay onClosePopup={handleBackwardClick}>
       <div className="modal__content">
         <div className="visually-hidden">
           <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -28,7 +33,7 @@ function PageError(): JSX.Element {
             </symbol>
           </svg>
         </div>
-        <p className="title title--h4">{error}</p>
+        <p className="title title--h4">{errorMessage}</p>
         <svg className="modal__icon" width="86" height="80" aria-hidden="true">
           <use xlinkHref="#icon-fail"></use>
         </svg>

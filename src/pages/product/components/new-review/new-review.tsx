@@ -63,12 +63,12 @@ function NewReview(props: NewReviewProps): JSX.Element {
     return isValid;
   };
 
-  const handleStarRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setRate(e.target.value);
+  const handleStarRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setRate(event.target.value);
   };
 
-  const handleSubmitClick: FormEventHandler = (e) => {
-    e.preventDefault();
+  const handleSubmitClick: FormEventHandler = (event) => {
+    event.preventDefault();
     const formDataObj = Object.fromEntries(new FormData(formRef.current as HTMLFormElement).entries());
 
     if (checkValidation()) {
@@ -86,7 +86,7 @@ function NewReview(props: NewReviewProps): JSX.Element {
   };
 
   return (
-    <ModalOverlay handleClosePopup={handleClosePopup}>
+    <ModalOverlay onClosePopup={handleClosePopup}>
       <div className="modal__content">
         <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleClosePopup}>
           <svg width="10" height="10" aria-hidden="true">

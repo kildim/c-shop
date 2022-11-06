@@ -15,7 +15,7 @@ function Catalog(): JSX.Element {
   });
   const detailedShown = useSelector(getBuyPopupShown);
   const dispatch = useDispatch();
-  const handleCloseBasketAddModal = () => {
+  const handleCloseBasketAddModalClick = () => {
     dispatch(setBuyPopupShown(null));
   };
 
@@ -186,8 +186,8 @@ function Catalog(): JSX.Element {
         </div>
       </main>
       {detailedShown !== null &&
-        <ModalOverlay handleClosePopup={handleCloseBasketAddModal}>
-          <BasketAdd card={detailedShown} handleClosePopup={handleCloseBasketAddModal}/>
+        <ModalOverlay onClosePopup={handleCloseBasketAddModalClick}>
+          <BasketAdd card={detailedShown} onClosePopupClick={handleCloseBasketAddModalClick}/>
         </ModalOverlay>}
     </>
   );

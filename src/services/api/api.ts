@@ -11,7 +11,7 @@ import {
   setIsReviewPosting,
   setPagesCount
 } from '../../store/reducers/cameras/cameras-actions';
-import {CAMERAS_URL, POST_REVIEW_URL, PROMO_URL} from '../../constants/url';
+import {Url} from '../../constants/url';
 
 import {calculatePages} from '../../helpers/calculate-pages';
 import {Promo} from '../../types/promo';
@@ -24,7 +24,7 @@ const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActio
   dispatch(setIsCamerasLoading(true));
 
   try {
-    const parsedResponses = await axios.all([CAMERAS_URL, PROMO_URL].map((url) => axios.get(url, {validateStatus: (status) => status < 300})));
+    const parsedResponses = await axios.all([Url.Cameras, Url.Promo].map((url) => axios.get(url, {validateStatus: (status) => status < 300})));
     const cameras = parsedResponses[0].data as Camera [];
     const promo = parsedResponses[1].data as Promo;
     dispatch(loadCameras(cameras));
@@ -42,7 +42,7 @@ const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknow
   dispatch(setIsReviewPosting(true));
 
   try {
-    await axios.post(POST_REVIEW_URL, review);
+    await axios.post(Url.PostReview, review);
 
     dispatch(setIsReviewPosting(false));
     dispatch(setIsNewReviewShown(false));
@@ -55,8 +55,8 @@ const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknow
   }
 };
 
-const fetchProduct = (id: string) => axios(`${CAMERAS_URL}/${id}`).then((response) => response.data as Camera).catch((error: AxiosError) => Promise.reject(error.message));
-const fetchSimilar = (id: string) => axios(`${CAMERAS_URL}/${id}/similar`).then((response) => response.data as Camera[]).catch((error: AxiosError) => Promise.reject(error.message));
-const fetchReviews = (id: string) => axios(`${CAMERAS_URL}/${id}/reviews`).then((response) => response.data as Review[]).catch((error: AxiosError) => Promise.reject(error.message));
+const fetchProduct = (id: string) => axios(`${Url.Cameras}/${id}`).then((response) => response.data as Camera).catch((error: AxiosError) => Promise.reject(error.message));
+const fetchSimilar = (id: string) => axios(`${Url.Cameras}/${id}/similar`).then((response) => response.data as Camera[]).catch((error: AxiosError) => Promise.reject(error.message));
+const fetchReviews = (id: string) => axios(`${Url.Cameras}/${id}/reviews`).then((response) => response.data as Review[]).catch((error: AxiosError) => Promise.reject(error.message));
 
 export {fetchInitData, fetchProduct, fetchSimilar, fetchReviews, postReview};

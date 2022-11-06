@@ -10,7 +10,9 @@ jest.mock('react-router-dom', () => ({
   useLoaderData: () => ({product: mockCamera, similar:  [mockCamera, mockCamera], reviews: [mockReview, mockReview], id: 1})
 }));
 const store = mockStore({
-  CAMERAS: {}
+  CAMERAS: {
+    cameras: [mockCamera, mockCamera]
+  }
 });
 
 describe('Component: Product', () => {

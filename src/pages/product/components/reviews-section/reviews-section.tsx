@@ -2,7 +2,7 @@ import {useAsyncValue} from 'react-router-dom';
 import {Link as ScrollLink} from 'react-scroll';
 import {Review} from '../../../../types/review';
 import ReviewCard from './components/review-card/review-card';
-import genId from '../../../../helpers/gen-id';
+import generateId from '../../../../helpers/generate-id';
 import {REVIEW_CHUNK} from '../../../../constants/review-chunk';
 import {useEffect, useState} from 'react';
 
@@ -19,7 +19,7 @@ function ReviewsSection({id}: { id: number }): JSX.Element {
     setTailIndex((Math.min(tailIndex + REVIEW_CHUNK, reviews.length)));
   };
 
-  const uniqueKey = genId();
+  const uniqueKey = generateId();
 
   return (
     <>

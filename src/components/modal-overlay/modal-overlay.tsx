@@ -2,12 +2,12 @@ import {MouseEventHandler, useEffect, useRef} from 'react';
 import {ModalOverlayProps} from './modal-overlay-types';
 
 function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
-  const {handleClosePopup = null, children} = props;
+  const {onClosePopup = null, children} = props;
   useEffect(() => {
-    function keyListener(e: KeyboardEvent) {
-      e.stopPropagation();
-      const listener = keyListenersMap.get(e.key);
-      return listener && listener(e);
+    function keyListener(event: KeyboardEvent) {
+      event.stopPropagation();
+      const listener = keyListenersMap.get(event.key);
+      return listener && listener(event);
     }
 
     document.addEventListener('keydown', keyListener);
@@ -20,14 +20,14 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
   });
   const handleModalOnClick: MouseEventHandler = (event): void => {
     event.stopPropagation();
-    if (handleClosePopup !== null) {
-      handleClosePopup();
+    if (onClosePopup !== null) {
+      onClosePopup();
     }
   };
   const modalRef = useRef<HTMLDivElement>(null);
   const currentElementIndex = useRef(0);
 
-  const handleTabKey = (e: KeyboardEvent) => {
+  const handleTabKey = (event: KeyboardEvent) => {
     if (modalRef.current === null || modalRef.current === undefined) {throw new Error('Не могу найти элемент HTML!');}
     const focusableModalElements = modalRef.current?.querySelectorAll<HTMLElement>(
       'button, input[type="radio"], a[href], textarea, input[type="text"], input[type="checkbox"], select'
@@ -39,27 +39,28 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
 
     currentElementIndex.current = Array.prototype.findIndex.call(focusableModalElements, (element) => element === document.activeElement);
 
-    if (e.shiftKey) {
+    if (event.shiftKey) {
       currentElementIndex.current = currentElementIndex.current - 1;
     } else {
       currentElementIndex.current = currentElementIndex.current + 1;
     }
 
-    if (e.shiftKey && document.activeElement === firstElement) {
+    if (event.shiftKey && document.activeElement === firstElement) {
       currentElementIndex.current = lastIndex;
     }
 
-    if (!e.shiftKey && document.activeElement === lastElement) {
+    if (!event.shiftKey && document.activeElement === lastElement) {
       currentElementIndex.current = 0;
     }
 
     focusableModalElements[currentElementIndex.current].focus();
-    return e.preventDefault();
+    return event.preventDefault();
   };
-  const keyListenersMap = new Map([['Escape', handleClosePopup], ['Tab', handleTabKey]]);
+  const keyListenersMap = new Map([['Escape', onClosePopup], ['Tab', handleTabKey]]);
 
   return (
     <div className="modal is-active" ref={modalRef}>
+      <h1 className={'visually-hidden'}>Модальное окно</h1>
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={handleModalOnClick}></div>
         {children}

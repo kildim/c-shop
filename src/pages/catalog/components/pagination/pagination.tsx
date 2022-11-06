@@ -16,7 +16,7 @@ function Pagination(): JSX.Element | null {
     return null;
   }
 
-  const counter = Array(pagesCount).fill(null).map((item, index) => ++index);
+  const pagesNumbers = Array(pagesCount).fill(null).map((item, index) => ++index);
   const handleBackwardClick: MouseEventHandler = (event) => {
     event.preventDefault();
     navigate(`page_${activePage - 1}#header`);
@@ -34,7 +34,7 @@ function Pagination(): JSX.Element | null {
         <li className="pagination__item">
           <Link className={`pagination__link ${activePage === 1 ? 'hidden' : ''}`} to='#header' onClick={handleBackwardClick}>Назад</Link>
         </li>
-        {counter.map((item) => (<PaginationMarker pageNumber={item} key={item}/>))}
+        {pagesNumbers.map((item) => (<PaginationMarker pageNumber={item} key={item}/>))}
         <li className="pagination__item">
           <Link className={`pagination__link ${activePage === pagesCount ? 'hidden' : ''}`} to='#header' onClick={handleForwardClick}>Далее</Link>
         </li>
