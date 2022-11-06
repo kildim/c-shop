@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import Card from './card';
 import mockStore from '../../../../test-helpers/mock-store';
 import {mockCamera} from '../../../../test-helpers/mock-camera';
-import userEvent from '@testing-library/user-event/index';
+import userEvent from '@testing-library/user-event';
 import {ActionType} from '../../../../types/action-type';
 
 describe('Component: Card', () => {
@@ -26,6 +26,7 @@ describe('Component: Card', () => {
 
     const buttonToBuy = screen.getByText(/Купить/i);
     await user.click(buttonToBuy);
-    expect(store.getActions()[0]).toBe(ActionType.SetIsBuyPopupShown);
+    expect(store.getActions()[0]).toEqual({type: ActionType.SetIsBuyPopupShown, payload: mockCamera.id});
+
   });
 });
