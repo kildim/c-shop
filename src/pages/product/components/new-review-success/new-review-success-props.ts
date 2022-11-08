@@ -1,3 +1,3 @@
 export type NewReviewSuccessProps = {
-  onClosePopupClick?: () => void | null,
+  onClosePopupClick?: () => void | null;
 }

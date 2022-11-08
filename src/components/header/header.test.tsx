@@ -9,7 +9,7 @@ describe('Component: Header', () => {
       <HashRouter>
         <Header/>
       </HashRouter>
-    )
+    );
     expect(screen.getByPlaceholderText(/Поиск по сайту/i)).toBeInTheDocument();
-  })
-})
+  });
+});

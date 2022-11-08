@@ -6,9 +6,9 @@ describe('Component: Loader', () => {
 
   it('should render correctly', () => {
     render(
-        <HashRouter>
-          <Loader/>
-        </HashRouter>
+      <HashRouter>
+        <Loader/>
+      </HashRouter>
     );
 
     expect(screen.getByText(/Loading .../i)).toBeInTheDocument();

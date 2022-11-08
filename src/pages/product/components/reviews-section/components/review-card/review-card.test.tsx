@@ -21,7 +21,7 @@ describe('Component: ReviewCard', () => {
       </Provider>,
     );
 
-    const fakeUserName = RegExp(`${mockReview.userName}`, 'i')
+    const fakeUserName = RegExp(`${mockReview.userName}`, 'i');
     expect(screen.getByText(fakeUserName)).toBeInTheDocument();
   });
 });

@@ -20,7 +20,7 @@ import {ReviewPostData} from '../../types/review-post-data';
 import axios, {AxiosError} from 'axios';
 import {Review} from '../../types/review';
 
-const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
+const fetchInitData = (): ThunkAction<Promise<void>, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
   dispatch(setIsCamerasLoading(true));
 
   try {
@@ -38,7 +38,7 @@ const fetchInitData = (): ThunkAction<void, RootState, unknown, RootReducerActio
   }
 };
 
-const postReview = (review: ReviewPostData): ThunkAction<void, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
+const postReview = (review: ReviewPostData): ThunkAction<Promise<void>, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
   dispatch(setIsReviewPosting(true));
 
   try {

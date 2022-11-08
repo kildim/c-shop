@@ -13,11 +13,11 @@ describe('Component: Layout', () => {
 
     render(
       <Provider store={store}>
-      <HashRouter>
-        <Layout/>
-      </HashRouter>
+        <HashRouter>
+          <Layout/>
+        </HashRouter>
       </Provider>
-    )
+    );
     expect(screen.getByPlaceholderText(/Поиск по сайту/i)).toBeInTheDocument();
-  })
-})
+  });
+});

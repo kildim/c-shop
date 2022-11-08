@@ -7,20 +7,20 @@ describe('Function: calculatePages', () => {
   const GREATER_ITEMS = EXACT_ITEMS + 1;
   const LOWER_ITEMS = EXACT_ITEMS - 1;
 
-  it('should calculate PAGES_COUNT using aliquot as argument ', () => {
+  it('should calculate PAGES_COUNT using aliquot as argument', () => {
     expect(calculatePages(EXACT_ITEMS)).toBe(PAGES_COUNT);
   });
 
-  it('should calculate increment PAGES_COUNT using GREATER_ITEMS as the argument ', () => {
+  it('should calculate increment PAGES_COUNT using GREATER_ITEMS as the argument', () => {
     expect(calculatePages(GREATER_ITEMS)).toBe(PAGES_COUNT + 1);
   });
 
-  it('should calculate PAGES_COUNT using LOWER_ITEMS as the argument ', () => {
+  it('should calculate PAGES_COUNT using LOWER_ITEMS as the argument', () => {
     expect(calculatePages(LOWER_ITEMS)).toBe(PAGES_COUNT);
   });
 
-  it('should calculate ZERO using ZERO as the argument ', () => {
+  it('should calculate ZERO using ZERO as the argument', () => {
     expect(calculatePages(0)).toBe(0);
   });
 
-})
+});

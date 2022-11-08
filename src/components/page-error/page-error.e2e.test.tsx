@@ -5,10 +5,11 @@ import PageError from './page-error';
 
 describe('Component: PageError', () => {
 
-  it('should go history backward ', async () => {
+  it('should go history backward', async () => {
     const user = userEvent.setup();
 
-    const testRouter = createMemoryRouter([
+    const testRouter = createMemoryRouter(
+      [
         {
           path: '/',
           element: <h1>ROOT</h1>,
@@ -19,16 +20,15 @@ describe('Component: PageError', () => {
         initialEntries: ['/', '/error'],
         initialIndex: 1
       }
-    )
+    );
 
     render(
       <RouterProvider router={testRouter}/>
     );
 
-    const backwardButton = screen.getByText(/Вернуться обратно/i)
-    ;
+    const backwardButton = screen.getByText(/Вернуться обратно/i);
     if (backwardButton === undefined) {
-      throw 'Не найдена кнопка Вернуться обратно!'
+      return false;
     }
     await user.click(backwardButton);
 

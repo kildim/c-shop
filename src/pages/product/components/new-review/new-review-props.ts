@@ -1,4 +1,4 @@
 export type NewReviewProps = {
-  handleClosePopup?: () => void | null,
-  id: number,
+  handleClosePopup?: () => void | null;
+  id: number;
 }

@@ -6,7 +6,8 @@ describe('Component: PageError', () => {
 
   it('should render correctly', () => {
 
-    const testRouter = createMemoryRouter([
+    const testRouter = createMemoryRouter(
+      [
         {
           path: '/',
           errorElement: <PageError/>,
@@ -16,10 +17,10 @@ describe('Component: PageError', () => {
         initialEntries: ['/', '/error'],
         initialIndex: 1
       }
-    )
+    );
 
     render(
-        <RouterProvider router={testRouter}/>
+      <RouterProvider router={testRouter}/>
     );
 
     expect(screen.getByText(/Вернуться обратно/i)).toBeInTheDocument();

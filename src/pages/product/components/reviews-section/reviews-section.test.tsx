@@ -7,7 +7,7 @@ import mockStore from '../../../../test-helpers/mock-store';
 import {mockCamera} from '../../../../test-helpers/mock-camera';
 import {RootReducerType} from '../../../../store/reducers/root-reducer';
 
-jest.mock('react-router-dom', () => ({
+jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
   useAsyncValue: () => [mockReview]
 }));
@@ -24,7 +24,7 @@ describe('Component: ReviewsSection', () => {
     render(
       <Provider store={store}>
         <HashRouter>
-          <ReviewsSection id={(store.getState() as RootReducerType).CAMERAS.cameras[0].id as number}/>
+          <ReviewsSection id={(store.getState() as RootReducerType).CAMERAS.cameras[0].id}/>
         </HashRouter>
       </Provider>,
     );

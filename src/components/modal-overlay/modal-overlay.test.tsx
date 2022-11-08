@@ -17,7 +17,7 @@ describe('Component: Layout', () => {
           <Layout/>
         </HashRouter>
       </Provider>
-    )
+    );
     expect(screen.getByText(/Модальное окно/i)).toBeInTheDocument();
-  })
-})
+  });
+});

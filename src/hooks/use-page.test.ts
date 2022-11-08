@@ -3,7 +3,6 @@ import usePage from './use-page';
 
 
 jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
   useParams: () => ({id: 'page_13'}),
 }));
 
@@ -13,5 +12,5 @@ describe('Test UsePage hook', () => {
     const {result} = renderHook(() => usePage());
     expect(result.current).toEqual(13);
 
-  })
-})
+  });
+});

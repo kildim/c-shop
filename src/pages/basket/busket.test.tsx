@@ -5,7 +5,7 @@ describe('Component: Basket', () => {
 
   it('should render correctly', () => {
     render(
-          <Basket/>
+      <Basket/>
     );
 
     expect(screen.getByText(/BASKET/i)).toBeInTheDocument();

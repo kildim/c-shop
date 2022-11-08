@@ -6,7 +6,7 @@ describe('CheckResponse:', () => {
       ok: true,
       json: () => 'OK!'
     };
-    expect(checkResponse(res as unknown as Response)).toBe('OK!')
+    expect(checkResponse(res as unknown as Response)).toBe('OK!');
   });
 
   it('Res: not Ok', async () => {
@@ -15,5 +15,5 @@ describe('CheckResponse:', () => {
       statusText: 'ERROR 13'
     };
     await expect(checkResponse(res as Response)).rejects.toMatchObject(res);
-  })
-})
+  });
+});

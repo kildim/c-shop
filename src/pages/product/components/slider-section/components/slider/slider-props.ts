@@ -1,7 +1,7 @@
 import {Camera} from '../../../../../../types/camera';
 
 type SliderProps = {
-  products: Camera[]
+  products: Camera[];
 };
 
 export type {SliderProps};

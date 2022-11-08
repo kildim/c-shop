@@ -1,7 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import faker from 'faker';
 import mockStore from '../../../../test-helpers/mock-store';
 import CatalogCards from './catalog-cards';
 import {mockCamera} from '../../../../test-helpers/mock-camera';
@@ -25,7 +24,7 @@ describe('Component: Card', () => {
     );
 
 
-    const textToFind = RegExp(`${mockCamera.name}`, 'i')
+    const textToFind = RegExp(`${mockCamera.name}`, 'i');
     expect(screen.getByText(textToFind)).toBeInTheDocument();
   });
 });

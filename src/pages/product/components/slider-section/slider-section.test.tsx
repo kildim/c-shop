@@ -8,7 +8,7 @@ import mockStore from '../../../../test-helpers/mock-store';
 const store = mockStore({
   CAMERAS: {}
 });
-jest.mock('react-router-dom', () => ({
+jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
   useAsyncValue: () => [mockCamera, mockCamera]
 }));

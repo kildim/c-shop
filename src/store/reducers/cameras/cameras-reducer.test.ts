@@ -14,7 +14,7 @@ import {CamerasReducer} from '../../../types/cameras-reducer';
 import {Camera} from '../../../types/camera';
 import {Promo} from '../../../types/promo';
 
-describe('CamerasReducer: ', () => {
+describe ('CamerasReducer:', () => {
   it('Should return initial state if call reducer using undefined store and unknown action', () => {
     const initialState = {
       isCameraLoading: false,
@@ -31,7 +31,7 @@ describe('CamerasReducer: ', () => {
     expect(camerasReducer(void 0, {type: 'UNKNOWN_ACTION'})).toEqual(initialState);
   });
 
-  describe('setIsCamerasLoading case: ', () => {
+  describe ( 'setIsCamerasLoading case:', () => {
     it('Should set isCameraLoading true if setIsCamerasLoading receive true', () => {
       const state = {isCameraLoading: false} as CamerasReducer;
       expect(camerasReducer(state, setIsCamerasLoading(true))).toEqual({isCameraLoading: true});
@@ -42,22 +42,22 @@ describe('CamerasReducer: ', () => {
     });
   });
 
-  describe('loadCameras case: ', () => {
+  describe ( 'loadCameras case:', () => {
     it('Should set cameras to Camera[] if loadCameras receive Camera[]', () => {
       const state = {cameras: []} as unknown as CamerasReducer;
-      const fakeCameras = [{id: 1}, {id: 2}] as Camera[]
+      const fakeCameras = [{id: 1}, {id: 2}] as Camera[];
       expect(camerasReducer(state, loadCameras(fakeCameras))).toEqual({cameras: fakeCameras});
     });
   });
 
-  describe('setPagesCount case: ', () => {
+  describe ( 'setPagesCount case:', () => {
     it('Should set pagesCount to Count if loadCameras receive Count', () => {
       const state = {pagesCount: 0} as unknown as CamerasReducer;
       expect(camerasReducer(state, setPagesCount(1))).toEqual({pagesCount: 1});
     });
   });
 
-  describe('loadPromo case: ', () => {
+  describe ( 'loadPromo case:', () => {
     it('Should set promo to Promo if loadPromo receive Promo', () => {
       const state = {promo: null} as unknown as CamerasReducer;
       const fakePromo = {id: 1} as Promo;
@@ -65,7 +65,7 @@ describe('CamerasReducer: ', () => {
     });
   });
 
-  describe('setBuyPopupShown case: ', () => {
+  describe ( 'setBuyPopupShown case:', () => {
     it('Should set buyPopupShown true if setBuyPopupShown receive Number', () => {
       const state = {buyPopupShown: null} as CamerasReducer;
       const fakeBuyPopupShown = 1;
@@ -73,7 +73,7 @@ describe('CamerasReducer: ', () => {
     });
   });
 
-  describe('setIsReviewPosting case: ', () => {
+  describe ( 'setIsReviewPosting case:', () => {
     it('Should set isReviewPosting true if setIsReviewPosting receive true', () => {
       const state = {isReviewPosting: false} as CamerasReducer;
       expect(camerasReducer(state, setIsReviewPosting(true))).toEqual({isReviewPosting: true});
@@ -84,7 +84,7 @@ describe('CamerasReducer: ', () => {
     });
   });
 
-  describe('setApiError case: ', () => {
+  describe ( 'setApiError case:', () => {
     it('Should set buyPopupShown true if setApiError receive Number', () => {
       const state = {apiError: null} as CamerasReducer;
       const fakeError = 'It is a Fake Error';
@@ -92,7 +92,7 @@ describe('CamerasReducer: ', () => {
     });
   });
 
-  describe('setIsNewReviewSuccessShown case: ', () => {
+  describe ( 'setIsNewReviewSuccessShown case:', () => {
     it('Should set isNewReviewSuccessShown true if setIsNewReviewSuccessShown receive true', () => {
       const state = {isNewReviewSuccessShown: false} as CamerasReducer;
       expect(camerasReducer(state, setIsNewReviewSuccessShown(true))).toEqual({isNewReviewSuccessShown: true});
@@ -102,7 +102,7 @@ describe('CamerasReducer: ', () => {
       expect(camerasReducer(state, setIsNewReviewSuccessShown(false))).toEqual({isNewReviewSuccessShown: false});
     });
 
-    describe('setIsNewReviewShown case: ', () => {
+    describe ( 'setIsNewReviewShown case:', () => {
       it('Should set isNewReviewShown true if setIsNewReviewShown receive true', () => {
         const state = {isNewReviewShown: false} as CamerasReducer;
         expect(camerasReducer(state, setIsNewReviewShown(true))).toEqual({isNewReviewShown: true});
@@ -112,5 +112,5 @@ describe('CamerasReducer: ', () => {
         expect(camerasReducer(state, setIsNewReviewShown(false))).toEqual({isNewReviewShown: false});
       });
     });
-  })
-})
+  });
+});

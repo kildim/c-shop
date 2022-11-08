@@ -1,3 +1,3 @@
 export type PaginationMarkerProps = {
-  pageNumber: number
+  pageNumber: number;
 }

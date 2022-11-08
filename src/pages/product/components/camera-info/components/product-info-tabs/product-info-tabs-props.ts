@@ -1,7 +1,7 @@
 import {Camera} from '../../../../../../types/camera';
 
 type ProductInfoTabsProps = {
-  product: Camera
+  product: Camera;
 };
 
 export type {ProductInfoTabsProps};

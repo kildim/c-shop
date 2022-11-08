@@ -15,7 +15,7 @@ describe('Component: BasketAdd', () => {
     render(
       <Provider store={store}>
         <HashRouter>
-          <BasketAdd card={mockCamera} onClosePopupClick={() => {}}/>
+          <BasketAdd card={mockCamera} onClosePopupClick={() => undefined}/>
         </HashRouter>
       </Provider>
     );
