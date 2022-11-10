@@ -1,20 +1,14 @@
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import React, {FocusEvent, useEffect, useRef} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getApiError} from '../../store/reducers/cameras/selectors';
 import {setApiError} from '../../store/reducers/cameras/cameras-actions';
+import useFocusLoop from '../../hooks/use-focus-loop';
 
 function ApiError(): JSX.Element | null {
   const error = useSelector(getApiError);
   const dispatch = useDispatch();
-  const firstFocusableElement = useRef<HTMLButtonElement>(null);
-  const lastFocusableElement = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    if(lastFocusableElement.current === null) {
-      throw new Error('Элемент не найден');
-    }
-    lastFocusableElement.current.focus();
-  }, [lastFocusableElement]);
+  const {firstFocusableElement, lastFocusableElement, handleModalBlur} = useFocusLoop();
 
   const handleBackwardClick = () => {
     dispatch(setApiError(null));
@@ -23,20 +17,6 @@ function ApiError(): JSX.Element | null {
   if (error === null) {
     return null;
   }
-
-  const handleModalBlur = (event: FocusEvent) => {
-    if(lastFocusableElement.current === null || firstFocusableElement.current === null) {
-      throw new Error('Элемент не найден');
-    }
-    if (!event.currentTarget.contains(event.relatedTarget)) {
-      if (event.target === firstFocusableElement.current) {
-        lastFocusableElement.current.focus();
-      }
-      if (event.target === lastFocusableElement.current) {
-        firstFocusableElement.current.focus();
-      }
-    }
-  };
 
   return (
     <ModalOverlay onClosePopup={handleBackwardClick}>
