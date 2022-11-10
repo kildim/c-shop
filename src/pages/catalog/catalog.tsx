@@ -185,10 +185,12 @@ function Catalog(): JSX.Element {
           </section>
         </div>
       </main>
-      {detailedShown !== null &&
+      {
+        detailedShown !== null &&
         <ModalOverlay onClosePopup={handleCloseBasketAddModalClick}>
           <BasketAdd card={detailedShown} onClosePopupClick={handleCloseBasketAddModalClick}/>
-        </ModalOverlay>}
+        </ModalOverlay>
+      }
     </>
   );
 }

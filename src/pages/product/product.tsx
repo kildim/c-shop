@@ -78,11 +78,15 @@ function Product(): JSX.Element {
       </div>
       {
         isNewReviewShown &&
-        <NewReview handleClosePopup={handleCloseNewReviewClick} id={id}/>
+        <ModalOverlay onClosePopup={handleCloseNewReviewClick}>
+          <NewReview handleClosePopup={handleCloseNewReviewClick} id={id}/>
+        </ModalOverlay>
       }
       {
         isNewReviewSuccessShown &&
-        <NewReviewSuccess onClosePopupClick={handleCloseNewReviewSuccessClick}/>
+        <ModalOverlay onClosePopup={handleCloseNewReviewSuccessClick}>
+          <NewReviewSuccess onClosePopupClick={handleCloseNewReviewSuccessClick}/>
+        </ModalOverlay>
       }
       {detailedShown !== null &&
         <ModalOverlay onClosePopup={handleCloseBasketAddModalClick}>

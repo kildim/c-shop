@@ -5,9 +5,9 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
   const {onClosePopup = null, children} = props;
   useEffect(() => {
     function keyListener(event: KeyboardEvent) {
-      event.stopPropagation();
-      const listener = keyListenersMap.get(event.key);
-      return listener && listener(event);
+      if (event.key === 'Escape' && onClosePopup ) {
+        onClosePopup();
+      }
     }
 
     document.addEventListener('keydown', keyListener);
@@ -25,38 +25,6 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
     }
   };
   const modalRef = useRef<HTMLDivElement>(null);
-  const currentElementIndex = useRef(0);
-
-  const handleTabKey = (event: KeyboardEvent) => {
-    if (modalRef.current === null || modalRef.current === undefined) {throw new Error('Не могу найти элемент HTML!');}
-    const focusableModalElements = modalRef.current?.querySelectorAll<HTMLElement>(
-      'button, input[type="radio"], a[href], textarea, input[type="text"], input[type="checkbox"], select'
-    );
-    const firstElement = focusableModalElements[0];
-    const lastElement =
-      focusableModalElements[focusableModalElements.length - 1];
-    const lastIndex = focusableModalElements.length - 1;
-
-    currentElementIndex.current = Array.prototype.findIndex.call(focusableModalElements, (element) => element === document.activeElement);
-
-    if (event.shiftKey) {
-      currentElementIndex.current = currentElementIndex.current - 1;
-    } else {
-      currentElementIndex.current = currentElementIndex.current + 1;
-    }
-
-    if (event.shiftKey && document.activeElement === firstElement) {
-      currentElementIndex.current = lastIndex;
-    }
-
-    if (!event.shiftKey && document.activeElement === lastElement) {
-      currentElementIndex.current = 0;
-    }
-
-    focusableModalElements[currentElementIndex.current].focus();
-    return event.preventDefault();
-  };
-  const keyListenersMap = new Map([['Escape', onClosePopup], ['Tab', handleTabKey]]);
 
   return (
     <div className="modal is-active" ref={modalRef}>

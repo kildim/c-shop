@@ -1,8 +1,6 @@
-import {ReactNode} from 'react';
-
 type ModalOverlayProps = {
   onClosePopup?: () => void | null;
-  children: ReactNode;
+  children?: JSX.Element;
 }
 
 export type {ModalOverlayProps};

@@ -1,5 +1,5 @@
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import React from 'react';
+import React, {FocusEvent, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getApiError} from '../../store/reducers/cameras/selectors';
 import {setApiError} from '../../store/reducers/cameras/cameras-actions';
@@ -7,6 +7,14 @@ import {setApiError} from '../../store/reducers/cameras/cameras-actions';
 function ApiError(): JSX.Element | null {
   const error = useSelector(getApiError);
   const dispatch = useDispatch();
+  const firstFocusableElement = useRef<HTMLButtonElement>(null);
+  const lastFocusableElement = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if(lastFocusableElement.current === null) {
+      throw new Error('Элемент не найден');
+    }
+    lastFocusableElement.current.focus();
+  }, [lastFocusableElement]);
 
   const handleBackwardClick = () => {
     dispatch(setApiError(null));
@@ -16,9 +24,23 @@ function ApiError(): JSX.Element | null {
     return null;
   }
 
+  const handleModalBlur = (event: FocusEvent) => {
+    if(lastFocusableElement.current === null || firstFocusableElement.current === null) {
+      throw new Error('Элемент не найден');
+    }
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      if (event.target === firstFocusableElement.current) {
+        lastFocusableElement.current.focus();
+      }
+      if (event.target === lastFocusableElement.current) {
+        firstFocusableElement.current.focus();
+      }
+    }
+  };
+
   return (
     <ModalOverlay onClosePopup={handleBackwardClick}>
-      <div className="modal__content">
+      <div className="modal__content" onBlur={handleModalBlur}>
         <div className="visually-hidden">
           <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <symbol id="icon-fail" viewBox="0 0 86 80">
@@ -35,11 +57,11 @@ function ApiError(): JSX.Element | null {
           <use xlinkHref="#icon-fail"></use>
         </svg>
         <div className="modal__buttons">
-          <button className="btn btn--purple modal__btn modal__btn--fit-width" onClick={handleBackwardClick}>
+          <button className="btn btn--purple modal__btn modal__btn--fit-width" onClick={handleBackwardClick} ref={firstFocusableElement}>
             Закрыть
           </button>
         </div>
-        <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleBackwardClick}>
+        <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleBackwardClick} ref={lastFocusableElement}>
           <svg width="10" height="10" aria-hidden="true">
             <use xlinkHref="#icon-close"></use>
           </svg>

@@ -1,8 +1,11 @@
 import {BasketAddProps} from './basket-add-props';
 import React, {SyntheticEvent} from 'react';
+import useFocusLoop from '../../../../hooks/use-focus-loop';
 
 function BasketAdd(props: BasketAddProps): JSX.Element {
   const {card, onClosePopupClick = null} = props;
+  const {firstFocusableElement, lastFocusableElement, handleModalBlur} = useFocusLoop();
+
 
   const handleModalClick = (event: SyntheticEvent): void => {
     event.stopPropagation();
@@ -12,7 +15,7 @@ function BasketAdd(props: BasketAddProps): JSX.Element {
   };
 
   return (
-    <div className="modal__content">
+    <div className="modal__content" onBlur={handleModalBlur}>
       <p className="title title--h4">Добавить товар в корзину</p>
       <div className="basket-item basket-item--short">
         <div className="basket-item__img">
@@ -37,14 +40,14 @@ function BasketAdd(props: BasketAddProps): JSX.Element {
         </div>
       </div>
       <div className="modal__buttons">
-        <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button">
+        <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button" ref={lastFocusableElement}>
           <svg width="24" height="16" aria-hidden="true">
             <use xlinkHref="#icon-add-basket"></use>
           </svg>
           Добавить в корзину
         </button>
       </div>
-      <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleModalClick}>
+      <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleModalClick} ref={firstFocusableElement}>
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>
