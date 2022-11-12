@@ -14,6 +14,7 @@ function Catalog(): JSX.Element {
     document.title = 'Каталог - Фотошоп';
   });
   const detailedShown = useSelector(getBuyPopupShown);
+
   const dispatch = useDispatch();
   const handleCloseBasketAddModalClick = () => {
     dispatch(setBuyPopupShown(null));

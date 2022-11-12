@@ -38,6 +38,21 @@ const fetchInitData = (): ThunkAction<Promise<void>, RootState, unknown, RootRed
   }
 };
 
+const fetchCameras = (searchParams: URLSearchParams | null = null): ThunkAction<Promise<void>, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
+  dispatch(setIsCamerasLoading(true));
+  try {
+    const parsedResponses = await axios(Url.Cameras, {params: searchParams});
+    const cameras = parsedResponses.data;
+    dispatch(loadCameras(cameras));
+    dispatch(setPagesCount(calculatePages(cameras.length)));
+    dispatch(setIsCamerasLoading(false));
+  } catch (error) {
+    const {message} = error as AxiosError;
+    dispatch(setIsCamerasLoading(false));
+    dispatch(setApiError(message));
+  }
+}
+
 const postReview = (review: ReviewPostData): ThunkAction<Promise<void>, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
   dispatch(setIsReviewPosting(true));
 
@@ -59,4 +74,4 @@ const fetchProduct = (id: string) => axios(`${Url.Cameras}/${id}`).then((respons
 const fetchSimilar = (id: string) => axios(`${Url.Cameras}/${id}/similar`).then((response) => response.data as Camera[]).catch((error: AxiosError) => Promise.reject(error.message));
 const fetchReviews = (id: string) => axios(`${Url.Cameras}/${id}/reviews`).then((response) => response.data as Review[]).catch((error: AxiosError) => Promise.reject(error.message));
 
-export {fetchInitData, fetchProduct, fetchSimilar, fetchReviews, postReview};
+export {fetchInitData, fetchCameras, fetchProduct, fetchSimilar, fetchReviews, postReview};

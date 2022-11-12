@@ -5,9 +5,13 @@ import {CardsRange} from '../../../../types/cards-range';
 import {PAGE_SIZE} from '../../../../constants/page-size';
 import usePage from '../../../../hooks/use-page';
 
+// type Props = {
+//   cameras: Camera[];
+// }
+
 function CatalogCards(): JSX.Element | null {
-  const cameras = useSelector(getCameras);
   const page = usePage();
+  const cameras = useSelector(getCameras);
 
   if (page === null) {
     throw new Response('', {statusText: 'Undefined PAGE!'});

@@ -1,5 +1,5 @@
 import {Url} from '../../constants/url';
-import {fetchInitData, fetchProduct, fetchReviews, fetchSimilar, postReview} from './api';
+import {fetchCameras, fetchInitData, fetchProduct, fetchReviews, fetchSimilar, postReview} from './api';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import {ReviewPostData} from '../../types/review-post-data';
@@ -143,6 +143,40 @@ describe('API async functions tests:', () => {
       );
     });
   });
+
+  describe('fetchCameras:', () => {
+    it('should return Cameras.', async () => {
+      const store = mockStore({
+        CAMERAS: {
+          isReviewPosting: false,
+          isNewReviewShown: false,
+          isNewReviewSuccessShown: false,
+          isCameraLoading: false,
+          cameras: [],
+          promo: null,
+          pagesCount: 0,
+          apiError: null
+        }
+      });
+      const mockCameras = Array(10).fill(null).map((_el, index) => ({id: index}));
+      const mockPagesCount = calculatePages(mockCameras.length);
+
+      mockAPI.onGet(`${Url.Cameras}`).reply(200, mockCameras);
+      return store.dispatch(fetchCameras()).then(() => {
+        expect(store.getActions()).toEqual(
+          [
+            {type: 'cameras/setIsCamerasLoading', payload: true},
+            {
+              type: 'cameras/loadCameras',
+              payload: mockCameras
+            },
+            {type: 'cameras/setPagesCount', payload: mockPagesCount},
+            {type: 'cameras/setIsCamerasLoading', payload: false}
+          ]
+        );
+      });
+    })
+  })
 
   describe('fetchInitData:', () => {
     it('should fetch Cameras and Promo.', async () => {
