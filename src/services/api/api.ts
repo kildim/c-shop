@@ -42,7 +42,7 @@ const fetchCameras = (searchParams: URLSearchParams | null = null): ThunkAction<
   dispatch(setIsCamerasLoading(true));
   try {
     const parsedResponses = await axios(Url.Cameras, {params: searchParams});
-    const cameras = parsedResponses.data;
+    const cameras = parsedResponses.data as Camera[];
     dispatch(loadCameras(cameras));
     dispatch(setPagesCount(calculatePages(cameras.length)));
     dispatch(setIsCamerasLoading(false));
@@ -51,7 +51,7 @@ const fetchCameras = (searchParams: URLSearchParams | null = null): ThunkAction<
     dispatch(setIsCamerasLoading(false));
     dispatch(setApiError(message));
   }
-}
+};
 
 const postReview = (review: ReviewPostData): ThunkAction<Promise<void>, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
   dispatch(setIsReviewPosting(true));
