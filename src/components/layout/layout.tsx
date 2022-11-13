@@ -1,14 +1,14 @@
-import {Outlet} from 'react-router-dom';
+import {Outlet, useNavigation} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {getApiError, getIsCamerasLoading} from '../../store/reducers/cameras/selectors';
+import {getApiError} from '../../store/reducers/cameras/selectors';
 import Loader from '../loader/loader';
 import ApiError from '../api-error/api-error';
 
 function Layout(): JSX.Element {
-  const isCamerasLoading = useSelector(getIsCamerasLoading);
+  const isCamerasLoading = useNavigation().state === 'loading';
   const isApiError = useSelector(getApiError);
 
   return (

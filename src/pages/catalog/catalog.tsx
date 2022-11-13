@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import Banner from './components/banner/banner';
-import Pagination from './components/pagination/pagination';
+// import Pagination from './components/pagination/pagination';
 import {Link, Outlet} from 'react-router-dom';
 import ModalOverlay from '../../components/modal-overlay/modal-overlay';
 import BasketAdd from './components/basket-add/basket-add';
@@ -8,11 +8,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getBuyPopupShown} from '../../store/reducers/cameras/selectors';
 import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
 import {RootRouterPath} from '../../routers/root-route-path';
+// import CatalogCards from './components/catalog-cards/catalog-cards';
+import Pagination from './components/pagination/pagination';
 
 function Catalog(): JSX.Element {
   useEffect(() => {
     document.title = 'Каталог - Фотошоп';
   });
+
   const detailedShown = useSelector(getBuyPopupShown);
 
   const dispatch = useDispatch();

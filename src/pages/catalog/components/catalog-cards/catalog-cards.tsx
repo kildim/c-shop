@@ -1,17 +1,13 @@
 import Card from '../card/card';
-import {useSelector} from 'react-redux';
-import {getCameras} from '../../../../store/reducers/cameras/selectors';
 import {CardsRange} from '../../../../types/cards-range';
 import {PAGE_SIZE} from '../../../../constants/page-size';
 import usePage from '../../../../hooks/use-page';
-
-// type Props = {
-//   cameras: Camera[];
-// }
+import {CamerasLoaderData} from '../../cameras-loader';
+import {useRouteLoaderData} from 'react-router-dom';
 
 function CatalogCards(): JSX.Element | null {
   const page = usePage();
-  const cameras = useSelector(getCameras);
+  const {cameras} = useRouteLoaderData('cat') as CamerasLoaderData;
 
   if (page === null) {
     throw new Response('', {statusText: 'Undefined PAGE!'});

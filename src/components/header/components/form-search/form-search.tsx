@@ -2,6 +2,7 @@ import SelectList from './components/select-list/select-list';
 import {SyntheticEvent, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {getCameras} from '../../../../store/reducers/cameras/selectors';
+import {Form} from 'react-router-dom';
 
 function FormSearch(): JSX.Element {
   const [searchName, setSearchName] = useState<string>('');
@@ -20,7 +21,7 @@ function FormSearch(): JSX.Element {
 
   return (
     <div className="form-search">
-      <form>
+      <Form>
         <label>
           <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-lens"></use>
@@ -31,7 +32,7 @@ function FormSearch(): JSX.Element {
           />
         </label>
         <SelectList items={findItems()}/>
-      </form>
+      </Form>
       <button className="form-search__reset" style={{display: getDisplayAttribute()}} type="reset" onClick={handleResetClick}>
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>

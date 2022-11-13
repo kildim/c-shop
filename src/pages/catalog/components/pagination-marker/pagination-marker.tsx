@@ -22,7 +22,7 @@ function PaginationMarker(props: PaginationMarkerProps): JSX.Element | null {
 
   return (
     <li className="pagination__item">
-      <Link className={`pagination__link ${pageNumber === activePage ? 'pagination__link--active' : ''}`} to='#header' onClick={handleRefClick}>
+      <Link className={`pagination__link ${pageNumber === activePage ? 'pagination__link--active' : ''}`} to={''} onClick={handleRefClick}>
         {pageNumber}
       </Link>
     </li>

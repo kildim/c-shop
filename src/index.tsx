@@ -5,8 +5,8 @@ import {configureStore} from '@reduxjs/toolkit';
 import {rootReducer} from './store/reducers/root-reducer';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
-import {ThunkAppDispatch} from './types/thunk-app-dispatch';
-import {fetchInitData} from './services/api/api';
+// import {ThunkAppDispatch} from './types/thunk-app-dispatch';
+// import {fetchInitData} from './services/api/api';
 import {rootRouter} from './routers/root-router';
 import {RouterProvider} from 'react-router-dom';
 
@@ -22,7 +22,7 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 
-(store.dispatch as ThunkAppDispatch)(fetchInitData());
+// (store.dispatch as ThunkAppDispatch)(fetchInitData());
 
 root.render(
   <React.StrictMode>

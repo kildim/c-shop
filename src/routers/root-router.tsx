@@ -7,6 +7,9 @@ import Basket from '../pages/basket/basket';
 import PageError from '../components/page-error/page-error';
 import {productLoader} from '../pages/product/product-loader';
 import {RootRouterPath} from './root-route-path';
+// import {promoLoader} from '../pages/catalog/promo-loader';
+import {catalogLoader} from '../pages/catalog/catalog-loader';
+// import {camerasLoader} from '../pages/catalog/cameras-loader';
 
 const DEFAULT_CATALOG_PAGE = 'page_1';
 const rootRouter = createBrowserRouter([
@@ -22,6 +25,9 @@ const rootRouter = createBrowserRouter([
       {
         path: 'catalog',
         element: <Catalog/>,
+        loader: catalogLoader,
+        // loader: promoLoader,
+        id: 'cat',
         children: [
           {
             index: true,
@@ -29,6 +35,7 @@ const rootRouter = createBrowserRouter([
           },
           {
             path: ':id',
+            // loader: camerasLoader as LoaderFunction,
             element: <CatalogCards/>
           }
         ]

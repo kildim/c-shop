@@ -1,6 +1,6 @@
 import {Camera} from '../../../../../../types/camera';
-import {Link} from 'react-router-dom';
 import {RootRouterPath} from '../../../../../../routers/root-route-path';
+import {Link} from 'react-router-dom';
 
 type Props = {
   items: Camera[];
@@ -19,7 +19,7 @@ function SelectList(props: Props): JSX.Element {
         items.map((item) =>
           (
             <li className="form-search__select-item" tabIndex={-1} key={item.id}>
-              <Link to={generateProductLinkPath(item.id)}>
+              <Link to={generateProductLinkPath(item.id)} tabIndex={0}>
                 {item.name}
               </Link>
             </li>

@@ -1,6 +1,10 @@
-import {ProductLoaderProps} from './product-loader-props';
 import {defer} from 'react-router-dom';
 import {fetchProduct, fetchReviews, fetchSimilar} from '../../services/api/api';
+
+type ProductLoaderProps = {
+  request: Request;
+  params: { id: string };
+}
 
 const productLoader = (props: ProductLoaderProps) => {
   const {params} = props;

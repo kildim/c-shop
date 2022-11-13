@@ -15,17 +15,17 @@ const loadPromo = createAction(
   }),
 );
 
-const setIsCamerasLoading = createAction(
-  ActionType.SetIsCamerasLoading, (isLoading: boolean) => ({
-    payload: isLoading,
-  })
-);
+// const setIsCamerasLoading = createAction(
+//   ActionType.SetIsCamerasLoading, (isLoading: boolean) => ({
+//     payload: isLoading,
+//   })
+// );
 
-const setPagesCount = createAction(
-  ActionType.SetPagesCount, (count: number) => ({
-    payload: count
-  })
-);
+// const setPagesCount = createAction(
+//   ActionType.SetPagesCount, (count: number) => ({
+//     payload: count
+//   })
+// );
 
 const setBuyPopupShown = createAction(
   ActionType.SetIsBuyPopupShown, (id: number | null) => ({
@@ -59,8 +59,8 @@ const setIsNewReviewShown = createAction(
 
 export type CamerasActions =
   ReturnType<typeof loadCameras>
-  | ReturnType<typeof setIsCamerasLoading>
-  | ReturnType<typeof setPagesCount>
+  // | ReturnType<typeof setIsCamerasLoading>
+  // | ReturnType<typeof setPagesCount>
   | ReturnType<typeof loadPromo>
   | ReturnType<typeof setBuyPopupShown>
   | ReturnType<typeof setIsReviewPosting>
@@ -70,8 +70,8 @@ export type CamerasActions =
 
 export {
   setBuyPopupShown,
-  setPagesCount,
-  setIsCamerasLoading,
+  // setPagesCount,
+  // setIsCamerasLoading,
   loadPromo,
   loadCameras,
   setIsReviewPosting,
