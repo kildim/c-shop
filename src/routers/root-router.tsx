@@ -16,6 +16,8 @@ const rootRouter = createBrowserRouter([
   {
     path: RootRouterPath.Root,
     element: <Layout/>,
+    loader: catalogLoader,
+    id: 'root',
     errorElement: <PageError/>,
     children: [
       {
@@ -25,9 +27,6 @@ const rootRouter = createBrowserRouter([
       {
         path: 'catalog',
         element: <Catalog/>,
-        loader: catalogLoader,
-        // loader: promoLoader,
-        id: 'cat',
         children: [
           {
             index: true,
@@ -35,7 +34,6 @@ const rootRouter = createBrowserRouter([
           },
           {
             path: ':id',
-            // loader: camerasLoader as LoaderFunction,
             element: <CatalogCards/>
           }
         ]

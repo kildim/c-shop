@@ -1,12 +1,13 @@
 import SelectList from './components/select-list/select-list';
 import {SyntheticEvent, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {getCameras} from '../../../../store/reducers/cameras/selectors';
-import {Form} from 'react-router-dom';
+// import {useSelector} from 'react-redux';
+// import {getCameras} from '../../../../store/reducers/cameras/selectors';
+import {Form, useRouteLoaderData} from 'react-router-dom';
+import {CamerasLoaderData} from '../../../../pages/catalog/cameras-loader';
 
 function FormSearch(): JSX.Element {
   const [searchName, setSearchName] = useState<string>('');
-  const cameras = useSelector(getCameras);
+  const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
   const handleSearchChange = (event: SyntheticEvent<HTMLInputElement>) => setSearchName(event.currentTarget.value);
   const findItems = () => {
     if (searchName === '') {

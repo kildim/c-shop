@@ -1,20 +1,17 @@
-// import {getPagesCount} from '../../../../store/reducers/cameras/selectors';
-// import {useSelector} from 'react-redux';
 import PaginationMarker from '../pagination-marker/pagination-marker';
 import {MouseEventHandler} from 'react';
 import usePage from '../../../../hooks/use-page';
-import {Link, useLoaderData, useNavigate} from 'react-router-dom';
+import {Link, useNavigate, useRouteLoaderData, useSearchParams} from 'react-router-dom';
 import {animateScroll as scroll} from 'react-scroll';
-import {CamerasLoaderData} from '../../cameras-loader';
 import {calculatePages} from '../../../../helpers/calculate-pages';
+import {CatalogLoaderData} from '../../catalog-loader';
 
 function Pagination(): JSX.Element | null {
-  const {cameras} = useLoaderData() as CamerasLoaderData;
+  const {cameras} = useRouteLoaderData('root') as CatalogLoaderData;
   const activePage = usePage();
-  // const pagesCount = useSelector(getPagesCount);
-  // const pagesCount = useSelector(getPagesCount);
   const pagesCount = calculatePages(cameras.length);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   if (activePage === null) {
     return null;
@@ -23,12 +20,12 @@ function Pagination(): JSX.Element | null {
   const pagesNumbers = Array(pagesCount).fill(null).map((item, index) => ++index);
   const handleBackwardClick: MouseEventHandler = (event) => {
     event.preventDefault();
-    navigate(`page_${activePage - 1}`);
+    navigate(`../page_${activePage - 1}?${searchParams.toString()}`);
     scroll.scrollToTop();
   };
   const handleForwardClick: MouseEventHandler = (event) => {
     event.preventDefault();
-    navigate(`page_${activePage + 1}`);
+    navigate(`../page_${activePage + 1}?${searchParams.toString()}`);
     scroll.scrollToTop();
   };
 

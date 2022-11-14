@@ -1,13 +1,9 @@
-// import {useSelector} from 'react-redux';
-// import {getPromo} from '../../../../store/reducers/cameras/selectors';
-// import {Promo} from '../../../../types/promo';
 import {RootRouterPath} from '../../../../routers/root-route-path';
-import {Link, useLoaderData, useRouteLoaderData} from 'react-router-dom';
-import {PromoLoaderData} from '../../promo-loader';
+import {Link, useRouteLoaderData} from 'react-router-dom';
+import {CatalogLoaderData} from '../../catalog-loader';
 
 function Banner(): JSX.Element | null {
-  // const promo: Promo = useSelector(getPromo);
-  const {promo} = useLoaderData() as PromoLoaderData;
+  const {promo} = useRouteLoaderData('root') as CatalogLoaderData;
 
   if (promo === null || promo === undefined) {
     return null;
