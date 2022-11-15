@@ -2,14 +2,16 @@ import Card from '../card/card';
 import {CardsRange} from '../../../../types/cards-range';
 import {PAGE_SIZE} from '../../../../constants/page-size';
 import usePage from '../../../../hooks/use-page';
-import {useRouteLoaderData} from 'react-router-dom';
+import {useRouteLoaderData, useSearchParams} from 'react-router-dom';
 import {CatalogLoaderData} from '../../catalog-loader';
 import Pagination from '../pagination/pagination';
+import getSortFunction from '../../../../helpers/get-search-function';
 
 function CatalogCards(): JSX.Element | null {
   const page = usePage();
+  const [searchParams] = useSearchParams();
   const {cameras} = useRouteLoaderData('root') as CatalogLoaderData;
-  const processedCameras = cameras;
+  const processedCameras = cameras.sort(getSortFunction(searchParams));
   if (page === null) {
     throw new Response('', {statusText: 'Undefined PAGE!'});
   }

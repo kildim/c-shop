@@ -1,10 +1,9 @@
 import {Url} from '../../constants/url';
-import {fetchCameras, fetchProduct, fetchReviews, fetchSimilar, postReview} from './api';
+import {fetchProduct, fetchReviews, fetchSimilar, postReview} from './api';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import {ReviewPostData} from '../../types/review-post-data';
 import mockStore from '../../test-helpers/mock-store';
-// import {calculatePages} from '../../helpers/calculate-pages';
 
 describe('API async functions tests:', () => {
   const mockAPI = new MockAdapter(axios);

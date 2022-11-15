@@ -6,7 +6,7 @@ describe('Component: SelectList', () => {
 
   it('should render correctly', () => {
     render(
-        <SelectList items={[{...mockCamera, id: 1}, {...mockCamera, id: 2}]}/>
+      <SelectList items={[{...mockCamera, id: 1}, {...mockCamera, id: 2}]}/>
     );
     const expression = RegExp(`${mockCamera.name}`, 'i');
     expect(screen.getAllByText(expression)).toHaveLength(2);
@@ -17,6 +17,6 @@ describe('Component: SelectList', () => {
       <SelectList items={[]}/>
     );
     const expression = RegExp(`${mockCamera.name}`, 'i');
-    expect(screen.getByText(expression)).not.toBeInTheDocument()
+    expect(screen.queryAllByText(expression)).not.toBeInTheDocument();
   });
 });

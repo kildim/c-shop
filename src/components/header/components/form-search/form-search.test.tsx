@@ -5,7 +5,7 @@ describe('Component: FormSearch', () => {
 
   it('should render correctly', () => {
     render(
-        <FormSearch/>
+      <FormSearch/>
     );
     expect(screen.getByPlaceholderText(/Поиск по сайту/i)).toBeInTheDocument();
   });
