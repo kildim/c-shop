@@ -1,11 +1,11 @@
-import {SortingSearchParams} from '../types/sorting-search-params';
+import {SortingSearchParam} from '../types/sorting-search-param';
 import {Sorting} from '../types/sorting';
 import {Direction} from '../types/direction';
 import {Camera} from '../types/camera';
 
 function getSortFunction(searchString: URLSearchParams) {
-  let sorting = searchString.get(SortingSearchParams.Sorting);
-  let direction = searchString.get(SortingSearchParams.Direction);
+  let sorting = searchString.get(SortingSearchParam.Sorting);
+  let direction = searchString.get(SortingSearchParam.Direction);
 
   if (direction !== null) {
     sorting = sorting === null ? Sorting.Price : sorting;
