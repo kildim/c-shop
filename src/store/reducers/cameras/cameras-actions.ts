@@ -47,8 +47,6 @@ const setIsNewReviewShown = createAction(
 
 export type CamerasActions =
   ReturnType<typeof loadCameras>
-  // | ReturnType<typeof setIsCamerasLoading>
-  // | ReturnType<typeof setPagesCount>
   | ReturnType<typeof loadPromo>
   | ReturnType<typeof setBuyPopupShown>
   | ReturnType<typeof setIsReviewPosting>
@@ -58,8 +56,6 @@ export type CamerasActions =
 
 export {
   setBuyPopupShown,
-  // setPagesCount,
-  // setIsCamerasLoading,
   loadPromo,
   loadCameras,
   setIsReviewPosting,

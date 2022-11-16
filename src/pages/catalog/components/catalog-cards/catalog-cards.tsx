@@ -7,6 +7,8 @@ import Pagination from './components/pagination/pagination';
 import getSortFunction from './helpers/get-search-function';
 import getPriceFilterFunction from './helpers/get-price-filter-function';
 import {getCategoryFilter} from './helpers/get-category-filter';
+import {getTypeFilter} from './helpers/get-type-filter';
+import {getLevelFilter} from './helpers/get-level-filter';
 
 function CatalogCards(): JSX.Element | null {
   const page = usePage();
@@ -15,7 +17,10 @@ function CatalogCards(): JSX.Element | null {
   const processedCameras = cameras
     .filter(getPriceFilterFunction(searchParams))
     .filter(getCategoryFilter(searchParams))
+    .filter(getTypeFilter(searchParams))
+    .filter(getLevelFilter(searchParams))
     .sort(getSortFunction(searchParams));
+
   if (page === null) {
     throw new Response('', {statusText: 'Undefined PAGE!'});
   }

@@ -1,28 +1,43 @@
 import {useSearchParams} from 'react-router-dom';
 import {FilterSearchParam} from '../../../../../../types/filter-search-param';
-import {Category} from '../../../../../../types/category';
 import {searchParamsAsObject} from '../../../../../../helpers/search-params-as-object';
 
 function CategoryFilter(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
+  const videocameraFilter = searchParams.get(FilterSearchParam.Videocamera);
+  const photocameraFilter = searchParams.get(FilterSearchParam.Photocamera);
 
   const handlePhotocameraFilterClick = () => {
-    if (searchParams.get(FilterSearchParam.Photocamera) === null) {
-      setSearchParams((params) => ({ ...searchParamsAsObject(params), [FilterSearchParam.Photocamera]: Category.Photocamera}));
+    if (photocameraFilter === null) {
+      setSearchParams((params) => {
+        params.append(FilterSearchParam.Photocamera, FilterSearchParam.Photocamera);
+        return {...searchParamsAsObject(params)};
+      });
     } else {
       setSearchParams((params) => {
+        if (videocameraFilter !== null) {
+          params.delete(FilterSearchParam.Instant);
+          params.delete(FilterSearchParam.Film);
+        }
         params.delete(FilterSearchParam.Photocamera);
-        return ({ ...searchParamsAsObject(params)});
+        return ({...searchParamsAsObject(params)});
       });
     }
   };
   const handleVideocameraFilterClick = () => {
-    if (searchParams.get(FilterSearchParam.Videocamera) === null) {
-      setSearchParams((params) => ({ ...searchParamsAsObject(params), [FilterSearchParam.Videocamera]: Category.Videocamera}));
+    if (videocameraFilter === null) {
+      setSearchParams((params) => {
+        if (photocameraFilter === null) {
+          params.delete(FilterSearchParam.Instant);
+          params.delete(FilterSearchParam.Film);
+        }
+        params.append(FilterSearchParam.Videocamera, FilterSearchParam.Videocamera);
+        return ({...searchParamsAsObject(params)});
+      });
     } else {
       setSearchParams((params) => {
         params.delete(FilterSearchParam.Videocamera);
-        return ({ ...searchParamsAsObject(params)});
+        return ({...searchParamsAsObject(params)});
       });
     }
   };
@@ -34,7 +49,7 @@ function CategoryFilter(): JSX.Element {
         <label>
           <input type="checkbox" name="photocamera"
             onChange={handlePhotocameraFilterClick}
-            checked={searchParams.get(FilterSearchParam.Photocamera) !== null}
+            checked={photocameraFilter !== null}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Фотокамера</span>
@@ -44,7 +59,7 @@ function CategoryFilter(): JSX.Element {
         <label>
           <input type="checkbox" name="videocamera"
             onChange={handleVideocameraFilterClick}
-            checked={searchParams.get(FilterSearchParam.Videocamera) !== null}
+            checked={videocameraFilter !== null}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Видеокамера</span>
