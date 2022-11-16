@@ -1,6 +1,6 @@
 import {PaginationMarkerProps} from './pagination-marker-props';
 import {MouseEventHandler} from 'react';
-import usePage from '../../../../hooks/use-page';
+import usePage from '../../../../../../hooks/use-page';
 import {Link, useNavigate, useSearchParams} from 'react-router-dom';
 import {animateScroll as scroll} from 'react-scroll';
 

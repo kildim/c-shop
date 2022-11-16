@@ -1,6 +1,7 @@
 import {Form, useSearchParams} from 'react-router-dom';
 import PriceFilter from './components/price-filter/price-filter';
 import {FilterSearchParam} from '../../../../types/filter-search-param';
+import CategoryFilter from './components/category-filter/category-filter';
 
 function Filter(): JSX.Element {
   const [,setSearchParams] = useSearchParams();
@@ -8,6 +9,8 @@ function Filter(): JSX.Element {
     setSearchParams((params) => {
       params.delete(FilterSearchParam.MinPrice);
       params.delete(FilterSearchParam.MaxPrice);
+      params.delete(FilterSearchParam.Videocamera);
+      params.delete(FilterSearchParam.Photocamera);
       return params;
     });
   };
@@ -16,23 +19,7 @@ function Filter(): JSX.Element {
     <Form>
       <h2 className="visually-hidden">Фильтр</h2>
       <PriceFilter/>
-      <fieldset className="catalog-filter__block">
-        <legend className="title title--h5">Категория</legend>
-        <div className="custom-checkbox catalog-filter__item">
-          <label>
-            <input type="checkbox" name="photocamera" checked/>
-            <span className="custom-checkbox__icon"></span>
-            <span className="custom-checkbox__label">Фотокамера</span>
-          </label>
-        </div>
-        <div className="custom-checkbox catalog-filter__item">
-          <label>
-            <input type="checkbox" name="videocamera"/>
-            <span className="custom-checkbox__icon"></span>
-            <span className="custom-checkbox__label">Видеокамера</span>
-          </label>
-        </div>
-      </fieldset>
+      <CategoryFilter/>
       <fieldset className="catalog-filter__block">
         <legend className="title title--h5">Тип камеры</legend>
         <div className="custom-checkbox catalog-filter__item">

@@ -8,7 +8,7 @@ import {getBuyPopupShown} from '../../store/reducers/cameras/selectors';
 import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
 import {RootRouterPath} from '../../routers/root-route-path';
 import Sort from './components/sort/sort';
-import Filter from './components/filters/filter';
+import Filter from './components/filter/filter';
 
 function Catalog(): JSX.Element {
   useEffect(() => {

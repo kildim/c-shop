@@ -1,10 +1,10 @@
-import PaginationMarker from '../pagination-marker/pagination-marker';
 import {MouseEventHandler} from 'react';
-import usePage from '../../../../hooks/use-page';
+import usePage from '../../../../../../hooks/use-page';
 import {Link, useNavigate, useSearchParams} from 'react-router-dom';
 import {animateScroll as scroll} from 'react-scroll';
-import {calculatePages} from '../../../../helpers/calculate-pages';
-import {Camera} from '../../../../types/camera';
+import {calculatePages} from '../../../../../../helpers/calculate-pages';
+import {Camera} from '../../../../../../types/camera';
+import PaginationMarker from '../pagination-marker/pagination-marker';
 
 type PaginationProps = {
   cameras: Camera[];
