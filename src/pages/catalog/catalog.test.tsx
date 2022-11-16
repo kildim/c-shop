@@ -1,9 +1,15 @@
 import {render, screen} from '@testing-library/react';
-import {HashRouter} from 'react-router-dom';
+import {createMemoryRouter, RouterProvider} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import Catalog from './catalog';
 import mockStore from '../../test-helpers/mock-store';
+import {mockCamera} from '../../test-helpers/mock-camera';
 
+jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
+  ...jest.requireActual('react-router-dom'),
+  useRouteLoaderData: () => ({cameras: [mockCamera, mockCamera]}
+  )
+}));
 const store = mockStore({
   CAMERAS: {
     cameras: [{id: 1}],
@@ -13,12 +19,22 @@ const store = mockStore({
 describe('Component: Card', () => {
 
   it('should render correctly', () => {
+    const testRouter = createMemoryRouter(
+      [
+        {
+          path: '/',
+          element: <Catalog/>,
+        },
+      ],
+      {
+        initialEntries: ['/'],
+        initialIndex: 0
+      }
+    );
 
     render(
       <Provider store={store}>
-        <HashRouter>
-          <Catalog/>
-        </HashRouter>
+        <RouterProvider router={testRouter}/>
       </Provider>,
     );
 

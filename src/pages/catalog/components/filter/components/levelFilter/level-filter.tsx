@@ -8,7 +8,7 @@ function LevelFilter(): JSX.Element {
   const hobbyFilter = searchParams.get(FilterSearchParam.Hobby);
   const professionalFilter = searchParams.get(FilterSearchParam.Professional);
 
-  const handleNoviceFilterClick = () => {
+  const handleNoviceFilterChange = () => {
     if (noviceFilter === null) {
       setSearchParams((params) => {
         params.append(FilterSearchParam.Novice, FilterSearchParam.Novice);
@@ -21,7 +21,7 @@ function LevelFilter(): JSX.Element {
       });
     }
   };
-  const handleHobbyFilterClick = () => {
+  const handleHobbyFilterChange = () => {
     if (hobbyFilter === null) {
       setSearchParams((params) => {
         params.append(FilterSearchParam.Hobby, FilterSearchParam.Hobby);
@@ -34,7 +34,7 @@ function LevelFilter(): JSX.Element {
       });
     }
   };
-  const handleProfessionalFilterClick = () => {
+  const handleProfessionalFilterChange = () => {
     if (professionalFilter === null) {
       setSearchParams((params) => {
         params.append(FilterSearchParam.Professional, FilterSearchParam.Professional);
@@ -53,7 +53,7 @@ function LevelFilter(): JSX.Element {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input type="checkbox" name="zero"
-            onClick={handleNoviceFilterClick}
+            onChange={handleNoviceFilterChange}
             checked={noviceFilter !== null}
           />
           <span className="custom-checkbox__icon"></span>
@@ -63,7 +63,7 @@ function LevelFilter(): JSX.Element {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input type="checkbox" name="non-professional"
-            onClick={handleHobbyFilterClick}
+            onChange={handleHobbyFilterChange}
             checked={hobbyFilter !== null}
           />
           <span className="custom-checkbox__icon"></span>
@@ -73,7 +73,7 @@ function LevelFilter(): JSX.Element {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input type="checkbox" name="professional"
-            onClick={handleProfessionalFilterClick}
+            onChange={handleProfessionalFilterChange}
             checked={professionalFilter !== null}
           />
           <span className="custom-checkbox__icon"></span>

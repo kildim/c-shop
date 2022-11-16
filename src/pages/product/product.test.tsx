@@ -25,7 +25,8 @@ describe('Component: Product', () => {
 
   it('should render correctly', () => {
 
-    const testRouter = createMemoryRouter([
+    const testRouter = createMemoryRouter(
+      [
         {
           path: '/',
           element: <Product/>
@@ -35,7 +36,7 @@ describe('Component: Product', () => {
       {
         initialEntries: ['/'],
         initialIndex: 0,
-      })
+      });
 
     render(
       <Provider store={store}>

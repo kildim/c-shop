@@ -12,7 +12,7 @@ function TypeFilter(): JSX.Element {
   const instantFilter = searchParams.get(FilterSearchParam.Instant);
   const collectionFilter = searchParams.get(FilterSearchParam.Collection);
 
-  const handleDigitalFilterClick = () => {
+  const handleDigitalFilterChange = () => {
     if (digitalFilter === null) {
       setSearchParams((params) => {
         params.append(FilterSearchParam.Digital, FilterSearchParam.Digital);
@@ -25,7 +25,7 @@ function TypeFilter(): JSX.Element {
       });
     }
   };
-  const handleFilmFilterClick = () => {
+  const handleFilmFilterChange = () => {
     if (filmFilter === null) {
       setSearchParams((params) => {
         params.append(FilterSearchParam.Film, FilterSearchParam.Film);
@@ -38,7 +38,7 @@ function TypeFilter(): JSX.Element {
       });
     }
   };
-  const handleInstantFilterClick = () => {
+  const handleInstantFilterChange = () => {
     if (instantFilter === null) {
       setSearchParams((params) => {
         params.append(FilterSearchParam.Instant, FilterSearchParam.Instant);
@@ -51,7 +51,7 @@ function TypeFilter(): JSX.Element {
       });
     }
   };
-  const handleCollectionFilterClick = () => {
+  const handleCollectionFilterChange = () => {
     if (collectionFilter === null) {
       setSearchParams((params) => {
         params.append(FilterSearchParam.Collection, FilterSearchParam.Collection);
@@ -71,7 +71,7 @@ function TypeFilter(): JSX.Element {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input type="checkbox" name="digital"
-            onClick={handleDigitalFilterClick}
+            onChange={handleDigitalFilterChange}
             checked={digitalFilter !== null}
           />
           <span className="custom-checkbox__icon"></span>
@@ -81,7 +81,7 @@ function TypeFilter(): JSX.Element {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input type="checkbox" name="film"
-            onClick={handleFilmFilterClick}
+            onChange={handleFilmFilterChange}
             checked={filmFilter !== null}
             disabled={videocameraFilter !== null && photocameraFilter === null}
           />
@@ -92,7 +92,7 @@ function TypeFilter(): JSX.Element {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input type="checkbox" name="snapshot"
-            onClick={handleInstantFilterClick}
+            onChange={handleInstantFilterChange}
             checked={instantFilter !== null}
             disabled={videocameraFilter !== null && photocameraFilter === null}
           />
@@ -103,7 +103,7 @@ function TypeFilter(): JSX.Element {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input type="checkbox" name="collection"
-            onClick={handleCollectionFilterClick}
+            onChange={handleCollectionFilterChange}
             checked={collectionFilter !== null}
           />
           <span className="custom-checkbox__icon"></span>

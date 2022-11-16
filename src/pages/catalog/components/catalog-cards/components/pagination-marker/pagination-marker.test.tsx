@@ -5,7 +5,7 @@ import mockStore from '../../../../../../test-helpers/mock-store';
 import PaginationMarker from './pagination-marker';
 
 const FAKE_PAGE_NUMBER = 13;
-jest.mock('../../../../hooks/use-page', () => () => FAKE_PAGE_NUMBER);
+jest.mock('../../../../../../hooks/use-page', () => () => FAKE_PAGE_NUMBER);
 
 describe('Component: Card', () => {
 

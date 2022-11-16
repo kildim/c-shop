@@ -7,12 +7,13 @@ jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
   useRouteLoaderData: () => ({cameras: [mockCamera, mockCamera]}
   )
-}))
+}));
 
 describe('Component: FormSearch', () => {
 
   it('should render correctly', () => {
-    const testRouter = createMemoryRouter([
+    const testRouter = createMemoryRouter(
+      [
         {
           path: '/',
           element: <FormSearch/>,
@@ -22,9 +23,9 @@ describe('Component: FormSearch', () => {
         initialEntries: ['/'],
         initialIndex: 0
       }
-    )
+    );
 
-    render(<RouterProvider router={testRouter}/>)
+    render(<RouterProvider router={testRouter}/>);
     expect(screen.getByPlaceholderText(/Поиск по сайту/i)).toBeInTheDocument();
   });
-})
+});

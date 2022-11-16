@@ -4,7 +4,8 @@ import {Provider} from 'react-redux';
 import mockStore from '../../../../../../test-helpers/mock-store';
 import Pagination from './pagination';
 import {RootReducerType} from '../../../../../../store/reducers/root-reducer';
-jest.mock('../../../../hooks/use-page', () => () => 1);
+import {mockCamera} from '../../../../../../test-helpers/mock-camera';
+jest.mock('../../../../../../hooks/use-page', () => () => 1);
 
 describe('Component: Pagination', () => {
 
@@ -12,6 +13,7 @@ describe('Component: Pagination', () => {
 
     const store = mockStore({
       CAMERAS: {
+        cameras: [mockCamera]
       }
     });
 

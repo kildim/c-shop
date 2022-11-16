@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {createMemoryRouter, RouterProvider} from 'react-router-dom';
-import Header from './header';
-import {mockCamera} from '../../test-helpers/mock-camera';
+import Filter from './filter';
+import {mockCamera} from '../../../../test-helpers/mock-camera';
 
 jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
@@ -9,14 +9,13 @@ jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   )
 }));
 
-describe('Component: Header', () => {
-
-  it('should render correctly', () => {
+describe('Component: Filter', () => {
+  it('should render Filter', () => {
     const testRouter = createMemoryRouter(
       [
         {
           path: '/',
-          element: <Header/>,
+          element: <Filter/>,
         },
       ],
       {
@@ -25,10 +24,9 @@ describe('Component: Header', () => {
       }
     );
 
-    render(
+    render (
       <RouterProvider router={testRouter}/>
     );
-
-    expect(screen.getByPlaceholderText(/Поиск по сайту/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Фильтр/i)).toHaveLength(2);
   });
 });

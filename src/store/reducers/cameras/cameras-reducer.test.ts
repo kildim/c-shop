@@ -3,11 +3,9 @@ import {
   loadPromo,
   setApiError,
   setBuyPopupShown,
-  // setIsCamerasLoading,
   setIsNewReviewShown,
   setIsNewReviewSuccessShown,
   setIsReviewPosting,
-  // setPagesCount
 } from './cameras-actions';
 import {camerasReducer} from './cameras-reducer';
 import {CamerasReducer} from '../../../types/cameras-reducer';
@@ -31,17 +29,6 @@ describe ('CamerasReducer:', () => {
     expect(camerasReducer(void 0, {type: 'UNKNOWN_ACTION'})).toEqual(initialState);
   });
 
-  // describe ( 'setIsCamerasLoading case:', () => {
-  //   it('Should set isCameraLoading true if setIsCamerasLoading receive true', () => {
-  //     const state = {isCameraLoading: false} as CamerasReducer;
-  //     expect(camerasReducer(state, setIsCamerasLoading(true))).toEqual({isCameraLoading: true});
-  //   });
-  //   it('Should set isCameraLoading false if setIsCamerasLoading receive false', () => {
-  //     const state = {isCameraLoading: true} as CamerasReducer;
-  //     expect(camerasReducer(state, setIsCamerasLoading(false))).toEqual({isCameraLoading: false});
-  //   });
-  // });
-
   describe ( 'loadCameras case:', () => {
     it('Should set cameras to Camera[] if loadCameras receive Camera[]', () => {
       const state = {cameras: []} as unknown as CamerasReducer;
@@ -49,13 +36,6 @@ describe ('CamerasReducer:', () => {
       expect(camerasReducer(state, loadCameras(fakeCameras))).toEqual({cameras: fakeCameras});
     });
   });
-
-  // describe ( 'setPagesCount case:', () => {
-  //   it('Should set pagesCount to Count if loadCameras receive Count', () => {
-  //     const state = {pagesCount: 0} as unknown as CamerasReducer;
-  //     expect(camerasReducer(state, setPagesCount(1))).toEqual({pagesCount: 1});
-  //   });
-  // });
 
   describe ( 'loadPromo case:', () => {
     it('Should set promo to Promo if loadPromo receive Promo', () => {

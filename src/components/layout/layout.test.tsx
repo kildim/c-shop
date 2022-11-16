@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react';
-import {createMemoryRouter, HashRouter, RouterProvider} from 'react-router-dom';
+import {createMemoryRouter, RouterProvider} from 'react-router-dom';
 import Layout from './layout';
 import mockStore from '../../test-helpers/mock-store';
 import {Provider} from 'react-redux';
@@ -9,7 +9,7 @@ jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
   useRouteLoaderData: () => ({cameras: [mockCamera, mockCamera]}
   )
-}))
+}));
 
 describe('Component: Layout', () => {
 

@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
+import {mockCamera} from '../../../../../../test-helpers/mock-camera';
 import {createMemoryRouter, RouterProvider} from 'react-router-dom';
-import Header from './header';
-import {mockCamera} from '../../test-helpers/mock-camera';
+import PriceFilter from './price-filter';
 
 jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
@@ -9,14 +9,13 @@ jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   )
 }));
 
-describe('Component: Header', () => {
-
-  it('should render correctly', () => {
+describe('Component: LevelFilter', () => {
+  it('should render LevelFilter', () => {
     const testRouter = createMemoryRouter(
       [
         {
           path: '/',
-          element: <Header/>,
+          element: <PriceFilter/>,
         },
       ],
       {
@@ -25,10 +24,9 @@ describe('Component: Header', () => {
       }
     );
 
-    render(
+    render (
       <RouterProvider router={testRouter}/>
     );
-
-    expect(screen.getByPlaceholderText(/Поиск по сайту/i)).toBeInTheDocument();
+    expect(screen.getByText(/Цена/i)).toBeInTheDocument();
   });
 });
