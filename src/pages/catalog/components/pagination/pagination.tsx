@@ -1,13 +1,17 @@
 import PaginationMarker from '../pagination-marker/pagination-marker';
 import {MouseEventHandler} from 'react';
 import usePage from '../../../../hooks/use-page';
-import {Link, useNavigate, useRouteLoaderData, useSearchParams} from 'react-router-dom';
+import {Link, useNavigate, useSearchParams} from 'react-router-dom';
 import {animateScroll as scroll} from 'react-scroll';
 import {calculatePages} from '../../../../helpers/calculate-pages';
-import {CatalogLoaderData} from '../../catalog-loader';
+import {Camera} from '../../../../types/camera';
 
-function Pagination(): JSX.Element | null {
-  const {cameras} = useRouteLoaderData('root') as CatalogLoaderData;
+type PaginationProps = {
+  cameras: Camera[];
+}
+
+function Pagination(props: PaginationProps): JSX.Element | null {
+  const {cameras} = props;
   const activePage = usePage();
   const pagesCount = calculatePages(cameras.length);
   const navigate = useNavigate();
@@ -16,6 +20,7 @@ function Pagination(): JSX.Element | null {
   if (activePage === null) {
     return null;
   }
+  if (activePage > pagesCount) {return null;}
 
   const pagesNumbers = Array(pagesCount).fill(null).map((item, index) => ++index);
   const handleBackwardClick: MouseEventHandler = (event) => {

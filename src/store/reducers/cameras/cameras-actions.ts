@@ -15,18 +15,6 @@ const loadPromo = createAction(
   }),
 );
 
-// const setIsCamerasLoading = createAction(
-//   ActionType.SetIsCamerasLoading, (isLoading: boolean) => ({
-//     payload: isLoading,
-//   })
-// );
-
-// const setPagesCount = createAction(
-//   ActionType.SetPagesCount, (count: number) => ({
-//     payload: count
-//   })
-// );
-
 const setBuyPopupShown = createAction(
   ActionType.SetIsBuyPopupShown, (id: number | null) => ({
     payload: id

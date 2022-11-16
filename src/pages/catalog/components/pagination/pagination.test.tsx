@@ -3,6 +3,7 @@ import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import mockStore from '../../../../test-helpers/mock-store';
 import Pagination from './pagination';
+import {RootReducerType} from '../../../../store/reducers/root-reducer';
 jest.mock('../../../../hooks/use-page', () => () => 1);
 
 describe('Component: Pagination', () => {
@@ -17,7 +18,7 @@ describe('Component: Pagination', () => {
     render(
       <Provider store={store}>
         <HashRouter>
-          <Pagination/>
+          <Pagination cameras={(store.getState() as RootReducerType).CAMERAS.cameras}/>
         </HashRouter>
       </Provider>,
     );

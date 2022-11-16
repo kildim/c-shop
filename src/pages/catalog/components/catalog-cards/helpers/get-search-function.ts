@@ -1,7 +1,7 @@
-import {SortingSearchParam} from '../types/sorting-search-param';
-import {Sorting} from '../types/sorting';
-import {Direction} from '../types/direction';
-import {Camera} from '../types/camera';
+import {SortingSearchParam} from '../../../../../types/sorting-search-param';
+import {Sorting} from '../../../../../types/sorting';
+import {Direction} from '../../../../../types/direction';
+import {Camera} from '../../../../../types/camera';
 
 function getSortFunction(searchString: URLSearchParams) {
   let sorting = searchString.get(SortingSearchParam.Sorting);

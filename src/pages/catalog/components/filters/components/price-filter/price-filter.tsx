@@ -22,9 +22,6 @@ function PriceFilter(): JSX.Element {
     if (Number(minPriceValue) > maxPrice) {
       setMinPriceValue(maxPrice.toString());
     }
-    // if (Number(minPriceValue) > Number(maxPriceValue)) {
-    //   setMinPriceValue(maxPriceValue.toString());
-    // }
   };
   const handleMinPriceBlur: FocusEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();

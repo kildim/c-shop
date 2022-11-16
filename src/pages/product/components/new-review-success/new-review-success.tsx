@@ -1,5 +1,4 @@
 import {NewReviewSuccessProps} from './new-review-success-props';
-// import {FocusEvent, useEffect, useRef} from 'react';
 import useFocusLoop from '../../../../hooks/use-focus-loop';
 
 function NewReviewSuccess(props: NewReviewSuccessProps): JSX.Element {

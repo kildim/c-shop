@@ -1,11 +1,16 @@
-import useAscendingPrices from '../../../../hooks/use-ascending-prices';
-import {FocusEventHandler, useRef} from 'react';
 import {Form, useSearchParams} from 'react-router-dom';
-import {searchParamsAsObject} from '../../../../helpers/search-params-as-object';
-import {FilterSearchParam} from '../../../../types/filter-search-param';
 import PriceFilter from './components/price-filter/price-filter';
+import {FilterSearchParam} from '../../../../types/filter-search-param';
 
 function Filter(): JSX.Element {
+  const [,setSearchParams] = useSearchParams();
+  const handleResetClick = () => {
+    setSearchParams((params) => {
+      params.delete(FilterSearchParam.MinPrice);
+      params.delete(FilterSearchParam.MaxPrice);
+      return params;
+    });
+  };
 
   return (
     <Form>
@@ -83,7 +88,7 @@ function Filter(): JSX.Element {
           </label>
         </div>
       </fieldset>
-      <button className="btn catalog-filter__reset-btn" type="reset">
+      <button className="btn catalog-filter__reset-btn" type="reset" onClick={handleResetClick}>
         Сбросить фильтры
       </button>
     </Form>
