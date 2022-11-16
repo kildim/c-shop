@@ -2,6 +2,13 @@ import {render, screen} from '@testing-library/react';
 import {createMemoryRouter, RouterProvider} from 'react-router-dom';
 import Header from './header';
 import userEvent from '@testing-library/user-event';
+import {mockCamera} from '../../test-helpers/mock-camera';
+
+jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
+  ...jest.requireActual('react-router-dom'),
+  useRouteLoaderData: () => ({cameras: [mockCamera, mockCamera]}
+  )
+}))
 
 describe('Component: Header', () => {
 
