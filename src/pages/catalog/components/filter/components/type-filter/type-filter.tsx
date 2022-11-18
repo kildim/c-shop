@@ -1,6 +1,5 @@
 import {useSearchParams} from 'react-router-dom';
 import {FilterSearchParam} from '../../../../../../types/filter-search-param';
-// import {Type} from '../../../../../../types/type';
 import {searchParamsAsObject} from '../../../../../../helpers/search-params-as-object';
 
 function TypeFilter(): JSX.Element {
