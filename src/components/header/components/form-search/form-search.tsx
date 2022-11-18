@@ -1,7 +1,7 @@
 import SelectList from './components/select-list/select-list';
 import {SyntheticEvent, useState} from 'react';
 import {Form, useRouteLoaderData} from 'react-router-dom';
-import {CamerasLoaderData} from '../../../../pages/catalog/cameras-loader';
+import {CamerasLoaderData} from '../../../../types/cameras-loader-data';
 
 function FormSearch(): JSX.Element {
   const [searchName, setSearchName] = useState<string>('');

@@ -3,6 +3,7 @@ import useAscendingPrices from '../../../../../../hooks/use-ascending-prices';
 import {useSearchParams} from 'react-router-dom';
 import {searchParamsAsObject} from '../../../../../../helpers/search-params-as-object';
 import {FilterSearchParam} from '../../../../../../types/filter-search-param';
+import {NOT_FOUND} from '../../../../../../constants/not-found';
 
 function PriceFilter(): JSX.Element {
   const {prices} = useAscendingPrices();
@@ -15,45 +16,40 @@ function PriceFilter(): JSX.Element {
   const minPriceRef = useRef<HTMLInputElement>(null);
   const maxPriceRef = useRef<HTMLInputElement>(null);
 
-  const correctMinPriceLimit = () => {
-    if (Number(minPriceValue) < minPrice) {
-      setMinPriceValue(minPrice.toString());
-    }
-    if (Number(minPriceValue) > maxPrice) {
-      setMinPriceValue(maxPrice.toString());
-    }
-  };
   const handleMinPriceBlur: FocusEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     if (minPriceRef.current === null || maxPriceRef.current === null) {
       throw Error('Ошибка рендера формы');
     }
-    correctMinPriceLimit();
+    if (Number(minPriceValue) < minPrice) {
+      setMinPriceValue(minPrice.toString());
+      return;
+    }
+    if (Number(minPriceValue) > maxPrice) {
+      setMinPriceValue(maxPrice.toString());
+      return;
+    }
     const nearest = prices.findIndex((currentValue) => currentValue > Number(minPriceValue));
-    let nearestValue = nearest === -1 ? maxPrice : prices[nearest - 1];
+    let nearestValue = nearest === NOT_FOUND ? maxPrice : prices[nearest - 1];
     nearestValue = nearestValue > Number(maxPriceValue) ? Number(maxPriceValue) : nearestValue;
     setMinPriceValue(nearestValue.toString());
   };
 
-  const correctMaxPriceLimit = () => {
-    if (Number(maxPriceValue) > maxPrice) {
-      setMaxPriceValue(maxPrice.toString());
-    }
-    if (Number(maxPriceValue) < minPrice) {
-      setMaxPriceValue(minPrice.toString());
-    }
-    if (Number(maxPriceValue) < Number(minPriceValue)) {
-      setMinPriceValue(minPriceValue.toString());
-    }
-  };
   const handleMaxPriceBlur: FocusEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     if (minPriceRef.current === null || maxPriceRef.current === null) {
       throw Error('Ошибка рендера формы');
     }
-    correctMaxPriceLimit();
+    if (Number(maxPriceValue) > maxPrice) {
+      setMaxPriceValue(maxPrice.toString());
+      return;
+    }
+    if (Number(maxPriceValue) < minPrice) {
+      setMaxPriceValue(minPrice.toString());
+      return;
+    }
     const nearest = prices.findIndex((currentValue) => currentValue > Number(maxPriceValue));
-    let nearestValue = nearest === -1 ? maxPrice : prices[nearest - 1];
+    let nearestValue = nearest === NOT_FOUND ? maxPrice : prices[nearest - 1];
     nearestValue = nearestValue < Number(minPriceValue) ? Number(minPriceValue) : nearestValue;
     setMaxPriceValue(nearestValue.toString());
   };

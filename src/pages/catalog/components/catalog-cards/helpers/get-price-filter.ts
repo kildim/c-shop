@@ -1,7 +1,7 @@
 import {FilterSearchParam} from '../../../../../types/filter-search-param';
 import {Camera} from '../../../../../types/camera';
 
-function getPriceFilterFunction(searchString: URLSearchParams) {
+function getPriceFilter(searchString: URLSearchParams) {
   const minPrice = searchString.get(FilterSearchParam.MinPrice);
   const maxPrice = searchString.get(FilterSearchParam.MaxPrice);
 
@@ -12,4 +12,4 @@ function getPriceFilterFunction(searchString: URLSearchParams) {
   return (camera: Camera) => camera.price >= Number(minPrice) && camera.price <= Number(maxPrice);
 }
 
-export default getPriceFilterFunction;
+export default getPriceFilter;

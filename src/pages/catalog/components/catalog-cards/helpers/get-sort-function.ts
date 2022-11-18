@@ -13,9 +13,6 @@ function getSortFunction(searchString: URLSearchParams) {
   if (sorting !== null) {
     direction = direction === null ? Direction.Asc : direction;
   }
-  if (sorting === null && direction === null) {
-    return () => 0;
-  }
   if (sorting === Sorting.Price) {
     switch (direction) {
       case Direction.Asc:
@@ -32,6 +29,7 @@ function getSortFunction(searchString: URLSearchParams) {
         return (firstValue: Camera, secondValue: Camera) => secondValue.rating - firstValue.rating;
     }
   }
+  return () => 0;
 }
 
 export default getSortFunction;

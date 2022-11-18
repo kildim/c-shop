@@ -4,8 +4,8 @@ import usePage from '../../../../hooks/use-page';
 import {useRouteLoaderData, useSearchParams} from 'react-router-dom';
 import {CatalogLoaderData} from '../../catalog-loader';
 import Pagination from './components/pagination/pagination';
-import getSortFunction from './helpers/get-search-function';
-import getPriceFilterFunction from './helpers/get-price-filter-function';
+import getSortFunction from './helpers/get-sort-function';
+import getPriceFilter from './helpers/get-price-filter';
 import {getCategoryFilter} from './helpers/get-category-filter';
 import {getTypeFilter} from './helpers/get-type-filter';
 import {getLevelFilter} from './helpers/get-level-filter';
@@ -15,7 +15,7 @@ function CatalogCards(): JSX.Element | null {
   const [searchParams] = useSearchParams();
   const {cameras} = useRouteLoaderData('root') as CatalogLoaderData;
   const processedCameras = cameras
-    .filter(getPriceFilterFunction(searchParams))
+    .filter(getPriceFilter(searchParams))
     .filter(getCategoryFilter(searchParams))
     .filter(getTypeFilter(searchParams))
     .filter(getLevelFilter(searchParams))

@@ -7,10 +7,12 @@ function useFocusLoop() {
     if (lastFocusableElement.current === null) {
       throw new Error('Элемент не найден');
     }
-    lastFocusableElement.current.focus();
-  }, [lastFocusableElement]);
+    lastFocusableElement.current.focus();}, [lastFocusableElement]
+  );
 
   const handleModalBlur: FocusEventHandler = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     if (lastFocusableElement.current === null || firstFocusableElement.current === null) {
       throw new Error('Элемент не найден');
     }
@@ -24,7 +26,11 @@ function useFocusLoop() {
     }
   };
 
-  return ({firstFocusableElement: firstFocusableElement, lastFocusableElement: lastFocusableElement, handleModalBlur: handleModalBlur});
+  return ({
+    firstFocusableElement: firstFocusableElement,
+    lastFocusableElement: lastFocusableElement,
+    handleModalBlur: handleModalBlur
+  });
 }
 
 export default useFocusLoop;
