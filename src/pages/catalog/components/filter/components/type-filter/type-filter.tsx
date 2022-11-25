@@ -1,11 +1,11 @@
 import {useSearchParams} from 'react-router-dom';
 import {FilterSearchParam} from '../../../../../../types/filter-search-param';
 import {searchParamsAsObject} from '../../../../../../helpers/search-params-as-object';
+import {CameraCategory} from '../../../../../../types/CameraCategory';
 
 function TypeFilter(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const videocameraFilter = searchParams.get(FilterSearchParam.Videocamera);
-  const photocameraFilter = searchParams.get(FilterSearchParam.Photocamera);
+  const categories = searchParams.getAll(FilterSearchParam.Category);
   const digitalFilter = searchParams.get(FilterSearchParam.Digital);
   const filmFilter = searchParams.get(FilterSearchParam.Film);
   const instantFilter = searchParams.get(FilterSearchParam.Instant);
@@ -82,7 +82,7 @@ function TypeFilter(): JSX.Element {
           <input type="checkbox" name="film"
             onChange={handleFilmFilterChange}
             checked={filmFilter !== null}
-            disabled={videocameraFilter !== null && photocameraFilter === null}
+            disabled={categories.includes(CameraCategory.Videocamera) && !categories.includes(CameraCategory.Photocamera)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Плёночная</span>
@@ -93,7 +93,7 @@ function TypeFilter(): JSX.Element {
           <input type="checkbox" name="snapshot"
             onChange={handleInstantFilterChange}
             checked={instantFilter !== null}
-            disabled={videocameraFilter !== null && photocameraFilter === null}
+            disabled={categories.includes(CameraCategory.Videocamera) && !categories.includes(CameraCategory.Photocamera)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Моментальная</span>

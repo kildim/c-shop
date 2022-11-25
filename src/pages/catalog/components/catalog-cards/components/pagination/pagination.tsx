@@ -1,4 +1,4 @@
-import {MouseEventHandler} from 'react';
+import {MouseEventHandler, useEffect} from 'react';
 import usePage from '../../../../../../hooks/use-page';
 import {Link, useNavigate, useSearchParams} from 'react-router-dom';
 import {animateScroll as scroll} from 'react-scroll';
@@ -17,10 +17,18 @@ function Pagination(props: PaginationProps): JSX.Element | null {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
+  useEffect(() => {
+    if (activePage === null) {
+      throw new Error('Ошибка парсинга номера страницы!');
+    }
+    if (activePage > pagesCount) {
+      navigate(`../page_1?${searchParams.toString()}`);
+    }
+  });
+
   if (activePage === null) {
     return null;
   }
-  if (activePage > pagesCount) {return null;}
 
   const pagesNumbers = Array(pagesCount).fill(null).map((item, index) => ++index);
   const handleBackwardClick: MouseEventHandler = (event) => {

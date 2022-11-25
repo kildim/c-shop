@@ -39,7 +39,7 @@ const fetchPromo = () => axios(Url.Promo).then((response) => response.data as Pr
 
 const fetchCameras = (searchParams: URLSearchParams | null = null) =>
   axios(Url.Cameras, {params: searchParams})
-    .then((response) => response.data as Camera[])
+    .then((response) => ({cameras: response.data as Camera[], headers: response.headers}))
     .catch((error: AxiosError) => Promise.reject(error.message));
 
 export {fetchCameras, fetchProduct, fetchSimilar, fetchReviews, postReview, fetchPromo};

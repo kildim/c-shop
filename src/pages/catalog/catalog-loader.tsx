@@ -8,8 +8,9 @@ export type CatalogLoaderData = {
   promo: Promo;
 }
 
-const catalogLoader = async () => {
-  const cameras = await fetchCameras(new URLSearchParams());
+const catalogLoader = async ({request}: {request: Request}) => {
+  const url = new URL(request.url);
+  const {cameras} = await fetchCameras(new URLSearchParams(url.search));
   const promo = await fetchPromo();
   return {
     cameras: cameras,

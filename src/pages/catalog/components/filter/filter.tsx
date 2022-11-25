@@ -11,8 +11,7 @@ function Filter(): JSX.Element {
     setSearchParams((params) => {
       params.delete(FilterSearchParam.MinPrice);
       params.delete(FilterSearchParam.MaxPrice);
-      params.delete(FilterSearchParam.Videocamera);
-      params.delete(FilterSearchParam.Photocamera);
+      params.delete(FilterSearchParam.Category);
       params.delete(FilterSearchParam.Digital);
       params.delete(FilterSearchParam.Film);
       params.delete(FilterSearchParam.Instant);

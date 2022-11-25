@@ -1,8 +1,7 @@
 export enum FilterSearchParam {
-  MinPrice = 'min-price',
-  MaxPrice = 'max-price',
-  Photocamera = 'Фотоаппарат',
-  Videocamera = 'Видеокамера',
+  MinPrice = 'price_gte',
+  MaxPrice = 'price_lte',
+  Category = 'category',
   Digital = 'Цифровая',
   Film = 'Плёночная',
   Instant = 'Моментальная',

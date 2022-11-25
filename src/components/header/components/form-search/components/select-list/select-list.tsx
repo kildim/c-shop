@@ -12,7 +12,7 @@ function SelectList(props: Props): JSX.Element {
   const getOpacityAttribute = () => items.length > 0 ? '1' : '0';
   const generateProductLinkPath = (id: number) => `${RootRouterPath.Product}/${id}`;
   return (
-    <ul className="form-search__select-list"
+    <ul className="form-search__select-list scroller"
       style={{visibility: getVisibilityAttribute(), opacity: getOpacityAttribute()}}
     >
       {

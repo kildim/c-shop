@@ -1,20 +1,20 @@
 import SelectList from './components/select-list/select-list';
-import {SyntheticEvent, useState} from 'react';
-import {Form, useRouteLoaderData} from 'react-router-dom';
-import {CamerasLoaderData} from '../../../../types/cameras-loader-data';
+import {SyntheticEvent, useEffect, useState} from 'react';
+import {Form} from 'react-router-dom';
+import {Camera} from '../../../../types/camera';
+import {fetchCameras} from '../../../../services/api/api';
 
 function FormSearch(): JSX.Element {
   const [searchName, setSearchName] = useState<string>('');
-  const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
-
+  const [cameras, setCameras] = useState<Camera[]>([]);
+  useEffect( () => {
+    const selectedCameras = async () => {
+      const fetchedResponceRecord = await fetchCameras(new URLSearchParams({'name_like': searchName}));
+      setCameras(fetchedResponceRecord.cameras);
+    };
+    selectedCameras().then();
+  }, [searchName]);
   const handleSearchChange = (event: SyntheticEvent<HTMLInputElement>) => setSearchName(event.currentTarget.value);
-  const findItems = () => {
-    if (searchName === '') {
-      return [];
-    }
-    const pattern = new RegExp(searchName, 'i');
-    return cameras.filter((camera) => pattern.test(camera.name));
-  };
   const getDisplayAttribute = () => searchName === '' ? 'none' : 'flex';
 
   const handleResetClick = () => setSearchName('');
@@ -31,7 +31,8 @@ function FormSearch(): JSX.Element {
             value={searchName}
           />
         </label>
-        <SelectList items={findItems()}/>
+        {searchName && <SelectList items={cameras}/>}
+
       </Form>
       <button className="form-search__reset" style={{display: getDisplayAttribute()}} type="reset" onClick={handleResetClick}>
         <svg width="10" height="10" aria-hidden="true">

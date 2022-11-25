@@ -81,7 +81,7 @@ function PriceFilter(): JSX.Element {
       <div className="catalog-filter__price-range">
         <div className="custom-input">
           <label>
-            <input type="number" name="min-price" placeholder={`от ${minPrice}`}
+            <input type="number" name="min-price" placeholder={minPrice.toString()}
               onBlurCapture={handleMinPriceBlur}
               onChange={handleMinPriceChange}
               value={minPriceValue || ''}
@@ -91,7 +91,7 @@ function PriceFilter(): JSX.Element {
         </div>
         <div className="custom-input">
           <label>
-            <input type="number" name="max-price" placeholder={`до ${maxPrice}`}
+            <input type="number" name="max-price" placeholder={maxPrice.toString()}
               onBlurCapture={handleMaxPriceBlur}
               onChange={handleMaxPriceChange}
               value={maxPriceValue || ''}
