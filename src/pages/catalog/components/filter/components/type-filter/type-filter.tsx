@@ -1,67 +1,54 @@
 import {useSearchParams} from 'react-router-dom';
 import {FilterSearchParam} from '../../../../../../types/filter-search-param';
-import {searchParamsAsObject} from '../../../../../../helpers/search-params-as-object';
-import {CameraCategory} from '../../../../../../types/CameraCategory';
+import {CameraCategory} from '../../../../../../types/camera-category';
+import {CameraType} from '../../../../../../types/camera-type';
 
 function TypeFilter(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const categories = searchParams.getAll(FilterSearchParam.Category);
-  const digitalFilter = searchParams.get(FilterSearchParam.Digital);
-  const filmFilter = searchParams.get(FilterSearchParam.Film);
-  const instantFilter = searchParams.get(FilterSearchParam.Instant);
-  const collectionFilter = searchParams.get(FilterSearchParam.Collection);
+  const types = searchParams.getAll(FilterSearchParam.Type);
+  const setTypeSearchParams = (typeParams: string[]) => {
+    setSearchParams((params) => {
+      params.delete(FilterSearchParam.Type);
+      if (typeParams.length > 0) {
+        typeParams.forEach((type) => params.append(FilterSearchParam.Type, type));
+      }
+      return params;
+    });
+  };
+  let resultTypes: string[] = [];
 
   const handleDigitalFilterChange = () => {
-    if (digitalFilter === null) {
-      setSearchParams((params) => {
-        params.append(FilterSearchParam.Digital, FilterSearchParam.Digital);
-        return ({...searchParamsAsObject(params)});
-      });
+    if (types.includes(CameraType.Digital)) {
+      resultTypes = types.filter((type) => type !== CameraType.Digital);
     } else {
-      setSearchParams((params) => {
-        params.delete(FilterSearchParam.Digital);
-        return ({...searchParamsAsObject(params)});
-      });
+      resultTypes = [...types, CameraType.Digital];
     }
+    setTypeSearchParams(resultTypes);
   };
   const handleFilmFilterChange = () => {
-    if (filmFilter === null) {
-      setSearchParams((params) => {
-        params.append(FilterSearchParam.Film, FilterSearchParam.Film);
-        return ({...searchParamsAsObject(params)});
-      });
+    if (types.includes(CameraType.Film)) {
+      resultTypes = types.filter((type) => type !== CameraType.Film);
     } else {
-      setSearchParams((params) => {
-        params.delete(FilterSearchParam.Film);
-        return ({...searchParamsAsObject(params)});
-      });
+      resultTypes = [...types, CameraType.Film];
     }
+    setTypeSearchParams(resultTypes);
   };
   const handleInstantFilterChange = () => {
-    if (instantFilter === null) {
-      setSearchParams((params) => {
-        params.append(FilterSearchParam.Instant, FilterSearchParam.Instant);
-        return ({...searchParamsAsObject(params)});
-      });
+    if (types.includes(CameraType.Instant)) {
+      resultTypes = types.filter((type) => type !== CameraType.Instant);
     } else {
-      setSearchParams((params) => {
-        params.delete(FilterSearchParam.Instant);
-        return ({...searchParamsAsObject(params)});
-      });
+      resultTypes = [...types, CameraType.Instant];
     }
+    setTypeSearchParams(resultTypes);
   };
   const handleCollectionFilterChange = () => {
-    if (collectionFilter === null) {
-      setSearchParams((params) => {
-        params.append(FilterSearchParam.Collection, FilterSearchParam.Collection);
-        return ({...searchParamsAsObject(params)});
-      });
+    if (types.includes(CameraType.Collection)) {
+      resultTypes = types.filter((type) => type !== CameraType.Collection);
     } else {
-      setSearchParams((params) => {
-        params.delete(FilterSearchParam.Collection);
-        return ({...searchParamsAsObject(params)});
-      });
+      resultTypes = [...types, CameraType.Collection];
     }
+    setTypeSearchParams(resultTypes);
   };
 
   return (
@@ -71,7 +58,7 @@ function TypeFilter(): JSX.Element {
         <label>
           <input type="checkbox" name="digital"
             onChange={handleDigitalFilterChange}
-            checked={digitalFilter !== null}
+            checked={types.includes(CameraType.Digital)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Цифровая</span>
@@ -81,7 +68,7 @@ function TypeFilter(): JSX.Element {
         <label>
           <input type="checkbox" name="film"
             onChange={handleFilmFilterChange}
-            checked={filmFilter !== null}
+            checked={types.includes(CameraType.Film)}
             disabled={categories.includes(CameraCategory.Videocamera) && !categories.includes(CameraCategory.Photocamera)}
           />
           <span className="custom-checkbox__icon"></span>
@@ -92,7 +79,7 @@ function TypeFilter(): JSX.Element {
         <label>
           <input type="checkbox" name="snapshot"
             onChange={handleInstantFilterChange}
-            checked={instantFilter !== null}
+            checked={types.includes(CameraType.Instant)}
             disabled={categories.includes(CameraCategory.Videocamera) && !categories.includes(CameraCategory.Photocamera)}
           />
           <span className="custom-checkbox__icon"></span>
@@ -103,7 +90,7 @@ function TypeFilter(): JSX.Element {
         <label>
           <input type="checkbox" name="collection"
             onChange={handleCollectionFilterChange}
-            checked={collectionFilter !== null}
+            checked={types.includes(CameraType.Collection)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Коллекционная</span>

@@ -1,51 +1,44 @@
 import {useSearchParams} from 'react-router-dom';
 import {FilterSearchParam} from '../../../../../../types/filter-search-param';
-import {searchParamsAsObject} from '../../../../../../helpers/search-params-as-object';
+import {CameraLevel} from '../../../../../../types/camera-level';
 
 function LevelFilter(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const noviceFilter = searchParams.get(FilterSearchParam.Novice);
-  const hobbyFilter = searchParams.get(FilterSearchParam.Hobby);
-  const professionalFilter = searchParams.get(FilterSearchParam.Professional);
+  const levels = searchParams.getAll(FilterSearchParam.Level);
+  const setLevelSearchParams = (levelParams: string[]) => {
+    setSearchParams((params) => {
+      params.delete(FilterSearchParam.Level);
+      if (levelParams.length > 0) {
+        levelParams.forEach((type) => params.append(FilterSearchParam.Level, type));
+      }
+      return params;
+    });
+  };
+  let resultLevels: string[] = [];
 
   const handleNoviceFilterChange = () => {
-    if (noviceFilter === null) {
-      setSearchParams((params) => {
-        params.append(FilterSearchParam.Novice, FilterSearchParam.Novice);
-        return ({...searchParamsAsObject(params)});
-      });
+    if (levels.includes(CameraLevel.Novice)) {
+      resultLevels = levels.filter((level) => level !== CameraLevel.Novice);
     } else {
-      setSearchParams((params) => {
-        params.delete(FilterSearchParam.Novice);
-        return ({...searchParamsAsObject(params)});
-      });
+      resultLevels = [...levels, CameraLevel.Novice];
     }
+    setLevelSearchParams(resultLevels);
   };
   const handleHobbyFilterChange = () => {
-    if (hobbyFilter === null) {
-      setSearchParams((params) => {
-        params.append(FilterSearchParam.Hobby, FilterSearchParam.Hobby);
-        return ({...searchParamsAsObject(params)});
-      });
+    if (levels.includes(CameraLevel.Hobby)) {
+      resultLevels = levels.filter((level) => level !== CameraLevel.Hobby);
     } else {
-      setSearchParams((params) => {
-        params.delete(FilterSearchParam.Hobby);
-        return ({...searchParamsAsObject(params)});
-      });
+      resultLevels = [...levels, CameraLevel.Hobby];
     }
+    setLevelSearchParams(resultLevels);
   };
   const handleProfessionalFilterChange = () => {
-    if (professionalFilter === null) {
-      setSearchParams((params) => {
-        params.append(FilterSearchParam.Professional, FilterSearchParam.Professional);
-        return ({...searchParamsAsObject(params)});
-      });
+    if (levels.includes(CameraLevel.Professional)) {
+      resultLevels = levels.filter((level) => level !== CameraLevel.Professional);
     } else {
-      setSearchParams((params) => {
-        params.delete(FilterSearchParam.Professional);
-        return ({...searchParamsAsObject(params)});
-      });
+      resultLevels = [...levels, CameraLevel.Professional];
     }
+    setLevelSearchParams(resultLevels);
   };
   return (
     <fieldset className="catalog-filter__block">
@@ -54,7 +47,7 @@ function LevelFilter(): JSX.Element {
         <label>
           <input type="checkbox" name="zero"
             onChange={handleNoviceFilterChange}
-            checked={noviceFilter !== null}
+            checked={levels.includes(CameraLevel.Novice)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Нулевой</span>
@@ -64,7 +57,7 @@ function LevelFilter(): JSX.Element {
         <label>
           <input type="checkbox" name="non-professional"
             onChange={handleHobbyFilterChange}
-            checked={hobbyFilter !== null}
+            checked={levels.includes(CameraLevel.Hobby)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Любительский</span>
@@ -74,7 +67,7 @@ function LevelFilter(): JSX.Element {
         <label>
           <input type="checkbox" name="professional"
             onChange={handleProfessionalFilterChange}
-            checked={professionalFilter !== null}
+            checked={levels.includes(CameraLevel.Professional)}
           />
           <span className="custom-checkbox__icon"></span>
           <span className="custom-checkbox__label">Профессиональный</span>

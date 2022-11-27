@@ -12,13 +12,8 @@ function Filter(): JSX.Element {
       params.delete(FilterSearchParam.MinPrice);
       params.delete(FilterSearchParam.MaxPrice);
       params.delete(FilterSearchParam.Category);
-      params.delete(FilterSearchParam.Digital);
-      params.delete(FilterSearchParam.Film);
-      params.delete(FilterSearchParam.Instant);
-      params.delete(FilterSearchParam.Collection);
-      params.delete(FilterSearchParam.Novice);
-      params.delete(FilterSearchParam.Hobby);
-      params.delete(FilterSearchParam.Professional);
+      params.delete(FilterSearchParam.Type);
+      params.delete(FilterSearchParam.Level);
       return params;
     });
   };

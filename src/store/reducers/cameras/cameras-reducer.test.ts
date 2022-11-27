@@ -1,6 +1,4 @@
 import {
-  loadCameras,
-  loadPromo,
   setApiError,
   setBuyPopupShown,
   setIsNewReviewShown,
@@ -9,16 +7,11 @@ import {
 } from './cameras-actions';
 import {camerasReducer} from './cameras-reducer';
 import {CamerasReducer} from '../../../types/cameras-reducer';
-import {Camera} from '../../../types/camera';
-import {Promo} from '../../../types/promo';
 
 describe ('CamerasReducer:', () => {
   it('Should return initial state if call reducer using undefined store and unknown action', () => {
     const initialState = {
       isCameraLoading: false,
-      cameras: [],
-      pagesCount: 0,
-      promo: null,
       buyPopupShown: null,
       isReviewPosting: false,
       apiError: null,
@@ -27,22 +20,6 @@ describe ('CamerasReducer:', () => {
     };
 
     expect(camerasReducer(void 0, {type: 'UNKNOWN_ACTION'})).toEqual(initialState);
-  });
-
-  describe ( 'loadCameras case:', () => {
-    it('Should set cameras to Camera[] if loadCameras receive Camera[]', () => {
-      const state = {cameras: []} as unknown as CamerasReducer;
-      const fakeCameras = [{id: 1}, {id: 2}] as Camera[];
-      expect(camerasReducer(state, loadCameras(fakeCameras))).toEqual({cameras: fakeCameras});
-    });
-  });
-
-  describe ( 'loadPromo case:', () => {
-    it('Should set promo to Promo if loadPromo receive Promo', () => {
-      const state = {promo: null} as unknown as CamerasReducer;
-      const fakePromo = {id: 1} as Promo;
-      expect(camerasReducer(state, loadPromo(fakePromo))).toEqual({promo: fakePromo});
-    });
   });
 
   describe ( 'setBuyPopupShown case:', () => {
