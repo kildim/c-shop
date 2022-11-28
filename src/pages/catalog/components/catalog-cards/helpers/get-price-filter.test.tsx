@@ -24,9 +24,9 @@ describe('Component: PriceFilter', () => {
       }
     );
 
-    render (
+    render(
       <RouterProvider router={testRouter}/>
-  );
+    );
     expect(screen.getByText(/Цена/i)).toBeInTheDocument();
   });
 });
