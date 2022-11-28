@@ -3,16 +3,18 @@ import useAscendingPrices from '../../../../../../hooks/use-ascending-prices';
 import {useSearchParams} from 'react-router-dom';
 import {searchParamsAsObject} from '../../../../../../helpers/search-params-as-object';
 import {FilterSearchParam} from '../../../../../../types/filter-search-param';
+
 import {NOT_FOUND} from '../../../../../../constants/not-found';
 
 function PriceFilter(): JSX.Element {
   const {prices} = useAscendingPrices();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [minPriceValue, setMinPriceValue] = useState(searchParams.get(FilterSearchParam.MinPrice) || '');
-  const [maxPriceValue, setMaxPriceValue] = useState(searchParams.get(FilterSearchParam.MaxPrice) || '');
 
   const minPrice = prices[0];
   const maxPrice = prices[prices.length - 1];
+  const [minPriceValue, setMinPriceValue] = useState(searchParams.get(FilterSearchParam.MinPrice) || '');
+  const [maxPriceValue, setMaxPriceValue] = useState(searchParams.get(FilterSearchParam.MaxPrice) || '');
+
   const minPriceRef = useRef<HTMLInputElement>(null);
   const maxPriceRef = useRef<HTMLInputElement>(null);
 
@@ -49,7 +51,7 @@ function PriceFilter(): JSX.Element {
       return;
     }
     const nearest = prices.findIndex((currentValue) => currentValue > Number(maxPriceValue));
-    let nearestValue = nearest === NOT_FOUND ? maxPrice : prices[nearest - 1];
+    let nearestValue = nearest === NOT_FOUND ? maxPrice : prices[nearest];
     nearestValue = nearestValue < Number(minPriceValue) ? Number(minPriceValue) : nearestValue;
     setMaxPriceValue(nearestValue.toString());
   };

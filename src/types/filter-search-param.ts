@@ -1,6 +1,6 @@
 export enum FilterSearchParam {
-  MinPrice = 'price_gte',
-  MaxPrice = 'price_lte',
+  MinPrice = 'min_price',
+  MaxPrice = 'max_price',
   Category = 'category',
   Type = 'type',
   Level = 'level',

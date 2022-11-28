@@ -3,7 +3,7 @@ import PriceFilter from './components/price-filter/price-filter';
 import {FilterSearchParam} from '../../../../types/filter-search-param';
 import CategoryFilter from './components/category-filter/category-filter';
 import TypeFilter from './components/type-filter/type-filter';
-import LevelFilter from './components/levelFilter/level-filter';
+import LevelFilter from './components/level-filter/level-filter';
 
 function Filter(): JSX.Element {
   const [,setSearchParams] = useSearchParams();
