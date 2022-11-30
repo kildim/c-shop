@@ -1,14 +1,18 @@
 import {CardProps} from './card-props';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
 import {useNavigate} from 'react-router-dom';
 import Rating from '../rating/rating';
 import {RootRouterPath} from '../../routers/root-route-path';
+import {getCart} from '../../store/reducers/cameras/selectors';
 
 function Card(props: CardProps): JSX.Element {
   const {camera, isActive} = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cart = useSelector(getCart);
+  const isContained = (id: number) => Object.hasOwn(cart, id);
+
 
   const handleBuyClick = () => dispatch(setBuyPopupShown(camera.id));
   const handleComprehensiveClick = () => {
@@ -37,9 +41,23 @@ function Card(props: CardProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button" onClick={handleBuyClick}>
-          Купить
-        </button>
+        {
+          isContained(camera.id) ?
+            (
+              <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart">
+                <svg width="16" height="16" aria-hidden="true">
+                  <use xlinkHref="#icon-basket"></use>
+                </svg>
+                В корзине
+              </button>
+            )
+            :
+            (
+              <button className="btn btn--purple product-card__btn" type="button" onClick={handleBuyClick}>
+                Купить
+              </button>
+            )
+        }
         <button className="btn btn--transparent" onClick={handleComprehensiveClick}>
           Подробнее
         </button>

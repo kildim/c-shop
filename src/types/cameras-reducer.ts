@@ -1,9 +1,10 @@
 export type CamerasReducer = {
   isCameraLoading: boolean;
-  cameras: number [];
+  cart: {[index: number]: number};
   buyPopupShown: number | null;
   isReviewPosting: boolean;
   apiError: string | null;
   isNewReviewSuccessShown: boolean;
   isNewReviewShown: boolean;
+  isSuccessfulAddToBasketShown: boolean;
 };

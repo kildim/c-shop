@@ -30,6 +30,16 @@ const setIsNewReviewShown = createAction(
     payload: isNewReviewShown
   })
 );
+const setIsSuccessfulAddToBasketShown = createAction(
+  ActionType.SetIsSuccessfulAddToBasketShown, (isSuccessfulAddToBasketShown: boolean) => ({
+    payload: isSuccessfulAddToBasketShown
+  })
+);
+const addToCart = createAction(
+  ActionType.AddToCart, (itemId: number) => ({
+    payload: itemId
+  })
+);
 
 export type CamerasActions =
   | ReturnType<typeof setBuyPopupShown>
@@ -37,6 +47,8 @@ export type CamerasActions =
   | ReturnType<typeof setApiError>
   | ReturnType<typeof setIsNewReviewSuccessShown>
   | ReturnType<typeof setIsNewReviewShown>
+  | ReturnType<typeof setIsSuccessfulAddToBasketShown>
+  | ReturnType<typeof addToCart>
 
 export {
   setBuyPopupShown,
@@ -44,4 +56,6 @@ export {
   setApiError,
   setIsNewReviewSuccessShown,
   setIsNewReviewShown,
+  setIsSuccessfulAddToBasketShown,
+  addToCart,
 };

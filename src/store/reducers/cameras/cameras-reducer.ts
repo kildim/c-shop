@@ -1,21 +1,24 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
+  addToCart,
   setApiError,
   setBuyPopupShown,
   setIsNewReviewShown,
   setIsNewReviewSuccessShown,
   setIsReviewPosting,
+  setIsSuccessfulAddToBasketShown,
 } from './cameras-actions';
 import {CamerasReducer} from '../../../types/cameras-reducer';
 
 const initialState = {
   isCameraLoading: false,
-  cameras: [],
+  cart: {},
   buyPopupShown: null,
   isReviewPosting: false,
   apiError: null,
   isNewReviewSuccessShown: false,
   isNewReviewShown: false,
+  isSuccessfulAddToBasketShown: false,
 };
 
 export const camerasReducer = createReducer<CamerasReducer>(initialState, (builder) => {
@@ -34,5 +37,11 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
     })
     .addCase(setIsNewReviewShown, (state, action) => {
       state.isNewReviewShown = action.payload;
+    })
+    .addCase(addToCart, (state, action) => {
+      state.cart[action.payload] = Object.hasOwn(state.cart, action.payload) ? state.cart[action.payload] + 1 : 1;
+    })
+    .addCase(setIsSuccessfulAddToBasketShown, (state, action) => {
+      state.isSuccessfulAddToBasketShown = action.payload;
     });
 });

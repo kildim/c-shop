@@ -1,16 +1,26 @@
 import {BasketAddProps} from './basket-add-props';
 import React, {SyntheticEvent} from 'react';
 import useFocusLoop from '../../hooks/use-focus-loop';
+import {addToCart} from '../../store/reducers/cameras/cameras-actions';
+import {useDispatch} from 'react-redux';
 
 function BasketAdd(props: BasketAddProps): JSX.Element {
-  const {card, onClosePopupClick = null} = props;
+  const {card, onClosePopupClick = null, onAddToBasketClick = null} = props;
   const {firstFocusableElement, lastFocusableElement, handleModalBlur} = useFocusLoop();
+  const dispatch = useDispatch();
 
 
   const handleModalClick = (event: SyntheticEvent): void => {
     event.stopPropagation();
     if (onClosePopupClick !== null) {
       onClosePopupClick();
+    }
+  };
+  const handleAddToBasketClick = (event: SyntheticEvent): void => {
+    event.stopPropagation();
+    if (onAddToBasketClick !== null) {
+      dispatch(addToCart(card.id));
+      onAddToBasketClick();
     }
   };
 
@@ -40,14 +50,20 @@ function BasketAdd(props: BasketAddProps): JSX.Element {
         </div>
       </div>
       <div className="modal__buttons">
-        <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button" ref={lastFocusableElement}>
+        <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button"
+          onClick={handleAddToBasketClick}
+          ref={lastFocusableElement}
+        >
           <svg width="24" height="16" aria-hidden="true">
             <use xlinkHref="#icon-add-basket"></use>
           </svg>
           Добавить в корзину
         </button>
       </div>
-      <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleModalClick} ref={firstFocusableElement}>
+      <button className="cross-btn" type="button" aria-label="Закрыть попап"
+        onClick={handleModalClick}
+        ref={firstFocusableElement}
+      >
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>

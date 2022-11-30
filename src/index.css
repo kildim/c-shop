@@ -1030,7 +1030,7 @@ button,
   pointer-events: auto;
 }
 
-.modal--narrow .modal__content {
+.modal--narrow.modal__content {
   width: 320px;
 }
 

@@ -3,14 +3,18 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getApiError, getBuyPopupShown} from '../../store/reducers/cameras/selectors';
+import {getApiError, getBuyPopupShown, getIsSuccessfulAddToBasket} from '../../store/reducers/cameras/selectors';
 import Loader from '../loader/loader';
 import ApiError from '../api-error/api-error';
 import {Camera} from '../../types/camera';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import BasketAdd from '../basket-add/basket-add';
-import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
+import {
+  setBuyPopupShown,
+  setIsSuccessfulAddToBasketShown
+} from '../../store/reducers/cameras/cameras-actions';
 import {CatalogLoaderData} from '../../pages/catalog/catalog-loader';
+import SuccessfulAddToBasket from '../successful-add-to-basket/successful-add-to-basket';
 
 function Layout(): JSX.Element {
   const isCamerasLoading = useNavigation().state === 'loading';
@@ -18,13 +22,20 @@ function Layout(): JSX.Element {
   const {cameras} = useLoaderData() as CatalogLoaderData;
   const isApiError = useSelector(getApiError);
   const buyPopupShown = useSelector(getBuyPopupShown);
+  const isSuccessfulAddToBasketShown = useSelector(getIsSuccessfulAddToBasket);
   const foundCamera = cameras.find((item: Camera) => item.id === buyPopupShown);
   const detailedShown = foundCamera === undefined ? null : foundCamera;
 
   const handleCloseBasketAddModalClick = () => {
     dispatch(setBuyPopupShown(null));
   };
-
+  const handleAddToBasketClick = () => {
+    dispatch(setBuyPopupShown(null));
+    dispatch(setIsSuccessfulAddToBasketShown(true));
+  };
+  const handleCloseSuccessfulAddToBasketModalClick = () => {
+    dispatch(setIsSuccessfulAddToBasketShown(false));
+  };
   return (
     <>
       <div className="visually-hidden">
@@ -221,10 +232,24 @@ function Layout(): JSX.Element {
       {
         (isApiError !== null) && <ApiError/>
       }
-      {detailedShown !== null &&
+      {
+        detailedShown !== null &&
         <ModalOverlay onClosePopup={handleCloseBasketAddModalClick}>
-          <BasketAdd card={detailedShown} onClosePopupClick={handleCloseBasketAddModalClick}/>
-        </ModalOverlay>}
+          <BasketAdd
+            card={detailedShown}
+            onClosePopupClick={handleCloseBasketAddModalClick}
+            onAddToBasketClick={handleAddToBasketClick}
+          />
+        </ModalOverlay>
+      }
+      {
+        isSuccessfulAddToBasketShown &&
+        <ModalOverlay onClosePopup={handleCloseSuccessfulAddToBasketModalClick}>
+          <SuccessfulAddToBasket
+            onClosePopupClick={handleCloseSuccessfulAddToBasketModalClick}
+          />
+        </ModalOverlay>
+      }
     </>
   );
 }
