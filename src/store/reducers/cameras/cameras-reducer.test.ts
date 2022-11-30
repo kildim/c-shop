@@ -93,7 +93,7 @@ describe ('CamerasReducer:', () => {
       it('Should set create a new one item in the Cart in case Cart does not contain the item:', () => {
         const state = {cart: {13: 31}} as unknown as CamerasReducer;
         expect(camerasReducer(state, addToCart(1))).toEqual({cart: {'1': 1, '13': 31}});
-      })
-    })
+      });
+    });
   });
 });
