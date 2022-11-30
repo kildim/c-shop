@@ -16,9 +16,7 @@ jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   })
 }));
 const store = mockStore({
-  CAMERAS: {
-    cameras: [mockCamera, mockCamera]
-  }
+  CAMERAS: {}
 });
 
 describe('Component: Product', () => {

@@ -7,7 +7,7 @@ import {mockCamera} from '../../test-helpers/mock-camera';
 
 jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
-  useRouteLoaderData: () => ({cameras: [mockCamera, mockCamera]}
+  useLoaderData: () => ({cameras: [mockCamera, mockCamera]}
   )
 }));
 

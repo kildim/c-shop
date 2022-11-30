@@ -7,7 +7,7 @@ import {mockCamera} from '../../../../test-helpers/mock-camera';
 jest.mock('../../../../hooks/use-page', () => () => 1);
 jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
-  useRouteLoaderData: () => ({cameras: [mockCamera, mockCamera]}
+  useRouteLoaderData: () => ({cameras: [{...mockCamera, id: 1}, {...mockCamera, id: 2}]}
   )
 }));
 
@@ -16,7 +16,6 @@ describe('Component: Card', () => {
   it('should render correctly', () => {
     const store = mockStore({
       CAMERAS: {
-        cameras: Array(2).fill(null).map((_item, index) => ({...mockCamera, id: index})),
       }
     });
 

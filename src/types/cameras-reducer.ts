@@ -1,11 +1,6 @@
-import {Camera} from './camera';
-import {Promo} from './promo';
-
 export type CamerasReducer = {
   isCameraLoading: boolean;
-  cameras: Camera [];
-  pagesCount: number;
-  promo: Promo;
+  cameras: number [];
   buyPopupShown: number | null;
   isReviewPosting: boolean;
   apiError: string | null;

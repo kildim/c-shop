@@ -1,7 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
-  loadCameras,
-  loadPromo, setApiError,
+  setApiError,
   setBuyPopupShown,
   setIsNewReviewShown,
   setIsNewReviewSuccessShown,
@@ -12,8 +11,6 @@ import {CamerasReducer} from '../../../types/cameras-reducer';
 const initialState = {
   isCameraLoading: false,
   cameras: [],
-  pagesCount: 0,
-  promo: null,
   buyPopupShown: null,
   isReviewPosting: false,
   apiError: null,
@@ -23,12 +20,6 @@ const initialState = {
 
 export const camerasReducer = createReducer<CamerasReducer>(initialState, (builder) => {
   builder
-    .addCase(loadCameras, (state, action) => {
-      state.cameras = action.payload;
-    })
-    .addCase(loadPromo, (state, action) => {
-      state.promo = action.payload;
-    })
     .addCase(setBuyPopupShown, (state, action) => {
       state.buyPopupShown = action.payload;
     })

@@ -1,19 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {Camera} from '../../../types/camera';
-import {Promo} from '../../../types/promo';
 import {ActionType} from '../../../types/action-type';
-
-const loadCameras = createAction(
-  ActionType.LoadCameras, (cameras: Camera []) => ({
-    payload: cameras,
-  }),
-);
-
-const loadPromo = createAction(
-  ActionType.LoadPromo, (promo: Promo) => ({
-    payload: promo,
-  }),
-);
 
 const setBuyPopupShown = createAction(
   ActionType.SetIsBuyPopupShown, (id: number | null) => ({
@@ -46,8 +32,6 @@ const setIsNewReviewShown = createAction(
 );
 
 export type CamerasActions =
-  ReturnType<typeof loadCameras>
-  | ReturnType<typeof loadPromo>
   | ReturnType<typeof setBuyPopupShown>
   | ReturnType<typeof setIsReviewPosting>
   | ReturnType<typeof setApiError>
@@ -56,8 +40,6 @@ export type CamerasActions =
 
 export {
   setBuyPopupShown,
-  loadPromo,
-  loadCameras,
   setIsReviewPosting,
   setApiError,
   setIsNewReviewSuccessShown,

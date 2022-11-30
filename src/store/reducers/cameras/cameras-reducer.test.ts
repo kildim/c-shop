@@ -18,8 +18,6 @@ describe ('CamerasReducer:', () => {
       apiError: null,
       isNewReviewSuccessShown: false,
       isNewReviewShown: false,
-      pagesCount: 0,
-      promo: null,
     };
 
     expect(camerasReducer(void 0, {type: 'UNKNOWN_ACTION'})).toEqual(initialState);
