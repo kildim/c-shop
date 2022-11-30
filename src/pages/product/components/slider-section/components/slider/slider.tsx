@@ -1,4 +1,4 @@
-import Card from '../../../../../catalog/components/card/card';
+import Card from '../../../../../../components/card/card';
 import {SliderProps} from './slider-props';
 import {MouseEventHandler, useState} from 'react';
 import {SLIDER_FRAME_CAPACITY} from '../../../../../../constants/slider-frame-capacity';

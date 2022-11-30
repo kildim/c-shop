@@ -9,7 +9,7 @@ function ProductInfoTabs(props: ProductInfoTabsProps): JSX.Element {
     Description = 'Description'
   }
 
-  const [activeTab, setActiveTab] = useState(ActiveTab.Description);
+  const [activeTab, setActiveTab] = useState(ActiveTab.Characteristics);
   const handleSwitchDescriptionTabClick = () => setActiveTab(ActiveTab.Description);
   const handleSwitchCharacteristicsTabClick = () => setActiveTab(ActiveTab.Characteristics);
 

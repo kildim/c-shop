@@ -51,7 +51,7 @@ function PriceFilter(): JSX.Element {
       return;
     }
     const nearest = prices.findIndex((currentValue) => currentValue > Number(maxPriceValue));
-    let nearestValue = nearest === NOT_FOUND ? maxPrice : prices[nearest];
+    let nearestValue = nearest === NOT_FOUND ? maxPrice : prices[nearest - 1];
     nearestValue = nearestValue < Number(minPriceValue) ? Number(minPriceValue) : nearestValue;
     setMaxPriceValue(nearestValue.toString());
   };

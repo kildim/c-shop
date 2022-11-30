@@ -2,8 +2,8 @@ import {render, screen} from '@testing-library/react';
 import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import Card from './card';
-import mockStore from '../../../../test-helpers/mock-store';
-import {mockCamera} from '../../../../test-helpers/mock-camera';
+import mockStore from '../../test-helpers/mock-store';
+import {mockCamera} from '../../test-helpers/mock-camera';
 
 describe('Component: Card', () => {
 

@@ -2,10 +2,10 @@ import {render, screen} from '@testing-library/react';
 import {HashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import Card from './card';
-import mockStore from '../../../../test-helpers/mock-store';
-import {mockCamera} from '../../../../test-helpers/mock-camera';
+import mockStore from '../../test-helpers/mock-store';
+import {mockCamera} from '../../test-helpers/mock-camera';
 import userEvent from '@testing-library/user-event';
-import {ActionType} from '../../../../types/action-type';
+import {ActionType} from '../../types/action-type';
 
 describe('Component: Card', () => {
 

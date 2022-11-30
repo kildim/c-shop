@@ -1,6 +1,6 @@
 import {BasketAddProps} from './basket-add-props';
 import React, {SyntheticEvent} from 'react';
-import useFocusLoop from '../../../../hooks/use-focus-loop';
+import useFocusLoop from '../../hooks/use-focus-loop';
 
 function BasketAdd(props: BasketAddProps): JSX.Element {
   const {card, onClosePopupClick = null} = props;

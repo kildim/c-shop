@@ -7,19 +7,16 @@ import ReviewsSection from './components/reviews-section/reviews-section';
 import CameraInfo from './components/camera-info/camera-info';
 import NewReview from './components/new-review/new-review';
 import {
-  getBuyPopupShown,
   getIsNewReviewShown,
   getIsNewReviewSuccessShown
 } from '../../store/reducers/cameras/selectors';
 import {useDispatch, useSelector} from 'react-redux';
 import NewReviewSuccess from './components/new-review-success/new-review-success';
 import {
-  setBuyPopupShown,
   setIsNewReviewShown,
   setIsNewReviewSuccessShown
 } from '../../store/reducers/cameras/cameras-actions';
 import ModalOverlay from '../../components/modal-overlay/modal-overlay';
-import BasketAdd from '../catalog/components/basket-add/basket-add';
 
 function Product(): JSX.Element {
   useEffect(() => {
@@ -29,9 +26,9 @@ function Product(): JSX.Element {
   const {product, similar, reviews, id} = useLoaderData() as ProductLoaderData;
   const isNewReviewSuccessShown = useSelector(getIsNewReviewSuccessShown);
   const isNewReviewShown = useSelector(getIsNewReviewShown);
-  const detailedShown = useSelector(getBuyPopupShown);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleCloseNewReviewClick = () => {
     dispatch(setIsNewReviewShown(false));
   };
@@ -41,9 +38,6 @@ function Product(): JSX.Element {
   const handleCloseNewReviewSuccessClick = () => {
     dispatch(setIsNewReviewSuccessShown(false));
     navigate('');
-  };
-  const handleCloseBasketAddModalClick = () => {
-    dispatch(setBuyPopupShown(null));
   };
 
   return (
@@ -88,10 +82,6 @@ function Product(): JSX.Element {
           <NewReviewSuccess onClosePopupClick={handleCloseNewReviewSuccessClick}/>
         </ModalOverlay>
       }
-      {detailedShown !== null &&
-        <ModalOverlay onClosePopup={handleCloseBasketAddModalClick}>
-          <BasketAdd card={detailedShown} onClosePopupClick={handleCloseBasketAddModalClick}/>
-        </ModalOverlay>}
     </main>
   );
 }

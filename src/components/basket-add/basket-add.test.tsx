@@ -1,9 +1,9 @@
 import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
-import mockStore from '../../../../test-helpers/mock-store';
+import mockStore from '../../test-helpers/mock-store';
 import {HashRouter} from 'react-router-dom';
 import BasketAdd from './basket-add';
-import {mockCamera} from '../../../../test-helpers/mock-camera';
+import {mockCamera} from '../../test-helpers/mock-camera';
 
 describe('Component: BasketAdd', () => {
 

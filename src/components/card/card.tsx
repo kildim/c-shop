@@ -1,9 +1,9 @@
 import {CardProps} from './card-props';
 import {useDispatch} from 'react-redux';
-import {setBuyPopupShown} from '../../../../store/reducers/cameras/cameras-actions';
+import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
 import {useNavigate} from 'react-router-dom';
-import Rating from '../../../../components/rating/rating';
-import {RootRouterPath} from '../../../../routers/root-route-path';
+import Rating from '../rating/rating';
+import {RootRouterPath} from '../../routers/root-route-path';
 
 function Card(props: CardProps): JSX.Element {
   const {camera, isActive} = props;

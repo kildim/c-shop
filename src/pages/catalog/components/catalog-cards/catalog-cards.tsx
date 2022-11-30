@@ -1,4 +1,4 @@
-import Card from '../card/card';
+import Card from '../../../../components/card/card';
 import {PAGE_SIZE} from '../../../../constants/page-size';
 import usePage from '../../../../hooks/use-page';
 import {useRouteLoaderData, useSearchParams} from 'react-router-dom';

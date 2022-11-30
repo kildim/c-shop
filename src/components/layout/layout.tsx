@@ -1,15 +1,29 @@
-import {Outlet, useNavigation} from 'react-router-dom';
+import {Outlet, useLoaderData, useNavigation} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {getApiError} from '../../store/reducers/cameras/selectors';
+import {useDispatch, useSelector} from 'react-redux';
+import {getApiError, getBuyPopupShown} from '../../store/reducers/cameras/selectors';
 import Loader from '../loader/loader';
 import ApiError from '../api-error/api-error';
+import {Camera} from '../../types/camera';
+import ModalOverlay from '../modal-overlay/modal-overlay';
+import BasketAdd from '../basket-add/basket-add';
+import {setBuyPopupShown} from '../../store/reducers/cameras/cameras-actions';
+import {CatalogLoaderData} from '../../pages/catalog/catalog-loader';
 
 function Layout(): JSX.Element {
   const isCamerasLoading = useNavigation().state === 'loading';
+  const dispatch = useDispatch();
+  const {cameras} = useLoaderData() as CatalogLoaderData;
   const isApiError = useSelector(getApiError);
+  const buyPopupShown = useSelector(getBuyPopupShown);
+  const foundCamera = cameras.find((item: Camera) => item.id === buyPopupShown);
+  const detailedShown = foundCamera === undefined ? null : foundCamera;
+
+  const handleCloseBasketAddModalClick = () => {
+    dispatch(setBuyPopupShown(null));
+  };
 
   return (
     <>
@@ -207,6 +221,10 @@ function Layout(): JSX.Element {
       {
         (isApiError !== null) && <ApiError/>
       }
+      {detailedShown !== null &&
+        <ModalOverlay onClosePopup={handleCloseBasketAddModalClick}>
+          <BasketAdd card={detailedShown} onClosePopupClick={handleCloseBasketAddModalClick}/>
+        </ModalOverlay>}
     </>
   );
 }
