@@ -1,4 +1,4 @@
-import {Link, useAsyncValue, useNavigate} from 'react-router-dom';
+import {Link, useAsyncValue} from 'react-router-dom';
 import {RootRouterPath} from '../../../../routers/root-route-path';
 import Rating from '../../../../components/rating/rating';
 import ProductInfoTabs from './components/product-info-tabs/product-info-tabs';

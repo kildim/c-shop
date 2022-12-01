@@ -1,7 +1,11 @@
 import {Link} from 'react-router-dom';
 import FormSearch from './components/form-search/form-search';
+import {RootRouterPath} from '../../routers/root-route-path';
+import {useSelector} from 'react-redux';
+import {getCartCount} from '../../store/reducers/cameras/selectors';
 
 function Header(): JSX.Element {
+  const cartCount = useSelector(getCartCount);
 
   return (
     <header className="header" id="header">
@@ -24,11 +28,15 @@ function Header(): JSX.Element {
           </ul>
         </nav>
         <FormSearch/>
-        <a className="header__basket-link" href="/">
+        <Link className="header__basket-link" to={`${RootRouterPath.Root}${RootRouterPath.Basket}`}>
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
-        </a>
+          {
+            cartCount > 0 &&
+            <span className="header__basket-count">{cartCount}</span>
+          }
+        </Link>
       </div>
     </header>
   );
