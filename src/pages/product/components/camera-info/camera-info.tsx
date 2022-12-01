@@ -1,11 +1,15 @@
-import {Link, useAsyncValue} from 'react-router-dom';
+import {Link, useAsyncValue, useNavigate} from 'react-router-dom';
 import {RootRouterPath} from '../../../../routers/root-route-path';
 import Rating from '../../../../components/rating/rating';
 import ProductInfoTabs from './components/product-info-tabs/product-info-tabs';
 import {Camera} from '../../../../types/camera';
+import {setBuyPopupShown} from '../../../../store/reducers/cameras/cameras-actions';
+import {useDispatch} from 'react-redux';
 
 function CameraInfo(): JSX.Element {
   const product = useAsyncValue() as Camera;
+  const dispatch = useDispatch();
+  const handleAddToCartClick = () => dispatch(setBuyPopupShown(product.id));
 
   return (
     <>
@@ -56,7 +60,9 @@ function CameraInfo(): JSX.Element {
               </div>
               <p className="product__price"><span className="visually-hidden">Цена:</span>{product.price} ₽
               </p>
-              <button className="btn btn--purple" type="button">
+              <button className="btn btn--purple" type="button"
+                onClick={handleAddToCartClick}
+              >
                 <svg width="24" height="16" aria-hidden="true">
                   <use xlinkHref="#icon-add-basket"></use>
                 </svg>

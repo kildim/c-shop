@@ -15,9 +15,8 @@ function Card(props: CardProps): JSX.Element {
 
 
   const handleBuyClick = () => dispatch(setBuyPopupShown(camera.id));
-  const handleComprehensiveClick = () => {
-    navigate(`${RootRouterPath.Root}${RootRouterPath.Product}/${camera.id}`);
-  };
+  const handleComprehensiveClick = () => navigate(`${RootRouterPath.Root}${RootRouterPath.Product}/${camera.id}`);
+  const handleToCartClick = () => navigate(`${RootRouterPath.Root}${RootRouterPath.Basket}`);
 
   return (
     <div className={`product-card ${isActive ? 'is-active' : ''}`}>
@@ -44,7 +43,9 @@ function Card(props: CardProps): JSX.Element {
         {
           isContained(camera.id) ?
             (
-              <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart">
+              <button className="btn btn--purple-border product-card__btn product-card__btn--in-cart"
+                onClick={handleToCartClick}
+              >
                 <svg width="16" height="16" aria-hidden="true">
                   <use xlinkHref="#icon-basket"></use>
                 </svg>

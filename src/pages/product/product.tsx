@@ -1,4 +1,4 @@
-import {Suspense, useEffect} from 'react';
+import React, {Suspense, useEffect} from 'react';
 import {Await, useLoaderData, useNavigate} from 'react-router-dom';
 import Loader from '../../components/loader/loader';
 import SliderSection from './components/slider-section/slider-section';
@@ -17,6 +17,8 @@ import {
   setIsNewReviewSuccessShown
 } from '../../store/reducers/cameras/cameras-actions';
 import ModalOverlay from '../../components/modal-overlay/modal-overlay';
+// import BasketAdd from '../../components/basket-add/basket-add';
+// import SuccessfulAddToBasket from '../../components/successful-add-to-basket/successful-add-to-basket';
 
 function Product(): JSX.Element {
   useEffect(() => {
@@ -82,6 +84,24 @@ function Product(): JSX.Element {
           <NewReviewSuccess onClosePopupClick={handleCloseNewReviewSuccessClick}/>
         </ModalOverlay>
       }
+      {/*{*/}
+      {/*  detailedShown !== null &&*/}
+      {/*  <ModalOverlay onClosePopup={handleCloseBasketAddModalClick}>*/}
+      {/*    <BasketAdd*/}
+      {/*      card={detailedShown}*/}
+      {/*      onClosePopupClick={handleCloseBasketAddModalClick}*/}
+      {/*      onAddToBasketClick={handleAddToBasketClick}*/}
+      {/*    />*/}
+      {/*  </ModalOverlay>*/}
+      {/*}*/}
+      {/*{*/}
+      {/*  isSuccessfulAddToBasketShown &&*/}
+      {/*  <ModalOverlay onClosePopup={handleCloseSuccessfulAddToBasketModalClick}>*/}
+      {/*    <SuccessfulAddToBasket*/}
+      {/*      onClosePopupClick={handleCloseSuccessfulAddToBasketModalClick}*/}
+      {/*    />*/}
+      {/*  </ModalOverlay>*/}
+      {/*}*/}
     </main>
   );
 }
