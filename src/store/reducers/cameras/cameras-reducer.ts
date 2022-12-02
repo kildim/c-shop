@@ -44,11 +44,7 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
     })
     .addCase(decreaseCart, (state, action) => {
       if (Object.hasOwn(state.cart, action.payload)) {
-        if (state.cart[action.payload] > 0) {
-          state.cart[action.payload] = state.cart[action.payload] - 1;
-        } else {
-          delete state.cart[action.payload];
-        }
+        state.cart[action.payload] = state.cart[action.payload] > 0 ? state.cart[action.payload] - 1 : 0;
       }
     })
     .addCase(setIsSuccessfulAddToBasketShown, (state, action) => {

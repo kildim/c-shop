@@ -1,9 +1,10 @@
 import {useRouteLoaderData} from 'react-router-dom';
 import {CamerasLoaderData} from '../../../../types/cameras-loader-data';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getCart} from '../../../../store/reducers/cameras/selectors';
 import {CameraCategory} from '../../../../types/camera-category';
 import {CameraType} from '../../../../types/camera-type';
+import {decreaseCart, increaseCart} from '../../../../store/reducers/cameras/cameras-actions';
 
 type BasketItemProps = {
   id: number;
@@ -21,6 +22,7 @@ const DICTIONARY: { [index: string]: string } = {
 function BasketItem(props: BasketItemProps): JSX.Element | null {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
   const cart = useSelector(getCart);
+  const dispatch = useDispatch();
   const {id} = props;
   const camera = cameras.find((item) => item.id === id);
   const itemCount = cart[id];
@@ -34,6 +36,13 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
   if (camera === undefined) {
     return null;
   }
+
+  const handleDecreaseClick = () => {
+    dispatch(decreaseCart(camera.id));
+  };
+  const handleIncreaseClick = () => {
+    dispatch(increaseCart(camera.id));
+  };
 
   return (
     <li className="basket-item">
@@ -59,20 +68,20 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
       <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)}</p>
 
       <div className="quantity">
-        <button className="btn-icon btn-icon--prev" aria-label="уменьшить количество товара">
+        <button className="btn-icon btn-icon--prev" aria-label="уменьшить количество товара" onClick={handleDecreaseClick}>
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
           </svg>
         </button>
         <label className="visually-hidden" htmlFor="counter1"></label>
         <input type="number" id="counter1" min="1" max="99" value={itemCount} aria-label="количество товара"/>
-        <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара">
+        <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара" onClick={handleIncreaseClick}>
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
           </svg>
         </button>
       </div>
-      <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{formatPrice(camera.price*itemCount)}
+      <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{formatPrice(camera.price * itemCount)}
       </div>
       <button className="cross-btn" type="button" aria-label="Удалить товар">
         <svg width="10" height="10" aria-hidden="true">

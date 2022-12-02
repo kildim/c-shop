@@ -101,10 +101,13 @@ describe ('CamerasReducer:', () => {
         const state = {cart: {13: 31}} as unknown as CamerasReducer;
         expect(camerasReducer(state, increaseCart(13))).toEqual({cart: {'13': 30}});
       });
-      it('Should delete item in the Cart in case Cart contain less then two item:', () => {
+      it('Should decrease item in the Cart in case Cart contain more then zero item:', () => {
         const state = {cart: {'1': 2, '13': 1}} as unknown as CamerasReducer;
         expect(camerasReducer(state, decreaseCart(1))).toEqual({cart: {'1': 1,'13': 1}});
-        expect(camerasReducer(state, decreaseCart(13))).toEqual({cart: {'1': 1}});
+      });
+      it('Should set item count to zero in the Cart in case Cart contain less then one item:', () => {
+        const state = {cart: {'1': 0, '13': 1}} as unknown as CamerasReducer;
+        expect(camerasReducer(state, decreaseCart(1))).toEqual({cart: {'1': 0,'13': 1}});
       });
     });
   });
