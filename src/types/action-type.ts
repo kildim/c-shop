@@ -5,5 +5,6 @@ export enum ActionType {
   SetApiError = 'cameras/setApiError',
   SetIsNewReviewSuccessShown = 'cameras/setIsNewReviewSuccessShown',
   SetIsNewReviewShown = 'cameras/setIsNewReviewShown',
-  AddToCart = 'cameras/addToCart',
+  IncreaseCart = 'cameras/increaseCart',
+  DecreaseCart = 'cameras/decreaseCart',
 }

@@ -1,6 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
-  addToCart,
+  decreaseCart,
+  increaseCart,
   setApiError,
   setBuyPopupShown,
   setIsNewReviewShown,
@@ -38,8 +39,17 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
     .addCase(setIsNewReviewShown, (state, action) => {
       state.isNewReviewShown = action.payload;
     })
-    .addCase(addToCart, (state, action) => {
+    .addCase(increaseCart, (state, action) => {
       state.cart[action.payload] = Object.hasOwn(state.cart, action.payload) ? state.cart[action.payload] + 1 : 1;
+    })
+    .addCase(decreaseCart, (state, action) => {
+      if (Object.hasOwn(state.cart, action.payload)) {
+        if (state.cart[action.payload] > 0) {
+          state.cart[action.payload] = state.cart[action.payload] - 1;
+        } else {
+          delete state.cart[action.payload];
+        }
+      }
     })
     .addCase(setIsSuccessfulAddToBasketShown, (state, action) => {
       state.isSuccessfulAddToBasketShown = action.payload;

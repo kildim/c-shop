@@ -1,5 +1,6 @@
 import {
-  addToCart,
+  increaseCart,
+  decreaseCart,
   setApiError,
   setBuyPopupShown,
   setIsNewReviewShown,
@@ -85,14 +86,25 @@ describe ('CamerasReducer:', () => {
       });
     });
 
-    describe ('addToCart case:', () => {
+    describe ('increaseCart case:', () => {
       it('Should set increase Cart by one in case Cart contain the exact item:', () => {
         const state = {cart: {13: 31}} as unknown as CamerasReducer;
-        expect(camerasReducer(state, addToCart(13))).toEqual({cart: {'13': 32}});
+        expect(camerasReducer(state, increaseCart(13))).toEqual({cart: {'13': 32}});
       });
       it('Should set create a new one item in the Cart in case Cart does not contain the item:', () => {
         const state = {cart: {13: 31}} as unknown as CamerasReducer;
-        expect(camerasReducer(state, addToCart(1))).toEqual({cart: {'1': 1, '13': 31}});
+        expect(camerasReducer(state, increaseCart(1))).toEqual({cart: {'1': 1, '13': 31}});
+      });
+    });
+    describe ('decreaseCart case:', () => {
+      it('Should set decrease Cart by one in case Cart contain the exact item:', () => {
+        const state = {cart: {13: 31}} as unknown as CamerasReducer;
+        expect(camerasReducer(state, increaseCart(13))).toEqual({cart: {'13': 30}});
+      });
+      it('Should delete item in the Cart in case Cart contain less then two item:', () => {
+        const state = {cart: {'1': 2, '13': 1}} as unknown as CamerasReducer;
+        expect(camerasReducer(state, decreaseCart(1))).toEqual({cart: {'1': 1,'13': 1}});
+        expect(camerasReducer(state, decreaseCart(13))).toEqual({cart: {'1': 1}});
       });
     });
   });

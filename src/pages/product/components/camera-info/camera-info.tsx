@@ -9,7 +9,7 @@ import {useDispatch} from 'react-redux';
 function CameraInfo(): JSX.Element {
   const product = useAsyncValue() as Camera;
   const dispatch = useDispatch();
-  const handleAddToCartClick = () => dispatch(setBuyPopupShown(product.id));
+  const handleincreaseCartClick = () => dispatch(setBuyPopupShown(product.id));
 
   return (
     <>
@@ -61,7 +61,7 @@ function CameraInfo(): JSX.Element {
               <p className="product__price"><span className="visually-hidden">Цена:</span>{product.price} ₽
               </p>
               <button className="btn btn--purple" type="button"
-                onClick={handleAddToCartClick}
+                onClick={handleincreaseCartClick}
               >
                 <svg width="24" height="16" aria-hidden="true">
                   <use xlinkHref="#icon-add-basket"></use>

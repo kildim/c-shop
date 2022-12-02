@@ -1,7 +1,7 @@
 import {BasketAddProps} from './basket-add-props';
 import React, {SyntheticEvent} from 'react';
 import useFocusLoop from '../../hooks/use-focus-loop';
-import {addToCart} from '../../store/reducers/cameras/cameras-actions';
+import {increaseCart} from '../../store/reducers/cameras/cameras-actions';
 import {useDispatch} from 'react-redux';
 
 function BasketAdd(props: BasketAddProps): JSX.Element {
@@ -19,7 +19,7 @@ function BasketAdd(props: BasketAddProps): JSX.Element {
   const handleAddToBasketClick = (event: SyntheticEvent): void => {
     event.stopPropagation();
     if (onAddToBasketClick !== null) {
-      dispatch(addToCart(card.id));
+      dispatch(increaseCart(card.id));
       onAddToBasketClick();
     }
   };
