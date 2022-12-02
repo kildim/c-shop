@@ -2,6 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {
   decreaseCart,
   increaseCart,
+  assertCart,
   setApiError,
   setBuyPopupShown,
   setIsNewReviewShown,
@@ -46,6 +47,11 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
       if (Object.hasOwn(state.cart, action.payload)) {
         state.cart[action.payload] = state.cart[action.payload] > 0 ? state.cart[action.payload] - 1 : 0;
       }
+    })
+    .addCase(assertCart, (state, action) => {
+      const resultCart = {...state.cart};
+      resultCart[action.payload.id] = action.payload.count;
+      state.cart = resultCart;
     })
     .addCase(setIsSuccessfulAddToBasketShown, (state, action) => {
       state.isSuccessfulAddToBasketShown = action.payload;

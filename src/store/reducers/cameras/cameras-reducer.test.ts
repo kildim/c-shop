@@ -6,7 +6,7 @@ import {
   setIsNewReviewShown,
   setIsNewReviewSuccessShown,
   setIsReviewPosting,
-  setIsSuccessfulAddToBasketShown
+  setIsSuccessfulAddToBasketShown, assertCart
 } from './cameras-actions';
 import {camerasReducer} from './cameras-reducer';
 import {CamerasReducer} from '../../../types/cameras-reducer';
@@ -108,6 +108,12 @@ describe ('CamerasReducer:', () => {
       it('Should set item count to zero in the Cart in case Cart contain less then one item:', () => {
         const state = {cart: {'1': 0, '13': 1}} as unknown as CamerasReducer;
         expect(camerasReducer(state, decreaseCart(1))).toEqual({cart: {'1': 0,'13': 1}});
+      });
+    });
+    describe ('assertCart case:', () => {
+      it('Should  assert Cart by input item:', () => {
+        const state = {cart: {13: 31}} as unknown as CamerasReducer;
+        expect(camerasReducer(state, assertCart(2, 1))).toEqual({cart: {'13': 31, '2': 1}});
       });
     });
   });

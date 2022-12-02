@@ -7,4 +7,5 @@ export enum ActionType {
   SetIsNewReviewShown = 'cameras/setIsNewReviewShown',
   IncreaseCart = 'cameras/increaseCart',
   DecreaseCart = 'cameras/decreaseCart',
+  AssertCart = 'cameras/assertCart',
 }

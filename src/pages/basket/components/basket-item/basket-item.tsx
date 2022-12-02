@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getCart} from '../../../../store/reducers/cameras/selectors';
 import {CameraCategory} from '../../../../types/camera-category';
 import {CameraType} from '../../../../types/camera-type';
-import {decreaseCart, increaseCart} from '../../../../store/reducers/cameras/cameras-actions';
+import {assertCart, decreaseCart, increaseCart} from '../../../../store/reducers/cameras/cameras-actions';
+import {ChangeEventHandler} from 'react';
 
 type BasketItemProps = {
   id: number;
@@ -43,6 +44,12 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
   const handleIncreaseClick = () => {
     dispatch(increaseCart(camera.id));
   };
+  const handleInputCountChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    let count = Number(event.target.value);
+    count = count > 99 ? 99 : count;
+    count = count < 0 ? 0 : count;
+    dispatch(assertCart(camera.id, count));
+  };
 
   return (
     <li className="basket-item">
@@ -74,7 +81,7 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
           </svg>
         </button>
         <label className="visually-hidden" htmlFor="counter1"></label>
-        <input type="number" id="counter1" min="1" max="99" value={itemCount} aria-label="количество товара"/>
+        <input type="number" id="counter1" min="0" max="99" value={itemCount.toString()} aria-label="количество товара" onChange={handleInputCountChange}/>
         <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара" onClick={handleIncreaseClick}>
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
