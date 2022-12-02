@@ -2,10 +2,22 @@ import {useRouteLoaderData} from 'react-router-dom';
 import {CamerasLoaderData} from '../../../../types/cameras-loader-data';
 import {useSelector} from 'react-redux';
 import {getCart} from '../../../../store/reducers/cameras/selectors';
+import {CameraCategory} from '../../../../types/camera-category';
+import {CameraLevel} from '../../../../types/camera-level';
+import {CameraType} from '../../../../types/camera-type';
 
 type BasketItemProps = {
   id: number;
 }
+
+const DICTIONARY: { [index: string]: string } = {
+  [CameraCategory.Videocamera]: 'видеокамера',
+  [CameraCategory.Photocamera]: 'фотокамара',
+  [CameraType.Instant]: 'Моментальная',
+  [CameraType.Film]: 'Плёночная',
+  [CameraType.Collection]: 'Коллекционная',
+  [CameraType.Digital]: 'Цифровая',
+};
 
 function BasketItem(props: BasketItemProps): JSX.Element | null {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
@@ -20,11 +32,9 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
     maximumFractionDigits: 2
   }).format(price);
 
-
   if (camera === undefined) {
     return null;
   }
-
 
   return (
     <li className="basket-item">
@@ -40,11 +50,11 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
         <p className="basket-item__title">{camera.name}</p>
         <ul className="basket-item__list">
           <li className="basket-item__list-item">
-            <span className="basket-item__article">Артикул:</span>
+            <span className="basket-item__article">Артикул: </span>
             <span className="basket-item__number">{camera.vendorCode}</span>
           </li>
-          <li className="basket-item__list-item">{camera.category}</li>
-          <li className="basket-item__list-item">{camera.level}</li>
+          <li className="basket-item__list-item">{`${DICTIONARY[camera.type]} ${DICTIONARY[camera.category]}`}</li>
+          <li className="basket-item__list-item">{`${camera.level} уровень`}</li>
         </ul>
       </div>
       <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)}</p>
