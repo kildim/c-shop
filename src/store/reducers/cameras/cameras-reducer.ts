@@ -3,6 +3,7 @@ import {
   decreaseCart,
   increaseCart,
   assertCart,
+  removeCart,
   setApiError,
   setBuyPopupShown,
   setIsNewReviewShown,
@@ -42,16 +43,23 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
     })
     .addCase(increaseCart, (state, action) => {
       state.cart[action.payload] = Object.hasOwn(state.cart, action.payload) ? state.cart[action.payload] + 1 : 1;
+      if (state.cart[action.payload] > 99) {state.cart[action.payload] = 99;}
     })
     .addCase(decreaseCart, (state, action) => {
       if (Object.hasOwn(state.cart, action.payload)) {
-        state.cart[action.payload] = state.cart[action.payload] > 0 ? state.cart[action.payload] - 1 : 0;
+        state.cart[action.payload] = state.cart[action.payload] > 1 ? state.cart[action.payload] - 1 : 0;
       }
     })
     .addCase(assertCart, (state, action) => {
       const resultCart = {...state.cart};
       resultCart[action.payload.id] = action.payload.count;
       state.cart = resultCart;
+    })
+    .addCase(removeCart, (state, action) => {
+      // const resultCart = {...state.cart};
+      // delete resultCart[action.payload];
+      // state.cart = resultCart;
+      delete state.cart[action.payload];
     })
     .addCase(setIsSuccessfulAddToBasketShown, (state, action) => {
       state.isSuccessfulAddToBasketShown = action.payload;

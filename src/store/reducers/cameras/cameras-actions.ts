@@ -50,6 +50,11 @@ const assertCart = createAction(
     payload: {id: itemId, count: count}
   })
 );
+const removeCart = createAction(
+  ActionType.RemoveCart, (itemId: number) => ({
+    payload: itemId
+  })
+)
 
 export type CamerasActions =
   | ReturnType<typeof setBuyPopupShown>
@@ -61,6 +66,7 @@ export type CamerasActions =
   | ReturnType<typeof increaseCart>
   | ReturnType<typeof increaseCart>
   | ReturnType<typeof assertCart>
+  | ReturnType<typeof removeCart>
 
 export {
   setBuyPopupShown,
@@ -72,4 +78,5 @@ export {
   increaseCart,
   decreaseCart,
   assertCart,
+  removeCart,
 };

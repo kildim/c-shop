@@ -8,4 +8,5 @@ export enum ActionType {
   IncreaseCart = 'cameras/increaseCart',
   DecreaseCart = 'cameras/decreaseCart',
   AssertCart = 'cameras/assertCart',
+  RemoveCart = 'cameras/removeCart',
 }

@@ -45,10 +45,7 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
     dispatch(increaseCart(camera.id));
   };
   const handleInputCountChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    let count = Number(event.target.value);
-    count = count > 99 ? 99 : count;
-    count = count < 0 ? 0 : count;
-    dispatch(assertCart(camera.id, count));
+    dispatch(assertCart(camera.id, Number(event.target.value)));
   };
 
   return (
@@ -75,20 +72,28 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
       <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{formatPrice(camera.price)}</p>
 
       <div className="quantity">
-        <button className="btn-icon btn-icon--prev" aria-label="уменьшить количество товара" onClick={handleDecreaseClick}>
+        <button className="btn-icon btn-icon--prev" aria-label="уменьшить количество товара"
+          onClick={handleDecreaseClick}
+        >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
           </svg>
         </button>
         <label className="visually-hidden" htmlFor="counter1"></label>
-        <input type="number" id="counter1" min="0" max="99" value={itemCount.toString()} aria-label="количество товара" onChange={handleInputCountChange}/>
-        <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара" onClick={handleIncreaseClick}>
+        <input type="number" id="counter1" min="0" max="99" value={itemCount.toString()} aria-label="количество товара"
+          onChange={handleInputCountChange}
+        />
+        <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара"
+          onClick={handleIncreaseClick}
+        >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
           </svg>
         </button>
       </div>
-      <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{formatPrice(camera.price * itemCount)}
+      <div className="basket-item__total-price">
+        <span className="visually-hidden">Общая цена:</span>
+        {formatPrice(camera.price * itemCount)}
       </div>
       <button className="cross-btn" type="button" aria-label="Удалить товар">
         <svg width="10" height="10" aria-hidden="true">
