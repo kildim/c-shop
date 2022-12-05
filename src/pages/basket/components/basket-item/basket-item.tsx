@@ -2,8 +2,6 @@ import {useRouteLoaderData} from 'react-router-dom';
 import {CamerasLoaderData} from '../../../../types/cameras-loader-data';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCart} from '../../../../store/reducers/cameras/selectors';
-import {CameraCategory} from '../../../../types/camera-category';
-import {CameraType} from '../../../../types/camera-type';
 import {
   assertCart,
   decreaseCart,
@@ -11,19 +9,11 @@ import {
   setRemoveCartItemDialogShown
 } from '../../../../store/reducers/cameras/cameras-actions';
 import {ChangeEventHandler} from 'react';
+import {DICTIONARY} from '../../../../constants/dictionary';
 
 type BasketItemProps = {
   id: number;
 }
-
-const DICTIONARY: { [index: string]: string } = {
-  [CameraCategory.Videocamera]: 'видеокамера',
-  [CameraCategory.Photocamera]: 'фотокамара',
-  [CameraType.Instant]: 'Моментальная',
-  [CameraType.Film]: 'Плёночная',
-  [CameraType.Collection]: 'Коллекционная',
-  [CameraType.Digital]: 'Цифровая',
-};
 
 function BasketItem(props: BasketItemProps): JSX.Element | null {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;

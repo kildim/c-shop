@@ -3,6 +3,7 @@ import {getRemoveCartItemDialogShown} from '../../../../store/reducers/cameras/s
 import {useRouteLoaderData} from 'react-router-dom';
 import {CamerasLoaderData} from '../../../../types/cameras-loader-data';
 import {removeCart, setRemoveCartItemDialogShown} from '../../../../store/reducers/cameras/cameras-actions';
+import {DICTIONARY} from '../../../../constants/dictionary';
 
 type BasketRemoveItemProps = {
   onClosePopupClick?: () => void | null;
@@ -32,21 +33,21 @@ function BasketRemoveItem(props: BasketRemoveItemProps): JSX.Element {
       <div className="basket-item basket-item--short">
         <div className="basket-item__img">
           <picture>
-            <source type="image/webp" srcSet="img/content/img9.webp, img/content/img9@2x.webp 2x"/>
+            <source type="image/webp" srcSet={`${camera.previewImgWebp}, ${camera.previewImgWebp2x} 2x`}/>
             <img
-              src="img/content/img9.jpg" srcSet="img/content/img9@2x.jpg 2x" width="140" height="120"
+              src={camera.previewImg} srcSet={`${camera.previewImg2x} 2x`} width="140" height="120"
               alt="Фотоаппарат «Орлёнок»"
             />
           </picture>
         </div>
         <div className="basket-item__description">
-          <p className="basket-item__title">Фотоаппарат «Орлёнок»</p>
+          <p className="basket-item__title">{camera.name}</p>
           <ul className="basket-item__list">
-            <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span>
-              <span className="basket-item__number">O78DFGSD832</span>
+            <li className="basket-item__list-item"><span className="basket-item__article">Артикул:&#160;</span>
+              <span className="basket-item__number">{camera.vendorCode}</span>
             </li>
-            <li className="basket-item__list-item">Плёночная фотокамера</li>
-            <li className="basket-item__list-item">Любительский уровень</li>
+            <li className="basket-item__list-item">{`${DICTIONARY[camera.type]}\u00a0${DICTIONARY[camera.category]}`}</li>
+            <li className="basket-item__list-item">{`${camera.level}\u00a0уровень`}</li>
           </ul>
         </div>
       </div>
@@ -55,7 +56,7 @@ function BasketRemoveItem(props: BasketRemoveItemProps): JSX.Element {
           Удалить
         </button>
         <button className="btn btn--transparent modal__btn modal__btn--half-width" onClick={handleContinueShoppingClick}>
-          Продолжить покупки
+          Продолжить&#160;покупки
         </button>
       </div>
       <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={onClosePopupClick}>
