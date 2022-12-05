@@ -1,14 +1,16 @@
 import {useEffect} from 'react';
 import {RootRouterPath} from '../../routers/root-route-path';
-import {Link} from 'react-router-dom';
+import {Link, useRouteLoaderData} from 'react-router-dom';
 import BasketItem from './components/basket-item/basket-item';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCart, getRemoveCartItemDialogShown} from '../../store/reducers/cameras/selectors';
 import BasketRemoveItem from './components/basket-remove-item/basket-remove-item';
 import ModalOverlay from '../../components/modal-overlay/modal-overlay';
 import {setRemoveCartItemDialogShown} from '../../store/reducers/cameras/cameras-actions';
+import {CamerasLoaderData} from '../../types/cameras-loader-data';
 
 function Basket(): JSX.Element {
+  const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
   const cart = useSelector(getCart);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -17,6 +19,21 @@ function Basket(): JSX.Element {
   const isRemoveCartItemDialogShown = useSelector(getRemoveCartItemDialogShown);
   const handleCloseRemoveCartItemDialogClick = () => {
     dispatch(setRemoveCartItemDialogShown(null));
+  };
+  const formatPrice = (price: number) => new Intl.NumberFormat('ru', {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  }).format(price);
+  const calculateAmount = () => {
+    let result = 0;
+    for (const position in cart) {
+      const cameraFromCatalog = cameras.find((camera) => camera.id === Number(position));
+      if (cameraFromCatalog === undefined) {throw new Error('Камера не найдена в каталоге!');}
+      result = result + cameraFromCatalog.price * cart[position];
+    }
+    return result;
   };
 
   return (
@@ -70,8 +87,8 @@ function Basket(): JSX.Element {
               </div>
               <div className="basket__summary-order">
                 <p className="basket__summary-item">
-                  <span className="basket__summary-text">Всего:</span>
-                  <span className="basket__summary-value">111 390 ₽</span>
+                  <span className="basket__summary-text">Всего:&#160;</span>
+                  <span className="basket__summary-value">{formatPrice(calculateAmount())}</span>
                 </p>
                 <p className="basket__summary-item">
                   <span className="basket__summary-text">Скидка:</span>

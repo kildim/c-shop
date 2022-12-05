@@ -15,6 +15,7 @@ function BasketRemoveItem(props: BasketRemoveItemProps): JSX.Element {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
   const dispatch = useDispatch();
   const camera = cameras.find((item) => item.id === isRemoveCartItemDialogShown);
+
   if (camera === undefined) {
     throw new Error('Не найдена камера для удаления!');
   }
