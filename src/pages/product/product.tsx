@@ -84,24 +84,6 @@ function Product(): JSX.Element {
           <NewReviewSuccess onClosePopupClick={handleCloseNewReviewSuccessClick}/>
         </ModalOverlay>
       }
-      {/*{*/}
-      {/*  detailedShown !== null &&*/}
-      {/*  <ModalOverlay onClosePopup={handleCloseBasketAddModalClick}>*/}
-      {/*    <BasketAdd*/}
-      {/*      card={detailedShown}*/}
-      {/*      onClosePopupClick={handleCloseBasketAddModalClick}*/}
-      {/*      onAddToBasketClick={handleAddToBasketClick}*/}
-      {/*    />*/}
-      {/*  </ModalOverlay>*/}
-      {/*}*/}
-      {/*{*/}
-      {/*  isSuccessfulAddToBasketShown &&*/}
-      {/*  <ModalOverlay onClosePopup={handleCloseSuccessfulAddToBasketModalClick}>*/}
-      {/*    <SuccessfulAddToBasket*/}
-      {/*      onClosePopupClick={handleCloseSuccessfulAddToBasketModalClick}*/}
-      {/*    />*/}
-      {/*  </ModalOverlay>*/}
-      {/*}*/}
     </main>
   );
 }

@@ -4,7 +4,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getCart} from '../../../../store/reducers/cameras/selectors';
 import {CameraCategory} from '../../../../types/camera-category';
 import {CameraType} from '../../../../types/camera-type';
-import {assertCart, decreaseCart, increaseCart} from '../../../../store/reducers/cameras/cameras-actions';
+import {
+  assertCart,
+  decreaseCart,
+  increaseCart,
+  setRemoveCartItemDialogShown
+} from '../../../../store/reducers/cameras/cameras-actions';
 import {ChangeEventHandler} from 'react';
 
 type BasketItemProps = {
@@ -46,6 +51,9 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
   };
   const handleInputCountChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     dispatch(assertCart(camera.id, Number(event.target.value)));
+  };
+  const handleRemoveFromCartClick = () => {
+    dispatch(setRemoveCartItemDialogShown(id));
   };
 
   return (
@@ -95,7 +103,7 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
         <span className="visually-hidden">Общая цена:</span>
         {formatPrice(camera.price * itemCount)}
       </div>
-      <button className="cross-btn" type="button" aria-label="Удалить товар">
+      <button className="cross-btn" type="button" aria-label="Удалить товар" onClick={handleRemoveFromCartClick}>
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>

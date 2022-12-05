@@ -10,6 +10,7 @@ const getCartCount = (state: RootReducerType) => {
   const cartCountsArray = Object.values(state[NameSpace.Cameras].cart);
   return cartCountsArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 };
+const getRemoveCartItemDialogShown = (state: RootReducerType) => state.CAMERAS.removeCartItemDialogShown;
 
 export {
   getBuyPopupShown,
@@ -19,4 +20,5 @@ export {
   getIsSuccessfulAddToBasket,
   getCart,
   getCartCount,
+  getRemoveCartItemDialogShown,
 };

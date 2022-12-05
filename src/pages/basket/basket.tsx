@@ -2,14 +2,22 @@ import {useEffect} from 'react';
 import {RootRouterPath} from '../../routers/root-route-path';
 import {Link} from 'react-router-dom';
 import BasketItem from './components/basket-item/basket-item';
-import {useSelector} from 'react-redux';
-import {getCart} from '../../store/reducers/cameras/selectors';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCart, getRemoveCartItemDialogShown} from '../../store/reducers/cameras/selectors';
+import BasketRemoveItem from './components/basket-remove-item/basket-remove-item';
+import ModalOverlay from '../../components/modal-overlay/modal-overlay';
+import {setRemoveCartItemDialogShown} from '../../store/reducers/cameras/cameras-actions';
 
 function Basket(): JSX.Element {
   const cart = useSelector(getCart);
+  const dispatch = useDispatch();
   useEffect(() => {
     document.title = 'Корзина - Фотошоп';
   });
+  const isRemoveCartItemDialogShown = useSelector(getRemoveCartItemDialogShown);
+  const handleCloseRemoveCartItemDialogClick = () => {
+    dispatch(setRemoveCartItemDialogShown(null));
+  };
 
   return (
     <main>
@@ -80,6 +88,12 @@ function Basket(): JSX.Element {
           </div>
         </section>
       </div>
+      {
+        isRemoveCartItemDialogShown !== null &&
+        <ModalOverlay onClosePopup={handleCloseRemoveCartItemDialogClick}>
+          <BasketRemoveItem onClosePopupClick={handleCloseRemoveCartItemDialogClick}/>
+        </ModalOverlay>
+      }
     </main>
   );
 }

@@ -54,7 +54,12 @@ const removeCart = createAction(
   ActionType.RemoveCart, (itemId: number) => ({
     payload: itemId
   })
-)
+);
+const setRemoveCartItemDialogShown = createAction(
+  ActionType.SetRemoveCartItemDialogShown, (id: number | null) => ({
+    payload: id
+  })
+);
 
 export type CamerasActions =
   | ReturnType<typeof setBuyPopupShown>
@@ -67,6 +72,8 @@ export type CamerasActions =
   | ReturnType<typeof increaseCart>
   | ReturnType<typeof assertCart>
   | ReturnType<typeof removeCart>
+  | ReturnType<typeof setRemoveCartItemDialogShown>
+
 
 export {
   setBuyPopupShown,
@@ -79,4 +86,5 @@ export {
   decreaseCart,
   assertCart,
   removeCart,
+  setRemoveCartItemDialogShown,
 };

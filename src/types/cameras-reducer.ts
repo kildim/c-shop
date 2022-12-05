@@ -7,4 +7,5 @@ export type CamerasReducer = {
   isNewReviewSuccessShown: boolean;
   isNewReviewShown: boolean;
   isSuccessfulAddToBasketShown: boolean;
+  removeCartItemDialogShown: number | null;
 };
