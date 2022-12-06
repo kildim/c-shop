@@ -39,12 +39,12 @@ const postCoupon = (coupon: {coupon: string}): ThunkAction<Promise<void>, RootSt
     const resp = await axios.post(Url.Promo, coupon);
     console.log('RESP:')
     console.log(resp)
-    dispatch(setIsCouponGetting(true));
+    dispatch(setIsCouponGetting(false));
 
   } catch (error) {
     console.log('ERROR')
     console.log(error);
-    dispatch(setIsCouponGetting(true));
+    dispatch(setIsCouponGetting(false));
   }
 }
 
