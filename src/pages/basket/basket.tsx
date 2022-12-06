@@ -1,18 +1,36 @@
-import {useEffect} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {RootRouterPath} from '../../routers/root-route-path';
 import {Link, useRouteLoaderData} from 'react-router-dom';
 import BasketItem from './components/basket-item/basket-item';
 import {useDispatch, useSelector} from 'react-redux';
-import {getCart, getRemoveCartItemDialogShown} from '../../store/reducers/cameras/selectors';
+import {getCart, getIsCouponGetting, getRemoveCartItemDialogShown} from '../../store/reducers/cameras/selectors';
 import BasketRemoveItem from './components/basket-remove-item/basket-remove-item';
 import ModalOverlay from '../../components/modal-overlay/modal-overlay';
 import {setRemoveCartItemDialogShown} from '../../store/reducers/cameras/cameras-actions';
 import {CamerasLoaderData} from '../../types/cameras-loader-data';
+import {postCoupon} from '../../services/api/api';
+import {ThunkAppDispatch} from '../../types/thunk-app-dispatch';
+import Loader from '../../components/loader/loader';
 
 function Basket(): JSX.Element {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
   const cart = useSelector(getCart);
+  const isCouponLoading = useSelector(getIsCouponGetting);
   const dispatch = useDispatch();
+  const couponRef = useRef<HTMLInputElement>(null);
+  const [couponStatus] = useState<null | 'valid' | 'invalid'>(null);
+
+  const checkCoupon = async () => {
+    if (couponRef.current === null) {
+      throw new Error('Элемент ввода купона не найден в разметке!');
+    }
+    // return await fetchCoupon({coupon: 'camera-333'});
+  };
+
+  const handleCheckCouponValidationClick = () => {
+    (dispatch as ThunkAppDispatch) (postCoupon({coupon: 'camera-333'}));
+  };
+
   useEffect(() => {
     document.title = 'Корзина - Фотошоп';
   });
@@ -30,11 +48,15 @@ function Basket(): JSX.Element {
     let result = 0;
     for (const position in cart) {
       const cameraFromCatalog = cameras.find((camera) => camera.id === Number(position));
-      if (cameraFromCatalog === undefined) {throw new Error('Камера не найдена в каталоге!');}
+      if (cameraFromCatalog === undefined) {
+        throw new Error('Камера не найдена в каталоге!');
+      }
       result = result + cameraFromCatalog.price * cart[position];
     }
     return result;
   };
+
+  const amount = calculateAmount();
 
   return (
     <main>
@@ -75,12 +97,12 @@ function Basket(): JSX.Element {
                   <form action="#">
                     <div className="custom-input">
                       <label><span className="custom-input__label">Промокод</span>
-                        <input type="text" name="promo" placeholder="Введите промокод"/>
+                        <input type="text" name="promo" placeholder="Введите промокод" ref={couponRef}/>
                       </label>
-                      <p className="custom-input__error">Промокод неверный</p>
-                      <p className="custom-input__success">Промокод принят!</p>
+                      {couponStatus === 'invalid' && <p className="custom-input__error">Промокод неверный</p>}
+                      {couponStatus === 'valid' && <p className="custom-input__success">Промокод принят!</p>}
                     </div>
-                    <button className="btn" type="submit">Применить
+                    <button className="btn" type="submit" onClick={handleCheckCouponValidationClick}>Применить
                     </button>
                   </form>
                 </div>
@@ -88,7 +110,7 @@ function Basket(): JSX.Element {
               <div className="basket__summary-order">
                 <p className="basket__summary-item">
                   <span className="basket__summary-text">Всего:&#160;</span>
-                  <span className="basket__summary-value">{formatPrice(calculateAmount())}</span>
+                  <span className="basket__summary-value">{formatPrice(amount)}</span>
                 </p>
                 <p className="basket__summary-item">
                   <span className="basket__summary-text">Скидка:</span>
@@ -110,6 +132,9 @@ function Basket(): JSX.Element {
         <ModalOverlay onClosePopup={handleCloseRemoveCartItemDialogClick}>
           <BasketRemoveItem onClosePopupClick={handleCloseRemoveCartItemDialogClick}/>
         </ModalOverlay>
+      }
+      { isCouponLoading &&
+        <Loader/>
       }
     </main>
   );

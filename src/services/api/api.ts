@@ -2,7 +2,7 @@ import {ThunkAction} from '@reduxjs/toolkit';
 import {RootState} from '../../index';
 import {RootReducerActions} from '../../store/reducers/root-reducer';
 import {
-  setApiError,
+  setApiError, setIsCouponGetting,
   setIsNewReviewShown,
   setIsNewReviewSuccessShown,
   setIsReviewPosting,
@@ -31,6 +31,22 @@ const postReview = (review: ReviewPostData): ThunkAction<Promise<void>, RootStat
     dispatch(setApiError(message));
   }
 };
+const postCoupon = (coupon: {coupon: string}): ThunkAction<Promise<void>, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
+  dispatch(setIsCouponGetting(true));
+
+  try {
+    console.log('postCoupon')
+    const resp = await axios.post(Url.Promo, coupon);
+    console.log('RESP:')
+    console.log(resp)
+    dispatch(setIsCouponGetting(true));
+
+  } catch (error) {
+    console.log('ERROR')
+    console.log(error);
+    dispatch(setIsCouponGetting(true));
+  }
+}
 
 const fetchProduct = (id: string) => axios(`${Url.Cameras}/${id}`).then((response) => response.data as Camera).catch((error: AxiosError) => Promise.reject(error.message));
 const fetchSimilar = (id: string) => axios(`${Url.Cameras}/${id}/similar`).then((response) => response.data as Camera[]).catch((error: AxiosError) => Promise.reject(error.message));
@@ -42,4 +58,4 @@ const fetchCameras = (searchParams: URLSearchParams | null = null) =>
     .then((response) => ({cameras: response.data as Camera[], headers: response.headers}))
     .catch((error: AxiosError) => Promise.reject(error.message));
 
-export {fetchCameras, fetchProduct, fetchSimilar, fetchReviews, postReview, fetchPromo};
+export {fetchCameras, fetchProduct, fetchSimilar, fetchReviews, postReview, fetchPromo, postCoupon};

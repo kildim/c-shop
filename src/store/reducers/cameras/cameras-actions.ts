@@ -60,6 +60,11 @@ const setRemoveCartItemDialogShown = createAction(
     payload: id
   })
 );
+const setIsCouponGetting = createAction(
+  ActionType.SetIsCouponGetting, (isCouponGetting: boolean) => ({
+    payload: isCouponGetting
+  })
+);
 
 export type CamerasActions =
   | ReturnType<typeof setBuyPopupShown>
@@ -73,7 +78,7 @@ export type CamerasActions =
   | ReturnType<typeof assertCart>
   | ReturnType<typeof removeCart>
   | ReturnType<typeof setRemoveCartItemDialogShown>
-
+  | ReturnType<typeof setIsCouponGetting>
 
 export {
   setBuyPopupShown,
@@ -87,4 +92,5 @@ export {
   assertCart,
   removeCart,
   setRemoveCartItemDialogShown,
+  setIsCouponGetting,
 };

@@ -10,4 +10,5 @@ export enum ActionType {
   DecreaseCart = 'cameras/decreaseCart',
   AssertCart = 'cameras/assertCart',
   RemoveCart = 'cameras/removeCart',
+  SetIsCouponGetting = 'cameras/setIsCouponGetting',
 }

@@ -9,7 +9,7 @@ import {
   setIsNewReviewShown,
   setIsNewReviewSuccessShown,
   setIsReviewPosting,
-  setIsSuccessfulAddToBasketShown, setRemoveCartItemDialogShown,
+  setIsSuccessfulAddToBasketShown, setRemoveCartItemDialogShown, setIsCouponGetting,
 } from './cameras-actions';
 import {CamerasReducer} from '../../../types/cameras-reducer';
 
@@ -23,6 +23,7 @@ const initialState = {
   isNewReviewShown: false,
   isSuccessfulAddToBasketShown: false,
   removeCartItemDialogShown: null,
+  isCouponGetting: false,
 };
 
 export const camerasReducer = createReducer<CamerasReducer>(initialState, (builder) => {
@@ -61,6 +62,9 @@ export const camerasReducer = createReducer<CamerasReducer>(initialState, (build
     })
     .addCase(setRemoveCartItemDialogShown, (state, action) => {
       state.removeCartItemDialogShown = action.payload;
+    })
+    .addCase(setIsCouponGetting, (state, action) => {
+      state.isCouponGetting = action.payload;
     })
     .addCase(setIsSuccessfulAddToBasketShown, (state, action) => {
       state.isSuccessfulAddToBasketShown = action.payload;
