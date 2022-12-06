@@ -40,7 +40,10 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
     dispatch(increaseCart(camera.id));
   };
   const handleInputCountChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    dispatch(assertCart(camera.id, Number(event.target.value)));
+    let result = Number(event.target.value);
+    if (result > 99) {result = 99};
+    if (result < 0) {result = 0};
+    dispatch(assertCart(camera.id, result));
   };
   const handleRemoveFromCartClick = () => {
     dispatch(setRemoveCartItemDialogShown(id));

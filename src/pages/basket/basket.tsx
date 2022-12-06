@@ -10,8 +10,6 @@ import {setRemoveCartItemDialogShown} from '../../store/reducers/cameras/cameras
 import {CamerasLoaderData} from '../../types/cameras-loader-data';
 import {postCoupon} from '../../services/api/api';
 import Loader from '../../components/loader/loader';
-import axios from 'axios';
-import {Url} from '../../constants/url';
 
 function Basket(): JSX.Element {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
@@ -21,13 +19,6 @@ function Basket(): JSX.Element {
   const couponRef = useRef<HTMLInputElement>(null);
   const couponDivRef = useRef<HTMLDivElement>(null);
   const [discount, setDiscount] = useState(0);
-
-  const checkCoupon = () => {
-    if (couponRef.current === null) {
-      throw new Error('Элемент ввода купона не найден в разметке!');
-    }
-    return axios.post(Url.Coupon, {coupon: 'camera-33'});
-  };
 
   const handleCheckCouponValidationClick = (event: SyntheticEvent) => {
     event.preventDefault();
