@@ -1,34 +1,50 @@
-import {useEffect, useRef, useState} from 'react';
+import {SyntheticEvent, useEffect, useRef, useState} from 'react';
 import {RootRouterPath} from '../../routers/root-route-path';
 import {Link, useRouteLoaderData} from 'react-router-dom';
 import BasketItem from './components/basket-item/basket-item';
 import {useDispatch, useSelector} from 'react-redux';
-import {getCart, getIsCouponGetting, getRemoveCartItemDialogShown} from '../../store/reducers/cameras/selectors';
+import {getCart, getRemoveCartItemDialogShown} from '../../store/reducers/cameras/selectors';
 import BasketRemoveItem from './components/basket-remove-item/basket-remove-item';
 import ModalOverlay from '../../components/modal-overlay/modal-overlay';
 import {setRemoveCartItemDialogShown} from '../../store/reducers/cameras/cameras-actions';
 import {CamerasLoaderData} from '../../types/cameras-loader-data';
 import {postCoupon} from '../../services/api/api';
-import {ThunkAppDispatch} from '../../types/thunk-app-dispatch';
 import Loader from '../../components/loader/loader';
+import axios from 'axios';
+import {Url} from '../../constants/url';
 
 function Basket(): JSX.Element {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
   const cart = useSelector(getCart);
-  const isCouponLoading = useSelector(getIsCouponGetting);
+  const [isCouponLoading, setIsCouponLoading] = useState(false);
   const dispatch = useDispatch();
   const couponRef = useRef<HTMLInputElement>(null);
-  const [couponStatus] = useState<null | 'valid' | 'invalid'>(null);
+  const couponDivRef = useRef<HTMLDivElement>(null);
+  const [discount, setDiscount] = useState(0);
 
-  const checkCoupon = async () => {
+  const checkCoupon = () => {
     if (couponRef.current === null) {
       throw new Error('Элемент ввода купона не найден в разметке!');
     }
-    // return await fetchCoupon({coupon: 'camera-333'});
+    return axios.post(Url.Coupon, {coupon: 'camera-33'});
   };
 
-  const handleCheckCouponValidationClick = () => {
-    (dispatch as ThunkAppDispatch) (postCoupon({coupon: 'camera-333'}));
+  const handleCheckCouponValidationClick = (event: SyntheticEvent) => {
+    event.preventDefault();
+    setIsCouponLoading(true);
+    postCoupon({coupon: 'camera-333'})
+      .then((data) => {
+        let result = data === null ? 0 : data;
+        setDiscount(result);
+        couponDivRef.current?.classList.add('is-valid');
+        couponDivRef.current?.classList.remove('is-invalid');
+      })
+      .catch(() => {
+        setDiscount(0);
+        couponDivRef.current?.classList.remove('is-valid');
+        couponDivRef.current?.classList.add('is-invalid');
+      })
+      .finally(() => setIsCouponLoading(false));
   };
 
   useEffect(() => {
@@ -57,6 +73,8 @@ function Basket(): JSX.Element {
   };
 
   const amount = calculateAmount();
+  const deduction = amount / 100 * discount;
+  const total = amount - deduction;
 
   return (
     <main>
@@ -95,14 +113,14 @@ function Basket(): JSX.Element {
                 <p className="title title--h4">Если у вас есть промокод на скидку, примените его в этом поле</p>
                 <div className="basket-form">
                   <form action="#">
-                    <div className="custom-input">
+                    <div className="custom-input" ref={couponDivRef}>
                       <label><span className="custom-input__label">Промокод</span>
                         <input type="text" name="promo" placeholder="Введите промокод" ref={couponRef}/>
                       </label>
-                      {couponStatus === 'invalid' && <p className="custom-input__error">Промокод неверный</p>}
-                      {couponStatus === 'valid' && <p className="custom-input__success">Промокод принят!</p>}
+                      <p className="custom-input__error">Промокод неверный</p>
+                      <p className="custom-input__success">Промокод принят!</p>
                     </div>
-                    <button className="btn" type="submit" onClick={handleCheckCouponValidationClick}>Применить
+                    <button className="btn" onClick={handleCheckCouponValidationClick}>Применить
                     </button>
                   </form>
                 </div>
@@ -114,11 +132,11 @@ function Basket(): JSX.Element {
                 </p>
                 <p className="basket__summary-item">
                   <span className="basket__summary-text">Скидка:</span>
-                  <span className="basket__summary-value basket__summary-value--bonus">0 ₽</span>
+                  <span className="basket__summary-value basket__summary-value--bonus">{formatPrice(deduction)}</span>
                 </p>
                 <p className="basket__summary-item">
                   <span className="basket__summary-text basket__summary-text--total">К оплате:</span>
-                  <span className="basket__summary-value basket__summary-value--total">111 390 ₽</span>
+                  <span className="basket__summary-value basket__summary-value--total">{formatPrice(total)}</span>
                 </p>
                 <button className="btn btn--purple" type="submit">Оформить заказ
                 </button>
