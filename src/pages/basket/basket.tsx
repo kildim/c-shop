@@ -8,16 +8,20 @@ import BasketRemoveItem from './components/basket-remove-item/basket-remove-item
 import ModalOverlay from '../../components/modal-overlay/modal-overlay';
 import {setRemoveCartItemDialogShown} from '../../store/reducers/cameras/cameras-actions';
 import {CamerasLoaderData} from '../../types/cameras-loader-data';
-import {postCoupon} from '../../services/api/api';
+import {postCoupon, postOrder} from '../../services/api/api';
 import Loader from '../../components/loader/loader';
+import ModalSuccess from './components/modal-success/modal-success';
 
 function Basket(): JSX.Element {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
   const cart = useSelector(getCart);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const dispatch = useDispatch();
   const couponRef = useRef<HTMLInputElement>(null);
   const couponDivRef = useRef<HTMLDivElement>(null);
+  const couponValue = useRef<string | null>(null);
   const [discount, setDiscount] = useState(0);
 
   const handleCheckCouponValidationClick: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -34,11 +38,13 @@ function Basket(): JSX.Element {
       .then((data) => {
         let result = data === null ? 0 : data;
         setDiscount(result);
+        couponValue.current = coupon;
         couponDivRef.current?.classList.add('is-valid');
         couponDivRef.current?.classList.remove('is-invalid');
       })
       .catch(() => {
         setDiscount(0);
+        couponValue.current = null;
         couponDivRef.current?.classList.remove('is-valid');
         couponDivRef.current?.classList.add('is-invalid');
       })
@@ -46,8 +52,19 @@ function Basket(): JSX.Element {
   };
 
   const handleOrderClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    console.log('SUBMIT:', event);
+    event.preventDefault();
+    let camerasIds = Object.keys(cart).map((item) => Number(item));
+    // if(camerasIds.length > 0) {
+      const order = {camerasIds: camerasIds, coupon: couponValue.current};
+      setIsLoading(true);
+      postOrder(order)
+        .then((data) => setIsSuccess(true))
+        .catch((errorMessage) => {setIsError(true)} )
+        .finally(() => setIsLoading(false));
+    // }
   }
+  const handleSuccessModalCloseClick = () => setIsSuccess(false);
+  const handleErrorModalCloseClick = () => setIsError(false);
 
   useEffect(() => {
     document.title = 'Корзина - Фотошоп';
@@ -155,6 +172,12 @@ function Basket(): JSX.Element {
       }
       { isLoading &&
         <Loader/>
+      }
+      {
+        isSuccess &&
+        <ModalOverlay onClosePopup={handleSuccessModalCloseClick}>
+          <ModalSuccess onClosePopup={handleSuccessModalCloseClick}/>
+        </ModalOverlay>
       }
     </main>
   );

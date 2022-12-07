@@ -1,5 +1,5 @@
 import {SuccessfulAddToBasketProps} from './successful-add-to-basket-props';
-import {SyntheticEvent} from 'react';
+import {SyntheticEvent, useRef} from 'react';
 import {RootRouterPath} from '../../routers/root-route-path';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
@@ -9,6 +9,7 @@ function SuccessfulAddToBasket(props: SuccessfulAddToBasketProps): JSX.Element {
   const {onClosePopupClick = null} = props;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleContinueShoppingClick = () => {
     dispatch(setIsSuccessfulAddToBasketShown(false));
     navigate(`${RootRouterPath.Root}${RootRouterPath.Catalog}`);
@@ -23,6 +24,7 @@ function SuccessfulAddToBasket(props: SuccessfulAddToBasketProps): JSX.Element {
       onClosePopupClick();
     }
   };
+
   return (
     <div className="modal--narrow modal__content">
       <p className="title title--h4">Товар успешно добавлен в корзину</p>
@@ -30,7 +32,11 @@ function SuccessfulAddToBasket(props: SuccessfulAddToBasketProps): JSX.Element {
         <use xlinkHref="#icon-success"></use>
       </svg>
       <div className="modal__buttons">
-        <button className="btn btn--transparent modal__btn" onClick={handleContinueShoppingClick}>Продолжить покупки</button>
+        <button className="btn btn--transparent modal__btn"
+          onClick={handleContinueShoppingClick}
+        >
+          Продолжить покупки
+        </button>
         <button className="btn btn--purple modal__btn modal__btn--fit-width"
           onClick={handleToCartClick}
         >

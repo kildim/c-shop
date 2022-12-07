@@ -5,5 +5,6 @@ export const Url = {
   Cameras: `${ApiUrl}cameras`,
   Promo: `${ApiUrl}promo`,
   PostReview: `${ApiUrl}reviews`,
-  Coupon: `${ApiUrl}coupons`
+  Coupon: `${ApiUrl}coupons`,
+  Order: `${ApiUrl}orders`,
 } as const;

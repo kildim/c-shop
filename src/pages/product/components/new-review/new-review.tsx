@@ -3,14 +3,12 @@ import {ChangeEvent, FormEventHandler, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {ThunkAppDispatch} from '../../../../types/thunk-app-dispatch';
 import {postReview} from '../../../../services/api/api';
-import useFocusLoop from '../../../../hooks/use-focus-loop';
 
 function NewReview(props: NewReviewProps): JSX.Element {
   const {handleClosePopup, id} = props;
   const formRef = useRef<HTMLFormElement>(null);
   const [rate, setRate] = useState('0');
   const dispatch = useDispatch();
-  const {firstFocusableElement, lastFocusableElement, handleModalBlur} = useFocusLoop();
 
   const checkValidation = () => {
     let isValid = true;
@@ -87,10 +85,8 @@ function NewReview(props: NewReviewProps): JSX.Element {
   };
 
   return (
-    <div className="modal__content" onBlur={handleModalBlur}>
-      <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleClosePopup}
-        ref={firstFocusableElement}
-      >
+    <div className="modal__content">
+      <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleClosePopup}>
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>
@@ -182,7 +178,7 @@ function NewReview(props: NewReviewProps): JSX.Element {
               <div className="custom-textarea__error">Нужно добавить комментарий</div>
             </div>
           </div>
-          <button className="btn btn--purple form-review__btn" type="submit" ref={lastFocusableElement}>Отправить
+          <button className="btn btn--purple form-review__btn" type="submit">Отправить
             отзыв
           </button>
         </form>

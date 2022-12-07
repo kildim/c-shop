@@ -1,12 +1,10 @@
 import {BasketAddProps} from './basket-add-props';
 import React, {SyntheticEvent} from 'react';
-import useFocusLoop from '../../hooks/use-focus-loop';
 import {increaseCart} from '../../store/reducers/cameras/cameras-actions';
 import {useDispatch} from 'react-redux';
 
 function BasketAdd(props: BasketAddProps): JSX.Element {
   const {card, onClosePopupClick = null, onAddToBasketClick = null} = props;
-  const {firstFocusableElement, lastFocusableElement, handleModalBlur} = useFocusLoop();
   const dispatch = useDispatch();
 
 
@@ -25,7 +23,7 @@ function BasketAdd(props: BasketAddProps): JSX.Element {
   };
 
   return (
-    <div className="modal__content" onBlur={handleModalBlur}>
+    <div className="modal__content">
       <p className="title title--h4">Добавить товар в корзину</p>
       <div className="basket-item basket-item--short">
         <div className="basket-item__img">
@@ -52,7 +50,6 @@ function BasketAdd(props: BasketAddProps): JSX.Element {
       <div className="modal__buttons">
         <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button"
           onClick={handleAddToBasketClick}
-          ref={lastFocusableElement}
         >
           <svg width="24" height="16" aria-hidden="true">
             <use xlinkHref="#icon-add-basket"></use>
@@ -62,7 +59,6 @@ function BasketAdd(props: BasketAddProps): JSX.Element {
       </div>
       <button className="cross-btn" type="button" aria-label="Закрыть попап"
         onClick={handleModalClick}
-        ref={firstFocusableElement}
       >
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>

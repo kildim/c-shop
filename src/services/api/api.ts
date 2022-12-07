@@ -14,6 +14,8 @@ import {Camera} from '../../types/camera';
 import {ReviewPostData} from '../../types/review-post-data';
 import axios, {AxiosError} from 'axios';
 import {Review} from '../../types/review';
+import {Simulate} from 'react-dom/test-utils';
+import error = Simulate.error;
 
 const postReview = (review: ReviewPostData): ThunkAction<Promise<void>, RootState, unknown, RootReducerActions> => async (dispatch, _getState) => {
   dispatch(setIsReviewPosting(true));
@@ -32,7 +34,12 @@ const postReview = (review: ReviewPostData): ThunkAction<Promise<void>, RootStat
   }
 };
 
-const postCoupon = (coupon: {coupon: string}) => axios.post(Url.Coupon, coupon).then((response) => response.data as number).catch(() => Promise.reject(null));
+const postCoupon = (coupon: {coupon: string}) => axios.post(Url.Coupon, coupon)
+  .then((response) => response.data as number)
+  .catch(() => Promise.reject(null));
+const postOrder = (order: {camerasIds: number[], coupon: string | null}) => axios.post(Url.Order, order)
+  .then((r) => r.data)
+  .catch((error: AxiosError) => Promise.reject(error.message));
 
 const fetchProduct = (id: string) => axios(`${Url.Cameras}/${id}`).then((response) => response.data as Camera).catch((error: AxiosError) => Promise.reject(error.message));
 const fetchSimilar = (id: string) => axios(`${Url.Cameras}/${id}/similar`).then((response) => response.data as Camera[]).catch((error: AxiosError) => Promise.reject(error.message));
@@ -44,4 +51,4 @@ const fetchCameras = (searchParams: URLSearchParams | null = null) =>
     .then((response) => ({cameras: response.data as Camera[], headers: response.headers}))
     .catch((error: AxiosError) => Promise.reject(error.message));
 
-export {fetchCameras, fetchProduct, fetchSimilar, fetchReviews, postReview, fetchPromo, postCoupon};
+export {fetchCameras, fetchProduct, fetchSimilar, fetchReviews, postReview, fetchPromo, postCoupon, postOrder};

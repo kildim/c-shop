@@ -1,5 +1,6 @@
 import {MouseEventHandler, useEffect, useRef} from 'react';
 import {ModalOverlayProps} from './modal-overlay-types';
+import ReactFocusLock from 'react-focus-lock';
 
 function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
   const {onClosePopup = null, children} = props;
@@ -31,7 +32,9 @@ function ModalOverlay(props: ModalOverlayProps): JSX.Element | null {
       <h1 className={'visually-hidden'}>Модальное окно</h1>
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={handleModalOnClick}></div>
-        {children}
+        <ReactFocusLock>
+          {children}
+        </ReactFocusLock>
       </div>
     </div>
   );
