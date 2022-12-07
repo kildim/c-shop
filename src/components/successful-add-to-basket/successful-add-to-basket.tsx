@@ -1,5 +1,5 @@
 import {SuccessfulAddToBasketProps} from './successful-add-to-basket-props';
-import {SyntheticEvent, useRef} from 'react';
+import {SyntheticEvent} from 'react';
 import {RootRouterPath} from '../../routers/root-route-path';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';

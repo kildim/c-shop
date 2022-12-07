@@ -1,4 +1,4 @@
-import {MouseEventHandler, SyntheticEvent, useEffect, useRef, useState} from 'react';
+import {MouseEventHandler, useEffect, useRef, useState} from 'react';
 import {RootRouterPath} from '../../routers/root-route-path';
 import {Link, useRouteLoaderData} from 'react-router-dom';
 import BasketItem from './components/basket-item/basket-item';
@@ -11,6 +11,7 @@ import {CamerasLoaderData} from '../../types/cameras-loader-data';
 import {postCoupon, postOrder} from '../../services/api/api';
 import Loader from '../../components/loader/loader';
 import ModalSuccess from './components/modal-success/modal-success';
+import ModalError from './components/modal-error/modal-error';
 
 function Basket(): JSX.Element {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
@@ -39,6 +40,10 @@ function Basket(): JSX.Element {
         let result = data === null ? 0 : data;
         setDiscount(result);
         couponValue.current = coupon;
+        if(couponRef.current === null) {
+          return;
+        }
+        couponRef.current.value = coupon;
         couponDivRef.current?.classList.add('is-valid');
         couponDivRef.current?.classList.remove('is-invalid');
       })
@@ -54,14 +59,14 @@ function Basket(): JSX.Element {
   const handleOrderClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
     let camerasIds = Object.keys(cart).map((item) => Number(item));
-    // if(camerasIds.length > 0) {
+    if(camerasIds.length > 0) {
       const order = {camerasIds: camerasIds, coupon: couponValue.current};
       setIsLoading(true);
       postOrder(order)
-        .then((data) => setIsSuccess(true))
-        .catch((errorMessage) => {setIsError(true)} )
+        .then(() => setIsSuccess(true))
+        .catch(() => {setIsError(true)} )
         .finally(() => setIsLoading(false));
-    // }
+    }
   }
   const handleSuccessModalCloseClick = () => setIsSuccess(false);
   const handleErrorModalCloseClick = () => setIsError(false);
@@ -177,6 +182,12 @@ function Basket(): JSX.Element {
         isSuccess &&
         <ModalOverlay onClosePopup={handleSuccessModalCloseClick}>
           <ModalSuccess onClosePopup={handleSuccessModalCloseClick}/>
+        </ModalOverlay>
+      }
+      {
+        isError &&
+        <ModalOverlay onClosePopup={handleErrorModalCloseClick}>
+          <ModalError onClosePopup={handleErrorModalCloseClick}/>
         </ModalOverlay>
       }
     </main>
