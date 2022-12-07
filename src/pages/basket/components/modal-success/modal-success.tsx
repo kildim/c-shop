@@ -10,7 +10,7 @@ function ModalSuccess(props: ModalSuccessProps): JSX.Element {
 
   const handleToCatalogClick = () => {
     navigate(`${RootRouterPath.Root}${RootRouterPath.Catalog}`);
-  }
+  };
   return (
     <div className="modal__content">
       <p className="title title--h4">Спасибо за покупку</p>

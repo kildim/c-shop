@@ -15,8 +15,7 @@ describe('Component: Card', () => {
 
   it('should render correctly', () => {
     const store = mockStore({
-      CAMERAS: {
-      }
+      CAMERAS: {cart: {1: 1}}
     });
 
     const testRouter = createMemoryRouter(

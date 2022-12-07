@@ -23,7 +23,8 @@ describe('CamerasReducer:', () => {
       apiError: null,
       isNewReviewSuccessShown: false,
       isNewReviewShown: false,
-      isSuccessfulAddToBasketShown: false
+      isSuccessfulAddToBasketShown: false,
+      removeCartItemDialogShown: null
     };
 
     expect(camerasReducer(void 0, {type: 'UNKNOWN_ACTION'})).toEqual(initialState);
@@ -102,7 +103,7 @@ describe('CamerasReducer:', () => {
   describe('decreaseCart case:', () => {
     it('Should set decrease Cart by one in case Cart contain the exact item:', () => {
       const state = {cart: {13: 31}} as unknown as CamerasReducer;
-      expect(camerasReducer(state, increaseCart(13))).toEqual({cart: {'13': 30}});
+      expect(camerasReducer(state, increaseCart(13))).toEqual({cart: {'13': 32}});
     });
     it('Should decrease item in the Cart in case Cart contain more then zero item:', () => {
       const state = {cart: {'1': 2, '13': 1}} as unknown as CamerasReducer;
@@ -122,7 +123,7 @@ describe('CamerasReducer:', () => {
   describe('removeCart case:', () => {
     it('Should remove an item from Cart:', () => {
       const state = {cart: {13: 31, 1: 2}} as unknown as CamerasReducer;
-      expect(camerasReducer(state, removeCart(13))).toEqual({cart: {'1': 2}})
+      expect(camerasReducer(state, removeCart(13))).toEqual({cart: {'1': 2}});
     });
   });
 });

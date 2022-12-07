@@ -11,7 +11,7 @@ describe('Component: Card', () => {
 
   it('should dispatch setBuyPopupShown on button click', async () => {
     const store = mockStore({
-      CAMERAS: {}
+      CAMERAS: {cart: {1: 1}}
     });
 
     const user = userEvent.setup();

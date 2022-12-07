@@ -1,5 +1,5 @@
 import {Url} from '../../constants/url';
-import {fetchProduct, fetchReviews, fetchSimilar, postReview} from './api';
+import {fetchProduct, fetchReviews, fetchSimilar, postCoupon, postOrder, postReview} from './api';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import {ReviewPostData} from '../../types/review-post-data';
@@ -140,6 +140,30 @@ describe('API async functions tests:', () => {
           {type: 'cameras/setIsNewReviewSuccessShown', payload: true}
         ]
       );
+    });
+  });
+  describe('postCoupon', () => {
+    it('should post Coupon', async () => {
+      mockAPI.onPost(Url.Coupon).reply(200, 13);
+      const response = await postCoupon({coupon: 'c-13'});
+      expect(response).toBe(13);
+    });
+
+    it('should reject Coupon', async () => {
+      mockAPI.onPost(Url.Coupon).reply(400);
+      await expect(postCoupon({coupon: 'c-13'})).rejects.toBe(null);
+    });
+  });
+  describe('postOrder', () => {
+    it('should post Order', async () => {
+      mockAPI.onPost(Url.Order).reply(201, 13);
+      const response = await postOrder({camerasIds: [1], coupon: 'c-13'});
+      expect(response).toBe(13);
+    });
+
+    it('should reject Order', async () => {
+      mockAPI.onPost(Url.Coupon).reply(404);
+      await expect(postOrder({camerasIds: [1], coupon: 'c-13'})).rejects.toBe('Request failed with status code 404');
     });
   });
 });

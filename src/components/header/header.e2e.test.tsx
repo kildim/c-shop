@@ -3,6 +3,8 @@ import {createMemoryRouter, RouterProvider} from 'react-router-dom';
 import Header from './header';
 import userEvent from '@testing-library/user-event';
 import {mockCamera} from '../../test-helpers/mock-camera';
+import mockStore from '../../test-helpers/mock-store';
+import {Provider} from 'react-redux';
 
 jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
@@ -14,7 +16,9 @@ describe('Component: Header', () => {
 
   it('should go to the catalog page after <a> tag click', async () => {
     const user = userEvent.setup();
-
+    const store = mockStore({
+      CAMERAS: {cart: {1: 1}}
+    });
     const testRouter = createMemoryRouter(
       [
         {
@@ -33,7 +37,9 @@ describe('Component: Header', () => {
     );
 
     render(
-      <RouterProvider router={testRouter}/>
+      <Provider store={store}>
+        <RouterProvider router={testRouter}/>
+      </Provider>
     );
 
     expect(screen.getByText(/Каталог/i)).toBeInTheDocument();

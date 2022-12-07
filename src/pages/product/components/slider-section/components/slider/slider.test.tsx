@@ -6,7 +6,7 @@ import Slider from './slider';
 import {mockCamera} from '../../../../../../test-helpers/mock-camera';
 
 const store = mockStore({
-  CAMERAS: {}
+  CAMERAS: {cart: {1: 1}}
 });
 
 const mockCameras = [mockCamera, mockCamera];

@@ -17,8 +17,6 @@ import {
   setIsNewReviewSuccessShown
 } from '../../store/reducers/cameras/cameras-actions';
 import ModalOverlay from '../../components/modal-overlay/modal-overlay';
-// import BasketAdd from '../../components/basket-add/basket-add';
-// import SuccessfulAddToBasket from '../../components/successful-add-to-basket/successful-add-to-basket';
 
 function Product(): JSX.Element {
   useEffect(() => {

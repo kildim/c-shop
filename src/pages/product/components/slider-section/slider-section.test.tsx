@@ -6,7 +6,7 @@ import {mockCamera} from '../../../../test-helpers/mock-camera';
 import mockStore from '../../../../test-helpers/mock-store';
 
 const store = mockStore({
-  CAMERAS: {}
+  CAMERAS: {cart: {1: 1}}
 });
 jest.mock('react-router-dom', (): ReturnType<typeof jest.requireActual> => ({
   ...jest.requireActual('react-router-dom'),
@@ -22,7 +22,7 @@ describe('Component: ReviewCard', () => {
         <HashRouter>
           <SliderSection/>
         </HashRouter>
-      </Provider>,
+      </Provider>
     );
 
     expect(screen.getByText(/Похожие товары/i)).toBeInTheDocument();

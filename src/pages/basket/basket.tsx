@@ -37,7 +37,7 @@ function Basket(): JSX.Element {
     setIsLoading(true);
     postCoupon({coupon: coupon})
       .then((data) => {
-        let result = data === null ? 0 : data;
+        const result = data === null ? 0 : data;
         setDiscount(result);
         couponValue.current = coupon;
         if(couponRef.current === null) {
@@ -58,16 +58,16 @@ function Basket(): JSX.Element {
 
   const handleOrderClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
-    let camerasIds = Object.keys(cart).map((item) => Number(item));
+    const camerasIds = Object.keys(cart).map((item) => Number(item));
     if(camerasIds.length > 0) {
       const order = {camerasIds: camerasIds, coupon: couponValue.current};
       setIsLoading(true);
       postOrder(order)
         .then(() => setIsSuccess(true))
-        .catch(() => {setIsError(true)} )
+        .catch(() => {setIsError(true);} )
         .finally(() => setIsLoading(false));
     }
-  }
+  };
   const handleSuccessModalCloseClick = () => setIsSuccess(false);
   const handleErrorModalCloseClick = () => setIsError(false);
 
@@ -175,7 +175,8 @@ function Basket(): JSX.Element {
           <BasketRemoveItem onClosePopupClick={handleCloseRemoveCartItemDialogClick}/>
         </ModalOverlay>
       }
-      { isLoading &&
+      {
+        isLoading &&
         <Loader/>
       }
       {
