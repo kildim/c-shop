@@ -1,4 +1,4 @@
-import {SyntheticEvent, useEffect, useRef, useState} from 'react';
+import {MouseEventHandler, SyntheticEvent, useEffect, useRef, useState} from 'react';
 import {RootRouterPath} from '../../routers/root-route-path';
 import {Link, useRouteLoaderData} from 'react-router-dom';
 import BasketItem from './components/basket-item/basket-item';
@@ -20,10 +20,17 @@ function Basket(): JSX.Element {
   const couponDivRef = useRef<HTMLDivElement>(null);
   const [discount, setDiscount] = useState(0);
 
-  const handleCheckCouponValidationClick = (event: SyntheticEvent) => {
+  const handleCheckCouponValidationClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
+    const coupon = couponRef.current?.value.trim().split(' ')[0];
+    if(coupon === undefined || coupon === '') {
+      couponDivRef.current?.classList.remove('is-valid');
+      couponDivRef.current?.classList.remove('is-invalid');
+      setDiscount(0);
+      return;
+    }
     setIsCouponLoading(true);
-    postCoupon({coupon: 'camera-333'})
+    postCoupon({coupon: coupon})
       .then((data) => {
         let result = data === null ? 0 : data;
         setDiscount(result);
