@@ -11,7 +11,6 @@ const getCartCount = (state: RootReducerType) => {
   return cartCountsArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 };
 const getRemoveCartItemDialogShown = (state: RootReducerType) => state.CAMERAS.removeCartItemDialogShown;
-const getIsCouponGetting = (state: RootReducerType) => state.CAMERAS.isCouponGetting;
 
 export {
   getBuyPopupShown,
@@ -22,5 +21,4 @@ export {
   getCart,
   getCartCount,
   getRemoveCartItemDialogShown,
-  getIsCouponGetting,
 };

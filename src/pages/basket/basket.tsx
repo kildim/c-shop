@@ -14,7 +14,7 @@ import Loader from '../../components/loader/loader';
 function Basket(): JSX.Element {
   const {cameras} = useRouteLoaderData('root') as CamerasLoaderData;
   const cart = useSelector(getCart);
-  const [isCouponLoading, setIsCouponLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const couponRef = useRef<HTMLInputElement>(null);
   const couponDivRef = useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ function Basket(): JSX.Element {
       setDiscount(0);
       return;
     }
-    setIsCouponLoading(true);
+    setIsLoading(true);
     postCoupon({coupon: coupon})
       .then((data) => {
         let result = data === null ? 0 : data;
@@ -42,8 +42,12 @@ function Basket(): JSX.Element {
         couponDivRef.current?.classList.remove('is-valid');
         couponDivRef.current?.classList.add('is-invalid');
       })
-      .finally(() => setIsCouponLoading(false));
+      .finally(() => setIsLoading(false));
   };
+
+  const handleOrderClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    console.log('SUBMIT:', event);
+  }
 
   useEffect(() => {
     document.title = 'Корзина - Фотошоп';
@@ -136,7 +140,7 @@ function Basket(): JSX.Element {
                   <span className="basket__summary-text basket__summary-text--total">К оплате:</span>
                   <span className="basket__summary-value basket__summary-value--total">{formatPrice(total)}</span>
                 </p>
-                <button className="btn btn--purple" type="submit">Оформить заказ
+                <button className="btn btn--purple" type="submit" onClick={handleOrderClick}>Оформить заказ
                 </button>
               </div>
             </div>
@@ -149,7 +153,7 @@ function Basket(): JSX.Element {
           <BasketRemoveItem onClosePopupClick={handleCloseRemoveCartItemDialogClick}/>
         </ModalOverlay>
       }
-      { isCouponLoading &&
+      { isLoading &&
         <Loader/>
       }
     </main>
