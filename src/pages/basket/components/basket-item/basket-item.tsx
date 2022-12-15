@@ -42,7 +42,7 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
   const handleInputCountChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     let result = Number(event.target.value);
     if (result > 99) {result = 99;}
-    if (result < 0) {result = 0;}
+    if (result < 2) {result = 1;}
     dispatch(assertCart(camera.id, result));
   };
   const handleRemoveFromCartClick = () => {
@@ -75,6 +75,7 @@ function BasketItem(props: BasketItemProps): JSX.Element | null {
       <div className="quantity">
         <button className="btn-icon btn-icon--prev" aria-label="уменьшить количество товара"
           onClick={handleDecreaseClick}
+          disabled={itemCount < 2}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
